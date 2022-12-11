@@ -18,3 +18,4 @@ jobs:
           firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_FAIRMOUNTVAGAMONWEB }}'
           channelId: live
           projectId: fairmountvagamonweb
+          args: deploy --only hosting
