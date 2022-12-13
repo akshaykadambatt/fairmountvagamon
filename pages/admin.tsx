@@ -1,11 +1,69 @@
 import Head from "next/head";
 import Image from "next/image";
 import styles from "../styles/Home.module.css";
-import { Container, Grid, Text, Title } from "@mantine/core";
+import { Button, Container, Grid, Text, Title } from "@mantine/core";
 import { Carousel } from "@mantine/carousel";
 import HeaderComponent from "../components/header";
+import { AuthContext } from "../components/data/AuthContext";
+import { useContext, useEffect, useRef } from "react";
+import { auth } from "../components/data/firebaseConfig";
+import { GoogleAuthProvider } from "firebase/auth";
+import router from "next/router";
 
 export default function Contact() {
+  // const user = useContext(AuthContext);
+  const emailRef = useRef<HTMLInputElement>(null);
+  const passwordRef = useRef<HTMLInputElement>(null);
+  const createAccount = async () => {
+    try {
+      await auth.createUserWithEmailAndPassword(
+        emailRef.current!.value,
+        passwordRef.current!.value
+      );
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const signIn = async () => {
+    try {
+      await auth.signInWithEmailAndPassword(
+        emailRef.current!.value,
+        passwordRef.current!.value
+      );
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const signOut = async () => {
+    await auth.signOut();
+  };
+  const signInWithGoogle = async () => {
+    const provider = new GoogleAuthProvider();
+    provider.setCustomParameters({
+      prompt: "select_account",
+    });
+    try {
+      auth.signInWithPopup(provider).then((result) => {
+        console.log(auth.currentUser?.email);
+        if (
+          result.user?.email != "fairmountvagamonresort@gmail.com" &&
+          result.user?.email != "akshayakn6@gmail.com"
+        ) {
+          auth.signOut();
+          console.log("wrong account credentials");
+        }
+      });
+    } catch (error) {}
+  };
+  useEffect(() => {
+    auth.onAuthStateChanged((user) => {
+      if (user) {
+        router.push("/admin/dashboard");
+      } else {
+        router.push("/admin");
+      }
+    });
+  }, []);
   return (
     <div>
       <Head>
@@ -14,15 +72,11 @@ export default function Contact() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
-        
-        <Container my={40} py={40}>
-              <Title>Admin Panel</Title>
-          <Grid>
-            <Grid.Col span={6}>
-            </Grid.Col>
-            <Grid.Col span={6}>
-            </Grid.Col>
-          </Grid>
+        <Container style={{ textAlign: "center" }} my={50} py={10}>
+          <Title weight={100}>Admin Panel</Title>
+          <Button my={10} color="dark" onClick={signInWithGoogle}>
+            Login with Google
+          </Button>
         </Container>
       </main>
 
