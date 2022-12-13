@@ -12,6 +12,7 @@ import {
   Box,
 } from '@mantine/core';
 import { IconBrandTwitter, IconBrandYoutube, IconBrandInstagram } from '@tabler/icons';
+import { ContactIconsList } from '../components/ContactIcons';
 
 const useStyles = createStyles((theme) => ({
   wrapper: {
@@ -97,7 +98,7 @@ export default function Contact() {
           <Text className={classes.description} mt="sm" mb={30}>
             Leave your email and we will get back to you within 24 hours
           </Text>
-
+          <ContactIconsList variant="white" />
 
           <Group mt="xl">{icons}</Group>
         </div>

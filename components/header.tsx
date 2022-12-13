@@ -106,6 +106,7 @@ export default function HeaderComponent() {
   const links = [
     { link: "/", label: "Home" },
     { link: "/rooms", label: "Rooms and Rates" },
+    { link: "/roomss", label: "Experiences" },
     { link: "/contact", label: "Contact Us" },
   ];
   const [active, setActive] = useState(links[0].link);
@@ -135,7 +136,7 @@ export default function HeaderComponent() {
         </Link>
         <Group spacing={5} className={classes.links}>
           {items}
-          <Button size="xs">Check availability</Button>
+              <Link href="/book"><Button size="xs">Check availability</Button></Link>
         </Group>
         <Burger
           opened={opened}
@@ -147,7 +148,8 @@ export default function HeaderComponent() {
           {(styles) => (
             <Paper className={classes.dropdown} withBorder style={styles}>
               {items}
-              <Button size="xs">Check availability</Button>
+              <Link href="/book"><Button size="xs">Check availability</Button></Link>
+              
             </Paper>
           )}
         </Transition>

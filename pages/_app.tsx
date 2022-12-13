@@ -24,9 +24,9 @@ export default function App({ Component, pageProps }: AppProps) {
   
   return (
     <MantineProvider withGlobalStyles withNormalizeCSS theme={googleFontTheme}>
-      {pathname==="/admin/dashboard"  ? null : <HeaderComponent />}
+      {pathname?.match('admin')?.length||0 >0  ? null : <HeaderComponent />}
       <Component {...pageProps} />
-      {pathname==="/admin/dashboard" ? null : (
+      {pathname?.match('admin')?.length||0 >0 ? null : (
         <FooterLinks
           data={[
             {

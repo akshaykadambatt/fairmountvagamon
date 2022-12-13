@@ -94,12 +94,12 @@ const useStyles = createStyles((theme) => ({
      title: string; icon: keyof typeof icons; value: string; diff: number;
   }
 export default function NavbarNested(children: React.ReactNode) {
+  const { classes } = useStyles();
   const signOut = async () => {
     await auth.signOut();
   };
   
   const stats = data.map((stat) => {
-    const { classes } = useStyles();
     const Icon = icons[stat.icon];
     const DiffIcon = stat.diff > 0 ? IconArrowUpRight : IconArrowDownRight;
 
