@@ -9,6 +9,7 @@ import {
   Group,
   ActionIcon,
   Container,
+  Box,
 } from '@mantine/core';
 import { IconBrandTwitter, IconBrandYoutube, IconBrandInstagram } from '@tabler/icons';
 
@@ -128,6 +129,14 @@ export default function Contact() {
         </div>
       </SimpleGrid>
     </div>
+    <Box my={40} style={{borderRadius:20, overflow:"hidden"}}>
+          <div
+            dangerouslySetInnerHTML={{
+              __html:
+                '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3933.0738354558407!2d76.90342611432996!3d9.67473258120565!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3b07b4976ea12685%3A0x7695e1e5cc9b13e5!2sFairmount%20Vagamon%20Resorts!5e0!3m2!1sen!2sin!4v1670861868831!5m2!1sen!2sin" style="width:100%;border:none;" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
+            }}
+          />
+        </Box>
     </Container>
   );
 }

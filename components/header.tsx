@@ -7,6 +7,7 @@ import {
   Burger,
   Paper,
   Transition,
+  Button,
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import Link from "next/link";
@@ -16,7 +17,7 @@ const HEADER_HEIGHT = 60;
 const useStyles = createStyles((theme) => ({
   root: {
     position: "sticky",
-    zIndex: 1,
+    zIndex: 20,
   },
 
   dropdown: {
@@ -127,12 +128,14 @@ export default function HeaderComponent() {
 
   return (
     <Header height={HEADER_HEIGHT} mb={0} className={classes.root}>
-      <Container className={`${classes.header} `}>
+      <Container className={`${classes.header} `} size="lg">
         {/* <MantineLogo size={28} /> */} 
-        <div className={` ${classes.logo}`}>
-        Fairmount</div>
+        <Link href="/" className={` ${classes.logo}`}>
+        Fairmount
+        </Link>
         <Group spacing={5} className={classes.links}>
           {items}
+          <Button size="xs">Check availability</Button>
         </Group>
         <Burger
           opened={opened}
@@ -144,6 +147,7 @@ export default function HeaderComponent() {
           {(styles) => (
             <Paper className={classes.dropdown} withBorder style={styles}>
               {items}
+              <Button size="xs">Check availability</Button>
             </Paper>
           )}
         </Transition>

@@ -24,3 +24,29 @@ a {
     background: black;
   }
 }
+
+.animated-section {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity .4s, transform .4s;
+}
+
+.active-carousel-class .animated-section {
+  transform: translateY(0);
+  opacity: 1;
+}
+.title-1 {
+  transition-delay: 200ms;
+}
+.title-2 {
+  transition-delay: 400ms;
+}
+.title-3 {
+  transition-delay: 500ms;
+}
+.description-1 {
+  transition-delay: 600ms;
+}
+.description-2 {
+  transition-delay: 700ms;
+}
