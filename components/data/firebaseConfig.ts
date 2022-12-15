@@ -7,18 +7,18 @@ import { getStorage } from 'firebase/storage';
 
 const config = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
-  authDomain: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
-  projectId: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
-  storageBucket: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
-  messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
-  appId: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
-  measurementId: process.env.NEXT_PUBLIC_FIREBASE_API_KEY
+  authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
+  projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
+  storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
+  measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID
 };
 
-const aapp = firebase.initializeApp(config)
+const app = firebase.initializeApp(config)
 // window.self.FIREBASE_APPCHECK_DEBUG_TOKEN = true;
-export const auth = aapp.auth()
-export default aapp
-export const db = getFirestore(aapp);
-// export const storage = getStorage(aapp);
-// export const functions = getFunctions(aapp);
+export const auth = app.auth()
+export default app
+export const db = getFirestore(app);
+export const storage = getStorage(app);
+// export const functions = getFunctions(app);
