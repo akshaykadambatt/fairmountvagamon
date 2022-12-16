@@ -51,7 +51,7 @@ export default function Home() {
         console.log(doc.id, " => ", doc.data());
       });
     });
-  });
+  }, []);
   return (
     <div>
       <Head>
@@ -131,7 +131,7 @@ export default function Home() {
               <Container mt={130} mb={30} size="lg">
                 <Grid>
                   <Grid.Col span={12} xs={8}>
-                  <Reveal
+                    <Reveal
                       keyframes={customAnimation}
                       cascade
                       duration={500}
@@ -183,7 +183,7 @@ export default function Home() {
               <Container mt={130} mb={30} size="lg">
                 <Grid>
                   <Grid.Col span={12} xs={8}>
-                  <Reveal
+                    <Reveal
                       keyframes={customAnimation}
                       cascade
                       duration={500}
@@ -229,77 +229,112 @@ export default function Home() {
           </Carousel>
         </Container>
 
-        <Container mt={60} mb={60} size="lg">
-        <Reveal
-                      keyframes={customAnimation}
-                      cascade delay={100} triggerOnce
-                      duration={500}
-                      damping={0.5}
-                    >
-          <Title
-            weight={300}
-            size={"10vw"}
-            style={{
-              lineHeight: "124px",
-              textAlign: "center",
-              fontFamily: mrDafoe.style.fontFamily,
-              fontSize: "clamp(4rem, -1.5rem + 18vw, 8rem)",
-            }}
+        <Container my={100} size="lg">
+          <Reveal
+            keyframes={customAnimation}
+            cascade
+            delay={100}
+            triggerOnce
+            duration={500}
+            damping={0.5}
           >
-            Fairmount
-          </Title><Text
-            style={{
-              textAlign: "center",
-            }}
-          >
-            VAGAMON
-          </Text></Reveal>
+            <Title
+              weight={300}
+              size={"10vw"}
+              style={{
+                lineHeight: "124px",
+                textAlign: "center",
+                fontFamily: mrDafoe.style.fontFamily,
+                fontSize: "clamp(4rem, -1.5rem + 18vw, 8rem)",
+              }}
+            >
+              Fairmount
+            </Title>
+            <Text
+              style={{
+                textAlign: "center",
+              }}
+            >
+              VAGAMON
+            </Text>
+          </Reveal>
         </Container>
         <Container mt={30} mb={30} size="lg">
           <Grid align="center">
             <Grid.Col span={12} xs={6}>
-              <Title weight={100} order={2}>
-                Fairmount Resort Vagamon
-              </Title>
+              <Reveal
+                keyframes={customAnimation}
+                delay={300}
+                triggerOnce
+                fraction={1}
+                duration={500}
+              >
+                <Title weight={100} order={2}>
+                  Fairmount Resort Vagamon
+                </Title>
+              </Reveal>
             </Grid.Col>
             <Grid.Col span={12} xs={6}>
-              <Text size={13}>
-                One of the most popular{" "}
-                <strong>Fairmount Vagamon Resort</strong>, offers a perfect
-                blend of all modern luxuries and a comfortable companionship of
-                nature. we have provided premium resort experience and a
-                comfortable companionship of nature. we have provided premium
-                resort experience.
-              </Text>
+              <Reveal
+                keyframes={customAnimation}
+                triggerOnce
+                delay={600}
+                fraction={1}
+                duration={500}
+              >
+                <Text size={13}>
+                  One of the most popular{" "}
+                  <strong>Fairmount Vagamon Resort</strong>, offers a perfect
+                  blend of all modern luxuries and a comfortable companionship
+                  of nature. we have provided premium resort experience and a
+                  comfortable companionship of nature. we have provided premium
+                  resort experience.
+                </Text>
+              </Reveal>
             </Grid.Col>
           </Grid>
         </Container>
         <Container mt={30} mb={70} size="lg">
-          <Image
-            style={{
-              borderRadius: 20,
-            }}
-            src={resort1}
-            alt="Picture of the author"
-            layout="responsive"
-          />
-          <Box px={20} py={30}>
-            <Box
-              px={20}
-              py={30}
+          <Reveal
+            keyframes={customAnimation}
+            triggerOnce
+            delay={300}
+            duration={500}
+            fraction={0.3}
+          >
+            <Image
               style={{
-                marginTop: "-50px",
-                background: "#fff",
-                width: "100%",
-                position: "relative",
-                zIndex: 3,
-                borderRadius: "10px",
-                boxShadow: "3px 4px 20px 20px #00000008",
+                borderRadius: 20,
               }}
-            >
-              <Book />
+              src={resort1}
+              alt="Picture of the author"
+              layout="responsive"
+            />
+          </Reveal>
+          <Reveal
+            keyframes={customAnimation}
+            triggerOnce
+            delay={300}
+            duration={500}
+          >
+            <Box px={20} py={30}>
+              <Box
+                px={20}
+                py={30}
+                style={{
+                  marginTop: "-50px",
+                  background: "#fff",
+                  width: "100%",
+                  position: "relative",
+                  zIndex: 3,
+                  borderRadius: "10px",
+                  boxShadow: "3px 4px 20px 20px #00000008",
+                }}
+              >
+                <Book />
+              </Box>
             </Box>
-          </Box>
+          </Reveal>
         </Container>
         <Container
           mt={30}
