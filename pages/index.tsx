@@ -25,16 +25,26 @@ import { useEffect, useRef } from "react";
 import Autoplay from "embla-carousel-autoplay";
 import { db } from "../components/data/firebaseConfig";
 import { collection, query, where, getDocs } from "firebase/firestore";
+import { keyframes } from "@emotion/react";
+import { Reveal } from "react-awesome-reveal";
 
 export default function Home() {
+  const customAnimation = keyframes`
+  from {
+    opacity: 0;
+    transform: translatey(30px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translatey(0);
+  }
+`;
   const activeClass = useRef(ClassNames({ selected: "active-carousel-class" }));
   const autoplay = useRef(Autoplay({ delay: 5000 }));
   const theme = useMantineTheme();
   useEffect(() => {
-    console.log("inside effects");
-    let queryy = query(
-      collection(db, "theme"),
-    );
+    let queryy = query(collection(db, "theme"));
     getDocs(queryy).then((q) => {
       q.forEach((doc) => {
         // doc.data() is never undefined for query doc snapshots
@@ -69,55 +79,44 @@ export default function Home() {
               <Container mt={130} mb={30} size="lg">
                 <Grid>
                   <Grid.Col span={12} xs={8}>
-                    <Text
-                      weight={100}
-                      px={6}
-                      color="#fff"
-                      className="animated-section title-1"
+                    <Reveal
+                      keyframes={customAnimation}
+                      cascade
+                      duration={500}
+                      damping={0.3}
                     >
-                      WELCOME TO
-                    </Text>
-                    <Title
-                      px={10}
-                      className="animated-section title-2"
-                      weight={300}
-                      color="#fff"
-                      style={{
-                        lineHeight: "84px",
-                        fontFamily: mrDafoe.style.fontFamily,
-                        fontSize: "clamp(4rem, -1.5rem + 18vw, 6rem)",
-                      }}
-                    >
-                      Fairmount
-                    </Title>
-                    <Text
-                      weight={100}
-                      px={6}
-                      mb={20}
-                      color="#fff"
-                      className="animated-section title-3"
-                    >
-                      RESORTS, WAGAMON
-                    </Text>
-                    <Text
-                      weight={100}
-                      px={6}
-                      mb={10}
-                      color="#fff"
-                      size={13}
-                      className="animated-section description-1"
-                    >
-                      One of the most popular FairMount Vagamon Resort, offers a
-                      perfect blend of all modern luxuries and a comfortable
-                      companionship of nature. we have provided premium resort
-                      experience and a comfortable companionship of nature. we
-                      have provided premium resort experience
-                    </Text>
-                    <Box px={6} className="animated-section description-2">
-                      <Button variant="white" color="dark" size={"xs"}>
-                        Read article
-                      </Button>
-                    </Box>
+                      <Text weight={100} px={6} color="#fff">
+                        WELCOME TO
+                      </Text>
+                      <Title
+                        px={10}
+                        weight={300}
+                        color="#fff"
+                        style={{
+                          lineHeight: "84px",
+                          fontFamily: mrDafoe.style.fontFamily,
+                          fontSize: "clamp(4rem, -1.5rem + 18vw, 6rem)",
+                        }}
+                      >
+                        Fairmount
+                      </Title>
+
+                      <Text weight={100} px={6} mb={10} color="#fff">
+                        RESORTS, WAGAMON
+                      </Text>
+                      <Text weight={100} px={6} mb={10} color="#fff" size={13}>
+                        One of the most popular FairMount Vagamon Resort, offers
+                        a perfect blend of all modern luxuries and a comfortable
+                        companionship of nature. we have provided premium resort
+                        experience and a comfortable companionship of nature. we
+                        have provided premium resort experience
+                      </Text>
+                      <Box px={6}>
+                        <Button variant="white" color="dark" size={"xs"}>
+                          Read article
+                        </Button>
+                      </Box>
+                    </Reveal>
                   </Grid.Col>
                 </Grid>
               </Container>
@@ -132,55 +131,44 @@ export default function Home() {
               <Container mt={130} mb={30} size="lg">
                 <Grid>
                   <Grid.Col span={12} xs={8}>
-                    <Text
-                      weight={100}
-                      px={6}
-                      color="#fff"
-                      className="animated-section title-1"
+                  <Reveal
+                      keyframes={customAnimation}
+                      cascade
+                      duration={500}
+                      damping={0.3}
                     >
-                      WELCOME TO
-                    </Text>
-                    <Title
-                      px={10}
-                      className="animated-section title-2"
-                      weight={300}
-                      color="#fff"
-                      style={{
-                        lineHeight: "84px",
-                        fontFamily: mrDafoe.style.fontFamily,
-                        fontSize: "clamp(4rem, -1.5rem + 18vw, 6rem)",
-                      }}
-                    >
-                      Fairmount
-                    </Title>
-                    <Text
-                      weight={100}
-                      px={6}
-                      mb={20}
-                      color="#fff"
-                      className="animated-section title-3"
-                    >
-                      RESORTS, WAGAMON
-                    </Text>
-                    <Text
-                      weight={100}
-                      px={6}
-                      mb={10}
-                      color="#fff"
-                      size={13}
-                      className="animated-section description-1"
-                    >
-                      One of the most popular FairMount Vagamon Resort, offers a
-                      perfect blend of all modern luxuries and a comfortable
-                      companionship of nature. we have provided premium resort
-                      experience and a comfortable companionship of nature. we
-                      have provided premium resort experience
-                    </Text>
-                    <Box px={6} className="animated-section description-2">
-                      <Button variant="white" color="dark" size={"xs"}>
-                        Read article
-                      </Button>
-                    </Box>
+                      <Text weight={100} px={6} color="#fff">
+                        WELCOME TO
+                      </Text>
+                      <Title
+                        px={10}
+                        weight={300}
+                        color="#fff"
+                        style={{
+                          lineHeight: "84px",
+                          fontFamily: mrDafoe.style.fontFamily,
+                          fontSize: "clamp(4rem, -1.5rem + 18vw, 6rem)",
+                        }}
+                      >
+                        Fairmount
+                      </Title>
+
+                      <Text weight={100} px={6} mb={10} color="#fff">
+                        RESORTS, WAGAMON
+                      </Text>
+                      <Text weight={100} px={6} mb={10} color="#fff" size={13}>
+                        One of the most popular FairMount Vagamon Resort, offers
+                        a perfect blend of all modern luxuries and a comfortable
+                        companionship of nature. we have provided premium resort
+                        experience and a comfortable companionship of nature. we
+                        have provided premium resort experience
+                      </Text>
+                      <Box px={6}>
+                        <Button variant="white" color="dark" size={"xs"}>
+                          Read article
+                        </Button>
+                      </Box>
+                    </Reveal>
                   </Grid.Col>
                 </Grid>
               </Container>
@@ -195,55 +183,44 @@ export default function Home() {
               <Container mt={130} mb={30} size="lg">
                 <Grid>
                   <Grid.Col span={12} xs={8}>
-                    <Text
-                      weight={100}
-                      px={6}
-                      color="#fff"
-                      className="animated-section title-1"
+                  <Reveal
+                      keyframes={customAnimation}
+                      cascade
+                      duration={500}
+                      damping={0.3}
                     >
-                      WELCOME TO
-                    </Text>
-                    <Title
-                      px={10}
-                      className="animated-section title-2"
-                      weight={300}
-                      color="#fff"
-                      style={{
-                        lineHeight: "84px",
-                        fontFamily: mrDafoe.style.fontFamily,
-                        fontSize: "clamp(4rem, -1.5rem + 18vw, 6rem)",
-                      }}
-                    >
-                      Fairmount
-                    </Title>
-                    <Text
-                      weight={100}
-                      px={6}
-                      mb={20}
-                      color="#fff"
-                      className="animated-section title-3"
-                    >
-                      RESORTS, WAGAMON
-                    </Text>
-                    <Text
-                      weight={100}
-                      px={6}
-                      mb={10}
-                      color="#fff"
-                      size={13}
-                      className="animated-section description-1"
-                    >
-                      One of the most popular FairMount Vagamon Resort, offers a
-                      perfect blend of all modern luxuries and a comfortable
-                      companionship of nature. we have provided premium resort
-                      experience and a comfortable companionship of nature. we
-                      have provided premium resort experience
-                    </Text>
-                    <Box px={6} className="animated-section description-2">
-                      <Button variant="white" color="dark" size={"xs"}>
-                        Read article
-                      </Button>
-                    </Box>
+                      <Text weight={100} px={6} color="#fff">
+                        WELCOME TO
+                      </Text>
+                      <Title
+                        px={10}
+                        weight={300}
+                        color="#fff"
+                        style={{
+                          lineHeight: "84px",
+                          fontFamily: mrDafoe.style.fontFamily,
+                          fontSize: "clamp(4rem, -1.5rem + 18vw, 6rem)",
+                        }}
+                      >
+                        Fairmount
+                      </Title>
+
+                      <Text weight={100} px={6} mb={10} color="#fff">
+                        RESORTS, WAGAMON
+                      </Text>
+                      <Text weight={100} px={6} mb={10} color="#fff" size={13}>
+                        One of the most popular FairMount Vagamon Resort, offers
+                        a perfect blend of all modern luxuries and a comfortable
+                        companionship of nature. we have provided premium resort
+                        experience and a comfortable companionship of nature. we
+                        have provided premium resort experience
+                      </Text>
+                      <Box px={6}>
+                        <Button variant="white" color="dark" size={"xs"}>
+                          Read article
+                        </Button>
+                      </Box>
+                    </Reveal>
                   </Grid.Col>
                 </Grid>
               </Container>
@@ -251,7 +228,14 @@ export default function Home() {
             {/* ...other slides */}
           </Carousel>
         </Container>
+
         <Container mt={60} mb={60} size="lg">
+        <Reveal
+                      keyframes={customAnimation}
+                      cascade delay={100} triggerOnce
+                      duration={500}
+                      damping={0.5}
+                    >
           <Title
             weight={300}
             size={"10vw"}
@@ -263,14 +247,13 @@ export default function Home() {
             }}
           >
             Fairmount
-          </Title>
-          <Text
+          </Title><Text
             style={{
               textAlign: "center",
             }}
           >
             VAGAMON
-          </Text>
+          </Text></Reveal>
         </Container>
         <Container mt={30} mb={30} size="lg">
           <Grid align="center">

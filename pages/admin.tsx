@@ -44,7 +44,6 @@ export default function Contact() {
     });
     try {
       auth.signInWithPopup(provider).then((result) => {
-        console.log(auth.currentUser?.email);
         if (
           result.user?.email != "fairmountvagamonresort@gmail.com" &&
           result.user?.email != "akshayakn6@gmail.com"

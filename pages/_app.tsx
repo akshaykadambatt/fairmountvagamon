@@ -20,7 +20,6 @@ const mrsSaintDelafield = Mrs_Saint_Delafield({
 });
 export default function App({ Component, pageProps }: AppProps) {
   const { asPath, pathname } = useRouter();
-  console.log(asPath, pathname);
   
   return (
     <MantineProvider withGlobalStyles withNormalizeCSS theme={googleFontTheme}>
