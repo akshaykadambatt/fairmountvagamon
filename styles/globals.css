@@ -24,3 +24,7 @@ a {
     background: black;
   }
 }
+.mantine-RangeCalendar-day[data-in-range] {
+  border-top: 1px solid rgba(0, 168, 0, 0.63);
+  border-bottom: 1px solid rgba(0, 168, 0, 0.63);;
+}

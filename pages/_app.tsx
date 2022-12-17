@@ -1,6 +1,6 @@
 import "../styles/globals.css";
 import type { AppProps } from "next/app";
-import { Global, MantineProvider } from "@mantine/core";
+import { DefaultMantineColor, Global, MantineProvider } from "@mantine/core";
 import HeaderComponent from "../components/header";
 import { Noto_Sans } from "@next/font/google";
 import { Mrs_Saint_Delafield } from "@next/font/google";
@@ -8,6 +8,7 @@ import googleFontTheme from "../styles/themes/";
 import FooterLinks from "../components/footer";
 import { auth } from "../components/data/firebaseConfig";
 import { useRouter } from "next/router";
+
 const natoSans = Noto_Sans({
   weight: ["100", "300", "400", "500", "700", "800", "900"],
   style: ["normal", "italic"],

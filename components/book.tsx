@@ -78,10 +78,12 @@ export default function Book() {
   function renderDayHandler(date: Date) {
     if(date < new Date()){
       return date.getDate()
+    }else if(bookingData[date.toDateString()]>10){
+      return <Box><Box style={{background:theme.fn.rgba(theme.colors.red[9],0.3)}}>{date.getDate()}</Box></Box>;
     }else if(bookingData[date.toDateString()]>7){
-      return <Box style={{background:"red"}}>{date.getDate()}</Box>;
+      return <Box><Box style={{background:theme.fn.rgba(theme.colors.red[9],0.2)}}>{date.getDate()}</Box></Box>;
     }else if(bookingData[date.toDateString()]>5){
-      return <Box style={{background:"yellow"}}>{date.getDate()}</Box>;
+      return <Box><Box style={{background:theme.fn.rgba(theme.colors.red[9],0.1)}}>{date.getDate()}</Box></Box>;
     }else{
       return date.getDate()
     }
@@ -115,6 +117,7 @@ export default function Book() {
                 <Box ref={ref}>
                   <RangeCalendar
                     excludeDate={(date) => date < new Date()}
+                    allowSingleDateInRange
                     value={value}
                     onChange={(value) => {
                       setValue([null, null]);
@@ -126,6 +129,7 @@ export default function Book() {
                     amountOfMonths={desk ? 2 : 1}
                     renderDay={renderDayHandler}
                     onMonthChange={monthChangeHandler}
+                    initialMonth={value[0]?value[0]:new Date()}
                   />
                 </Box>
               </Popover.Dropdown>
