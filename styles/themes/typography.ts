@@ -26,7 +26,7 @@ const typography: Partial<MantineTheme> = {
       h2: {
         fontSize: "40px",
         fontWeight: 500,
-        lineHeight: "44px",
+        lineHeight: "54px",
       },
       h3: {
         fontSize: "32px",

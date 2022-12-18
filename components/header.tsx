@@ -1,14 +1,5 @@
 import { useState } from "react";
-import {
-  createStyles,
-  Header,
-  Container,
-  Group,
-  Burger,
-  Paper,
-  Transition,
-  Button,
-} from "@mantine/core";
+import { createStyles, Header, Container, Group, Burger, Paper, Transition, Button } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import Link from "next/link";
 
@@ -18,6 +9,8 @@ const useStyles = createStyles((theme) => ({
   root: {
     position: "sticky",
     zIndex: 20,
+    background: "#ffffff60",
+    backdropFilter:"blur(10px)"
   },
 
   dropdown: {
@@ -41,10 +34,9 @@ const useStyles = createStyles((theme) => ({
     justifyContent: "space-between",
     alignItems: "center",
     height: "100%",
-    
   },
   logo: {
-    fontFamily:theme.headings.fontFamily,
+    fontFamily: theme.headings.fontFamily,
   },
 
   links: {
@@ -65,18 +57,12 @@ const useStyles = createStyles((theme) => ({
     padding: "8px 12px",
     borderRadius: theme.radius.sm,
     textDecoration: "none",
-    color:
-      theme.colorScheme === "dark"
-        ? theme.colors.dark[0]
-        : theme.colors.gray[7],
+    color: theme.colorScheme === "dark" ? theme.colors.dark[0] : theme.colors.gray[7],
     fontSize: theme.fontSizes.sm,
     fontWeight: 500,
 
     "&:hover": {
-      backgroundColor:
-        theme.colorScheme === "dark"
-          ? theme.colors.dark[6]
-          : theme.colors.gray[0],
+      backgroundColor: theme.colorScheme === "dark" ? theme.colors.dark[6] : theme.colors.gray[0],
     },
 
     [theme.fn.smallerThan("sm")]: {
@@ -91,8 +77,7 @@ const useStyles = createStyles((theme) => ({
         variant: "light",
         color: theme.primaryColor,
       }).background,
-      color: theme.fn.variant({ variant: "light", color: theme.primaryColor })
-        .color,
+      color: theme.fn.variant({ variant: "light", color: theme.primaryColor }).color,
     },
   },
 }));
@@ -107,6 +92,7 @@ export default function HeaderComponent() {
     { link: "/", label: "Home" },
     { link: "/rooms", label: "Rooms and Rates" },
     { link: "/roomss", label: "Experiences" },
+    { link: "/roomss", label: "Gallery" },
     { link: "/contact", label: "Contact Us" },
   ];
   const [active, setActive] = useState(links[0].link);
@@ -130,26 +116,24 @@ export default function HeaderComponent() {
   return (
     <Header height={HEADER_HEIGHT} mb={0} className={classes.root}>
       <Container className={`${classes.header} `} size="lg">
-        {/* <MantineLogo size={28} /> */} 
+        {/* <MantineLogo size={28} /> */}
         <Link href="/" className={` ${classes.logo}`}>
-        Fairmount
+          Fairmount
         </Link>
         <Group spacing={5} className={classes.links}>
           {items}
-              <Link href="/book"><Button size="xs">Check availability</Button></Link>
+          <Link href="/book">
+            <Button size="xs">Check availability</Button>
+          </Link>
         </Group>
-        <Burger
-          opened={opened}
-          onClick={toggle}
-          className={classes.burger}
-          size="sm"
-        />
+        <Burger opened={opened} onClick={toggle} className={classes.burger} size="sm" />
         <Transition transition="pop-top-right" duration={200} mounted={opened}>
           {(styles) => (
             <Paper className={classes.dropdown} withBorder style={styles}>
               {items}
-              <Link href="/book"><Button size="xs">Check availability</Button></Link>
-              
+              <Link href="/book">
+                <Button size="xs">Check availability</Button>
+              </Link>
             </Paper>
           )}
         </Transition>

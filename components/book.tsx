@@ -46,19 +46,19 @@ export default function Book() {
       data = bookingsSnapshot.docs.map((booking) => ({
         ...booking.data(),
       }));
-      data.forEach(booking=>{
-        let startDate = new Date(booking.startDate.toDate())
-        let endDate = new Date(booking.endDate.toDate())
-        while ( startDate < endDate) {
-          if(weight[startDate.toDateString()]) {
-            weight[startDate.toDateString()] = weight[startDate.toDateString()]+booking.nos;
-          }else{
+      data.forEach((booking) => {
+        let startDate = new Date(booking.startDate.toDate());
+        let endDate = new Date(booking.endDate.toDate());
+        while (startDate < endDate) {
+          if (weight[startDate.toDateString()]) {
+            weight[startDate.toDateString()] = weight[startDate.toDateString()] + booking.nos;
+          } else {
             weight[startDate.toDateString()] = booking.nos;
           }
-          startDate.setDate(startDate.getDate()+1)
+          startDate.setDate(startDate.getDate() + 1);
         }
         setBookingData(weight);
-      })
+      });
     });
   }, [year]);
   useEffect(() => {
@@ -76,16 +76,28 @@ export default function Book() {
     }
   }
   function renderDayHandler(date: Date) {
-    if(date < new Date()){
-      return date.getDate()
-    }else if(bookingData[date.toDateString()]>10){
-      return <Box><Box style={{background:theme.fn.rgba(theme.colors.red[9],0.3)}}>{date.getDate()}</Box></Box>;
-    }else if(bookingData[date.toDateString()]>7){
-      return <Box><Box style={{background:theme.fn.rgba(theme.colors.red[9],0.2)}}>{date.getDate()}</Box></Box>;
-    }else if(bookingData[date.toDateString()]>5){
-      return <Box><Box style={{background:theme.fn.rgba(theme.colors.red[9],0.1)}}>{date.getDate()}</Box></Box>;
-    }else{
-      return date.getDate()
+    if (date < new Date()) {
+      return date.getDate();
+    } else if (bookingData[date.toDateString()] > 10) {
+      return (
+        <Box>
+          <Box style={{ background: theme.fn.rgba(theme.colors.red[9], 0.3) }}>{date.getDate()}</Box>
+        </Box>
+      );
+    } else if (bookingData[date.toDateString()] > 7) {
+      return (
+        <Box>
+          <Box style={{ background: theme.fn.rgba(theme.colors.red[9], 0.2) }}>{date.getDate()}</Box>
+        </Box>
+      );
+    } else if (bookingData[date.toDateString()] > 5) {
+      return (
+        <Box>
+          <Box style={{ background: theme.fn.rgba(theme.colors.red[9], 0.1) }}>{date.getDate()}</Box>
+        </Box>
+      );
+    } else {
+      return date.getDate();
     }
   }
 
@@ -129,7 +141,7 @@ export default function Book() {
                     amountOfMonths={desk ? 2 : 1}
                     renderDay={renderDayHandler}
                     onMonthChange={monthChangeHandler}
-                    initialMonth={value[0]?value[0]:new Date()}
+                    initialMonth={value[0] ? value[0] : new Date()}
                   />
                 </Box>
               </Popover.Dropdown>

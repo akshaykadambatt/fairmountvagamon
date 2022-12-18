@@ -10,9 +10,10 @@ import {
   SimpleGrid,
   Text,
   Title,
+  createStyles,
   useMantineTheme,
 } from "@mantine/core";
-import { Carousel } from "@mantine/carousel";
+import { Carousel, Embla } from "@mantine/carousel";
 import HeaderComponent from "../components/header";
 import Cardslider from "../components/cardslider";
 import Book from "../components/book";
@@ -23,15 +24,44 @@ import resort4 from "../assets/resort4.jpg";
 import { mrDafoe } from "../styles/themes/typography";
 import FeaturesGrid from "../components/features";
 import ClassNames from "embla-carousel-class-names";
-import { useEffect, useRef } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import Autoplay from "embla-carousel-autoplay";
 import { db } from "../components/data/firebaseConfig";
 import { collection, query, where, getDocs } from "firebase/firestore";
 import { keyframes } from "@emotion/react";
 import { Reveal } from "react-awesome-reveal";
 import { IoLocationOutline } from "react-icons/io5";
+import { BsArrowLeft, BsArrowRight } from "react-icons/bs";
 import useViewport from "../components/data/useViewport";
+import { flushSync } from "react-dom";
 
+const useStyles = createStyles((theme) => ({
+  arrows: {
+    display: "Flex",
+    alignItems: "center",
+    justifyContent: "center",
+    border: "1px solid #00000082",
+    color: theme.fn.rgba(theme.colors.dark[6], 0.9),
+    borderRadius: "100px",
+    height: "45px",
+    width: "45px",
+    transition: "all .1s",
+    cursor: "pointer",
+    ":hover": {
+      background: theme.fn.rgba(theme.colors.dark[6], 0.2),
+    },
+  },
+  testimonialSlide: {
+    opacity: .3,
+    transition: "opacity .3s",
+    '&.active-carousel-class:nth-child(3)': {
+      opacity: 1
+    }
+  }
+}));
+const TWEEN_FACTOR = 3.2
+  const numberWithinRange = (number: number, min: number, max: number): number =>
+  Math.min(Math.max(number, min), max)
 export default function Home() {
   const { desk, tab, mob } = useViewport();
   const customAnimation = keyframes`
@@ -47,7 +77,9 @@ export default function Home() {
 `;
   const activeClass = useRef(ClassNames({ selected: "active-carousel-class" }));
   const autoplay = useRef(Autoplay({ delay: 5000 }));
+  const [embla, setEmbla] = useState<Embla | null>(null);
   const theme = useMantineTheme();
+  const { classes } = useStyles();
   useEffect(() => {
     let queryy = query(collection(db, "theme"));
     getDocs(queryy).then((q) => {
@@ -57,6 +89,59 @@ export default function Home() {
       });
     });
   }, []);
+  function scrollTestimonial(direction: string) {
+    if (!embla) return;
+    switch (direction) {
+      case "next":
+        embla.scrollNext();
+        break;
+      case "previous":
+        embla.scrollPrev();
+        break;
+      default:
+        break;
+    }
+  }
+
+  const [tweenValues, setTweenValues] = useState<number[]>([])
+  
+  const onScroll = useCallback(() => {
+    if (!embla) return
+
+    const engine = embla.internalEngine()
+    const scrollProgress = embla.scrollProgress()
+
+    const styles = embla.scrollSnapList().map((scrollSnap, index) => {
+      if (!embla.slidesInView().includes(index)) return 0
+      let diffToTarget = scrollSnap - scrollProgress
+
+      if (engine.options.loop) {
+        engine.slideLooper.loopPoints.forEach((loopItem) => {
+          const target = loopItem.target().get()
+          if (index === loopItem.index && target !== 0) {
+            const sign = Math.sign(target)
+            if (sign === -1) diffToTarget = scrollSnap - (1 + scrollProgress)
+            if (sign === 1) diffToTarget = scrollSnap + (1 - scrollProgress)
+          }
+        })
+      }
+      const tweenValue = 1 - Math.abs(diffToTarget * TWEEN_FACTOR)
+      return numberWithinRange(tweenValue, 0, 1)
+    })
+    setTweenValues(styles)
+  }, [embla, setTweenValues])
+
+  useEffect(() => {
+    if (!embla) return
+
+    onScroll()
+    embla.on('scroll', () => {
+      flushSync(() => onScroll())
+    })
+    embla.on('reInit', onScroll)
+  }, [embla, onScroll])
+
+
   return (
     <div>
       <Head>
@@ -84,12 +169,7 @@ export default function Home() {
               <Container mt={130} mb={30} size="lg">
                 <Grid>
                   <Grid.Col span={12} xs={8}>
-                    <Reveal
-                      keyframes={customAnimation}
-                      cascade
-                      duration={500}
-                      damping={0.3}
-                    >
+                    <Reveal keyframes={customAnimation} cascade duration={500} damping={0.3}>
                       <Text weight={100} px={6} color="#fff">
                         WELCOME TO
                       </Text>
@@ -110,11 +190,9 @@ export default function Home() {
                         RESORTS, WAGAMON
                       </Text>
                       <Text weight={100} px={6} mb={10} color="#fff" size={13}>
-                        One of the most popular FairMount Vagamon Resort, offers
-                        a perfect blend of all modern luxuries and a comfortable
-                        companionship of nature. we have provided premium resort
-                        experience and a comfortable companionship of nature. we
-                        have provided premium resort experience
+                        One of the most popular FairMount Vagamon Resort, offers a perfect blend of all modern luxuries
+                        and a comfortable companionship of nature. we have provided premium resort experience and a
+                        comfortable companionship of nature. we have provided premium resort experience
                       </Text>
                       <Box px={6}>
                         <Button variant="white" color="dark" size={"xs"}>
@@ -136,12 +214,7 @@ export default function Home() {
               <Container mt={130} mb={30} size="lg">
                 <Grid>
                   <Grid.Col span={12} xs={8}>
-                    <Reveal
-                      keyframes={customAnimation}
-                      cascade
-                      duration={500}
-                      damping={0.3}
-                    >
+                    <Reveal keyframes={customAnimation} cascade duration={500} damping={0.3}>
                       <Text weight={100} px={6} color="#fff">
                         WELCOME TO
                       </Text>
@@ -162,11 +235,9 @@ export default function Home() {
                         RESORTS, WAGAMON
                       </Text>
                       <Text weight={100} px={6} mb={10} color="#fff" size={13}>
-                        One of the most popular FairMount Vagamon Resort, offers
-                        a perfect blend of all modern luxuries and a comfortable
-                        companionship of nature. we have provided premium resort
-                        experience and a comfortable companionship of nature. we
-                        have provided premium resort experience
+                        One of the most popular FairMount Vagamon Resort, offers a perfect blend of all modern luxuries
+                        and a comfortable companionship of nature. we have provided premium resort experience and a
+                        comfortable companionship of nature. we have provided premium resort experience
                       </Text>
                       <Box px={6}>
                         <Button variant="white" color="dark" size={"xs"}>
@@ -188,12 +259,7 @@ export default function Home() {
               <Container mt={130} mb={30} size="lg">
                 <Grid>
                   <Grid.Col span={12} xs={8}>
-                    <Reveal
-                      keyframes={customAnimation}
-                      cascade
-                      duration={500}
-                      damping={0.3}
-                    >
+                    <Reveal keyframes={customAnimation} cascade duration={500} damping={0.3}>
                       <Text weight={100} px={6} color="#fff">
                         WELCOME TO
                       </Text>
@@ -214,11 +280,9 @@ export default function Home() {
                         RESORTS, WAGAMON
                       </Text>
                       <Text weight={100} px={6} mb={10} color="#fff" size={13}>
-                        One of the most popular FairMount Vagamon Resort, offers
-                        a perfect blend of all modern luxuries and a comfortable
-                        companionship of nature. we have provided premium resort
-                        experience and a comfortable companionship of nature. we
-                        have provided premium resort experience
+                        One of the most popular FairMount Vagamon Resort, offers a perfect blend of all modern luxuries
+                        and a comfortable companionship of nature. we have provided premium resort experience and a
+                        comfortable companionship of nature. we have provided premium resort experience
                       </Text>
                       <Box px={6}>
                         <Button variant="white" color="dark" size={"xs"}>
@@ -269,53 +333,33 @@ export default function Home() {
         <Container mt={30} mb={30} size="lg">
           <Grid align="center">
             <Grid.Col span={12} xs={6}>
-              <Reveal
-                keyframes={customAnimation}
-                delay={600}
-                triggerOnce={true}
-                fraction={1}
-                duration={500}
-              >
+              <Reveal keyframes={customAnimation} delay={600} triggerOnce={true} fraction={1} duration={500}>
                 <Title weight={100} order={2}>
                   Fairmount Resort Vagamon
                 </Title>
               </Reveal>
             </Grid.Col>
             <Grid.Col span={12} xs={6}>
-              <Reveal
-                keyframes={customAnimation}
-                triggerOnce={true}
-                delay={1000}
-                fraction={1}
-                duration={500}
-              >
+              <Reveal keyframes={customAnimation} triggerOnce={true} delay={1000} fraction={1} duration={500}>
                 <Text size={13}>
-                  One of the most popular{" "}
-                  <strong>Fairmount Vagamon Resort</strong>, offers a perfect
-                  blend of all modern luxuries and a comfortable companionship
-                  of nature. we have provided premium resort experience and a
-                  comfortable companionship of nature. we have provided premium
-                  resort experience.
+                  One of the most popular <strong>Fairmount Vagamon Resort</strong>, offers a perfect blend of all
+                  modern luxuries and a comfortable companionship of nature. we have provided premium resort experience
+                  and a comfortable companionship of nature. we have provided premium resort experience.
                 </Text>
               </Reveal>
             </Grid.Col>
           </Grid>
         </Container>
         <Container mt={30} mb={70} size="lg">
-          <Reveal
-            keyframes={customAnimation}
-            triggerOnce={true}
-            delay={300}
-            duration={500}
-            fraction={0.3}
-          >
+          <Reveal keyframes={customAnimation} triggerOnce={true} delay={300} duration={500} fraction={0.3}>
             <Image
               style={{
                 borderRadius: 20,
               }}
               src={resort1}
-              alt="Picture of the author"
+              alt="Resort shot"
               layout="responsive"
+              placeholder="blur"
             />
           </Reveal>
           <Reveal
@@ -324,17 +368,20 @@ export default function Home() {
             fraction={1}
             delay={100}
             duration={500}
+            style={{
+              marginTop: "-60px",
+              width: "100%",
+              position: "relative",
+              zIndex: 3,
+            }}
           >
             <Box px={20} py={30}>
               <Box
                 px={20}
                 py={30}
                 style={{
-                  marginTop: "-50px",
                   background: "#fff",
                   width: "100%",
-                  position: "relative",
-                  zIndex: 3,
                   borderRadius: "10px",
                   boxShadow: "3px 4px 20px 20px #00000008",
                 }}
@@ -345,12 +392,7 @@ export default function Home() {
           </Reveal>
         </Container>
         <Container mt={70} mb={100} size="lg">
-          <Reveal
-            keyframes={customAnimation}
-            triggerOnce={false}
-            delay={100}
-            duration={500}
-          >
+          <Reveal keyframes={customAnimation} triggerOnce={false} delay={100} duration={500}>
             <Text style={{ letterSpacing: 5 }}>ABOUT VAGAMON</Text>
             <Title mb={30} mt={10} weight={100} order={2} size={50}>
               The heavenly hills
@@ -358,19 +400,15 @@ export default function Home() {
             <Grid gutter={40}>
               <Grid.Col span={6}>
                 <Text style={{ width: "90%" }} mb={20} size="sm">
-                  One of the most popular{" "}
-                  <strong>Fairmount Vagamon Resort</strong>, offers a perfect
-                  blend of all modern luxuries and a comfortable companionship
-                  of nature. we have provided premium resort experience and a
-                  comfortable companionship of nature. we have provided premium
-                  resort experience. ne of the most popular{" "}
+                  One of the most popular <strong>Fairmount Vagamon Resort</strong>, offers a perfect blend of all
+                  modern luxuries and a comfortable companionship of nature. we have provided premium resort experience
+                  and a comfortable companionship of nature. we have provided premium resort experience. ne of the most
+                  popular{" "}
                 </Text>
                 <Text style={{ width: "90%" }} mb={20} size="sm">
-                  <strong>Fairmount Vagamon Resort</strong>, offers a perfect
-                  blend of all modern luxuries and a comfortable companionship
-                  of nature. we have provided premium resort experience and a
-                  comfortable companionship of nature. we have provided premium
-                  resort experience.
+                  <strong>Fairmount Vagamon Resort</strong>, offers a perfect blend of all modern luxuries and a
+                  comfortable companionship of nature. we have provided premium resort experience and a comfortable
+                  companionship of nature. we have provided premium resort experience.
                 </Text>
                 <Box display={"flex"}>
                   <Button mr={15}>Check Availabliltiy</Button>
@@ -386,11 +424,7 @@ export default function Home() {
                   cascade
                   damping={0.2}
                 >
-                  <Box
-                    pb={15}
-                    mb={15}
-                    style={{ borderBottom: "1px solid #00000050" }}
-                  >
+                  <Box pb={15} mb={15} style={{ borderBottom: "1px solid #00000050" }}>
                     <Grid>
                       <Grid.Col span={2}>
                         <Text mb={10} color="grey">
@@ -402,17 +436,13 @@ export default function Home() {
                           Thangalpara
                         </Title>
                         <Text size={13} color="gray">
-                          Vast and beautiful. we have provided premium resort
-                          experience and a comfortable companionship of nature.
+                          Vast and beautiful. we have provided premium resort experience and a comfortable companionship
+                          of nature.
                         </Text>
                       </Grid.Col>
                     </Grid>
                   </Box>
-                  <Box
-                    pb={15}
-                    mb={15}
-                    style={{ borderBottom: "1px solid #00000050" }}
-                  >
+                  <Box pb={15} mb={15} style={{ borderBottom: "1px solid #00000050" }}>
                     <Grid>
                       <Grid.Col span={2}>
                         <Text mb={10} color="grey">
@@ -424,8 +454,8 @@ export default function Home() {
                           Vagamon Meadows
                         </Title>
                         <Text size={13} color="gray">
-                          Vast and beautiful. we have provided premium resort
-                          experience and a comfortable companionship of nature.
+                          Vast and beautiful. we have provided premium resort experience and a comfortable companionship
+                          of nature.
                         </Text>
                       </Grid.Col>
                     </Grid>
@@ -442,8 +472,8 @@ export default function Home() {
                           Vagamon Meadows Lake
                         </Title>
                         <Text size={13} color="gray">
-                          Vast and beautiful. we have provided premium resort
-                          experience and a comfortable companionship of nature.
+                          Vast and beautiful. we have provided premium resort experience and a comfortable companionship
+                          of nature.
                         </Text>
                       </Grid.Col>
                     </Grid>
@@ -453,20 +483,16 @@ export default function Home() {
             </Grid>
           </Reveal>
         </Container>
-        <Reveal
-          keyframes={customAnimation}
-          triggerOnce={false}
-          delay={100}
-          duration={500}
-        >
+        <Reveal keyframes={customAnimation} triggerOnce={false} delay={100} duration={500}>
           <Container
             mt={30}
             mb={70}
+            px={0}
             size="lg"
             style={{
               position: "relative",
               overflow: "hidden",
-              borderRadius: desk? 15:0,
+              borderRadius: desk ? 15 : 0,
             }}
           >
             <video
@@ -475,33 +501,27 @@ export default function Home() {
               loop
               muted
               style={{
-                width: "200%",
-                height: "250%",
+                width: "118%",
+                height: "203%",
                 position: "absolute",
-                top: "-85%",
-                left: "-45%",
+                top: "-52%",
+                left: "-14%",
+                zIndex: -1,
               }}
             />
 
             <Container
               py={100}
-              size="lg"
+              fluid
+              px={"10%"}
               style={{
                 background: `transparent`,
                 backgroundSize: "cover",
-                boxShadow:
-                  "rgb(0 0 0 / 90%) 870px 0px 430px -220px inset, rgb(0 0 0 / 9%) 0px 13px 20px 20px",
-                borderRadius: desk? 15:0,
+                boxShadow: "rgb(0 0 0 / 90%) 870px 0px 430px -220px inset, rgb(0 0 0 / 9%) 0px 13px 20px 20px",
+                borderRadius: desk ? 15 : 0,
               }}
             >
-              <Reveal
-                keyframes={customAnimation}
-                triggerOnce={false}
-                delay={300}
-                duration={500}
-                cascade
-                damping={0.2}
-              >
+              <Reveal keyframes={customAnimation} triggerOnce={false} delay={300} duration={500} cascade damping={0.2}>
                 <Badge
                   sx={{ paddingLeft: 5 }}
                   size="sm"
@@ -516,15 +536,11 @@ export default function Home() {
                 <Text color={"white"} weight={100}>
                   More than
                 </Text>
-                <Title
-                  color={"white"}
-                  weight={100}
-                  mb={15}
-                  mt={10}
-                  order={2}
-                  size={60}
-                >
-                  50,000
+
+                <Title color={"white"} weight={100} mb={15} mt={10} order={2} size={60}>
+                  <Reveal duration={500} triggerOnce={false} cascade>
+                    80,000
+                  </Reveal>
                 </Title>
                 <Text color={"white"} weight={100}>
                   visitors per month in the village of Vagamon
@@ -533,13 +549,7 @@ export default function Home() {
             </Container>
           </Container>
         </Reveal>
-        <Container
-          mt={30}
-          mb={30}
-          py={80}
-          fluid
-          style={{ background: "#00000008" }}
-        >
+        <Container mt={30} mb={30} py={80} fluid style={{ background: "#00000008" }}>
           <Container size={"lg"}>
             <Text style={{ letterSpacing: 5 }}>EXPERIENCE</Text>
             <Title weight={100} order={2} mb={50} mt={10} size={50}>
@@ -554,9 +564,150 @@ export default function Home() {
             "People say it can run at the same speed as lightning striking, Its icy body is so cold, it will not melt even if it is immersed in magma.This dust is actually a powerful poison that will even make a pro wrestler sick, Regice cloaks itself with frigid air of -328 degrees Fahrenheit"
           }
         />
+        <Container
+          mt={30}
+          mb={70}
+          px={0}
+          fluid
+          style={{
+            background: theme.colors.green[7],
+          }}
+        >
+          <Container mt={30} mb={70} py={40} size="lg">
+            <Grid gutter={40}>
+              <Grid.Col span={3}>
+                <Text style={{ letterSpacing: 5 }} color="white">
+                  VAGAMON MEADOWS
+                </Text>
+                <Title weight={100} order={2} mb={50} mt={10} size={50} color="white">
+                  Book your rooms now.
+                </Title>
+              </Grid.Col>
+              <Grid.Col span={4}>
+                <Image
+                  style={{
+                    borderRadius: 20,
+                    boxShadow: "3px 10px 20px 20px #00000020",
+                  }}
+                  src={resort1}
+                  alt="Resort shot"
+                  layout="responsive"
+                  placeholder="blur"
+                />
+              </Grid.Col>
+              <Grid.Col span={5}>
+                <Text style={{ width: "90%" }} mb={20} size="sm" color={"white"}>
+                  <strong>Fairmount Vagamon Resort</strong>, offers a perfect blend of all modern luxuries and a
+                  comfortable companionship of nature. we have provided premium resort experience and a comfortable
+                  companionship of nature.{" "}
+                </Text>
+                <Text style={{ width: "90%" }} mb={20} size="sm" color={"white"}>
+                  People say it can run at the same speed as lightning striking, Its icy body is so cold, it will not
+                  melt even
+                </Text>
+                <Box display={"flex"}>
+                  <Button mr={15} variant="white">
+                    Check Availabliltiy
+                  </Button>
+                  <Button>Contact Us</Button>
+                </Box>
+              </Grid.Col>
+            </Grid>
+          </Container>
+        </Container>
+        <Container mt={30} mb={70} py={40} fluid px={0}>
+          <Container size="lg">
+            <Grid>
+              <Grid.Col span={10}>
+                <Text style={{ letterSpacing: 5 }}>REVIEWS, TESTIMONIALS</Text>
+                <Title weight={100} order={2} mb={50} mt={10} size={50}>
+                  What people say about us.
+                </Title>
+              </Grid.Col>
+              <Grid.Col span={2}>
+                <SimpleGrid
+                  cols={2}
+                  style={{
+                    height: "100%",
+                    alignItems: "center",
+                  }}
+                >
+                  <Box className={classes.arrows} onClick={()=>scrollTestimonial("previous")}>
+                    <BsArrowLeft />
+                  </Box>
+                  <Box className={classes.arrows} onClick={()=>scrollTestimonial("next")}>
+                    <BsArrowRight />
+                  </Box>
+                </SimpleGrid>
+              </Grid.Col>
+            </Grid>
+          </Container>
+          <Carousel
+            mx="auto"
+            slideSize="33.333333%"
+            plugins={[activeClass.current]}
+            withIndicators
+            slideGap={40}
+            py={50}
+            loop
+            withControls={true}
+            getEmblaApi={setEmbla}
+          >
+            <Carousel.Slide style={{
+                ...(tweenValues.length && { opacity: tweenValues[0] }),
+              }}>
+              <Review />
+            </Carousel.Slide>
+            <Carousel.Slide style={{
+                ...(tweenValues.length && { opacity: tweenValues[1] }),
+              }}>
+              <Review />
+            </Carousel.Slide>
+            <Carousel.Slide style={{
+                ...(tweenValues.length && { opacity: tweenValues[2] }),
+              }}>
+              <Review />
+            </Carousel.Slide>
+            <Carousel.Slide style={{
+                ...(tweenValues.length && { opacity: tweenValues[3] }),
+              }}>
+              <Review />
+            </Carousel.Slide>
+            <Carousel.Slide style={{
+                ...(tweenValues.length && { opacity: tweenValues[4] }),
+              }}>
+              <Review />
+            </Carousel.Slide>
+            
+          </Carousel>
+        </Container>
       </main>
 
       <footer></footer>
     </div>
   );
 }
+
+const Review = () => {
+  return (
+    <>
+      <Box
+        style={{ border: "1px solid #00000030", boxShadow: "0px 20px 30px 10px #00000010", borderRadius: 13 }}
+        pt={30}
+        py={20}
+        px={30}
+      >
+        <Title order={6} mb={15}>
+          Great Experience!
+        </Title>
+        <Text size={"sm"} mb={15}>
+          Fairmount Vagamon Resort, offers a perfect blend of all modern luxuries and a comfortable companionship of
+          nature. we have provided premium resort experience and a comfortable companionship of nature
+        </Text>
+        <Text size={"sm"} align="right">
+          - Babu Sasi
+        </Text>
+      </Box>
+    </>
+  );
+};
