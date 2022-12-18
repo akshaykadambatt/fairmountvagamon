@@ -385,7 +385,7 @@ export default function Home() {
               The heavenly hills
             </Title>
             <Grid gutter={40}>
-              <Grid.Col span={6}>
+              <Grid.Col span={12} sm={6}>
                 <Text style={{ width: "90%" }} mb={20} size="sm">
                   One of the most popular <strong>Fairmount Vagamon Resort</strong>, offers a perfect blend of all
                   modern luxuries and a comfortable companionship of nature. we have provided premium resort experience
@@ -397,12 +397,12 @@ export default function Home() {
                   comfortable companionship of nature. we have provided premium resort experience and a comfortable
                   companionship of nature. we have provided premium resort experience.
                 </Text>
-                <Box display={"flex"}>
+                <Box display={"flex"} style={{flexDirection:desk?"row":"column"}}>
                   <Button mr={15}>Check Availabliltiy</Button>
                   <Button variant="outline">Contact Us</Button>
                 </Box>
               </Grid.Col>
-              <Grid.Col span={6} pt={15}>
+              <Grid.Col span={12} sm={6} pt={15}>
                 <Reveal
                   keyframes={customAnimation}
                   triggerOnce={false}
@@ -562,7 +562,7 @@ export default function Home() {
         >
           <Container mt={30} mb={70} py={40} size="lg">
             <Grid gutter={40}>
-              <Grid.Col span={3}>
+              <Grid.Col span={12} sm={12} md={3}>
                 <Text style={{ letterSpacing: 5 }} color="white">
                   VAGAMON MEADOWS
                 </Text>
@@ -570,7 +570,7 @@ export default function Home() {
                   Book your rooms now.
                 </Title>
               </Grid.Col>
-              <Grid.Col span={4}>
+              <Grid.Col span={12} sm={6} md={4}>
                 <Image
                   style={{
                     borderRadius: 20,
@@ -582,7 +582,7 @@ export default function Home() {
                   placeholder="blur"
                 />
               </Grid.Col>
-              <Grid.Col span={5}>
+              <Grid.Col span={12} sm={6} md={5}>
                 <Text style={{ width: "90%" }} mb={20} size="sm" color={"white"}>
                   <strong>Fairmount Vagamon Resort</strong>, offers a perfect blend of all modern luxuries and a
                   comfortable companionship of nature. we have provided premium resort experience and a comfortable
@@ -592,7 +592,7 @@ export default function Home() {
                   People say it can run at the same speed as lightning striking, Its icy body is so cold, it will not
                   melt even
                 </Text>
-                <Box display={"flex"}>
+                <Box display={"flex"}  style={{flexDirection:desk?"row":"column"}}>
                   <Button mr={15} variant="white">
                     Check Availabliltiy
                   </Button>
