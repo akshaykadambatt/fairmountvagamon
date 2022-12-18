@@ -52,16 +52,13 @@ const useStyles = createStyles((theme) => ({
     },
   },
   testimonialSlide: {
-    opacity: .3,
-    transition: "opacity .3s",
-    '&.active-carousel-class:nth-child(3)': {
-      opacity: 1
-    }
-  }
+    opacity: 0.3,
+    transition: "opacity .2s",
+    "&.active-carousel-class": {
+      opacity: 1,
+    },
+  },
 }));
-const TWEEN_FACTOR = 3.2
-  const numberWithinRange = (number: number, min: number, max: number): number =>
-  Math.min(Math.max(number, min), max)
 export default function Home() {
   const { desk, tab, mob } = useViewport();
   const customAnimation = keyframes`
@@ -79,12 +76,13 @@ export default function Home() {
   const autoplay = useRef(Autoplay({ delay: 5000 }));
   const [embla, setEmbla] = useState<Embla | null>(null);
   const theme = useMantineTheme();
+  const [tweenValues, setTweenValues] = useState<number[]>([]);
+  const [testimonialSlideActive, setTestimonialSlideActive] = useState<number>(0);
   const { classes } = useStyles();
   useEffect(() => {
     let queryy = query(collection(db, "theme"));
     getDocs(queryy).then((q) => {
       q.forEach((doc) => {
-        // doc.data() is never undefined for query doc snapshots
         console.log(doc.id, " => ", doc.data());
       });
     });
@@ -102,46 +100,35 @@ export default function Home() {
         break;
     }
   }
-
-  const [tweenValues, setTweenValues] = useState<number[]>([])
-  
-  const onScroll = useCallback(() => {
-    if (!embla) return
-
-    const engine = embla.internalEngine()
-    const scrollProgress = embla.scrollProgress()
-
-    const styles = embla.scrollSnapList().map((scrollSnap, index) => {
-      if (!embla.slidesInView().includes(index)) return 0
-      let diffToTarget = scrollSnap - scrollProgress
-
-      if (engine.options.loop) {
-        engine.slideLooper.loopPoints.forEach((loopItem) => {
-          const target = loopItem.target().get()
-          if (index === loopItem.index && target !== 0) {
-            const sign = Math.sign(target)
-            if (sign === -1) diffToTarget = scrollSnap - (1 + scrollProgress)
-            if (sign === 1) diffToTarget = scrollSnap + (1 - scrollProgress)
+  const throttle = (fn: Function, wait: number = 300) => {
+    let inThrottle: boolean, lastFn: ReturnType<typeof setTimeout>, lastTime: number;
+    return function (this: any) {
+      const context = this,
+        args = arguments;
+      if (!inThrottle) {
+        fn.apply(context, args);
+        lastTime = Date.now();
+        inThrottle = true;
+      } else {
+        clearTimeout(lastFn);
+        lastFn = setTimeout(() => {
+          if (Date.now() - lastTime >= wait) {
+            fn.apply(context, args);
+            lastTime = Date.now();
           }
-        })
+        }, Math.max(wait - (Date.now() - lastTime), 0));
       }
-      const tweenValue = 1 - Math.abs(diffToTarget * TWEEN_FACTOR)
-      return numberWithinRange(tweenValue, 0, 1)
-    })
-    setTweenValues(styles)
-  }, [embla, setTweenValues])
-
+    };
+  };
   useEffect(() => {
-    if (!embla) return
-
-    onScroll()
-    embla.on('scroll', () => {
-      flushSync(() => onScroll())
-    })
-    embla.on('reInit', onScroll)
-  }, [embla, onScroll])
-
-
+    if (!embla) return;
+    embla.on(
+      "scroll",
+      throttle(() => {
+        setTestimonialSlideActive(embla.slidesInView()[Math.floor(embla.slidesInView().length / 2)]);
+      }, 200)
+    );
+  }, [embla]);
   return (
     <div>
       <Head>
@@ -632,10 +619,10 @@ export default function Home() {
                     alignItems: "center",
                   }}
                 >
-                  <Box className={classes.arrows} onClick={()=>scrollTestimonial("previous")}>
+                  <Box className={classes.arrows} onClick={() => scrollTestimonial("previous")}>
                     <BsArrowLeft />
                   </Box>
-                  <Box className={classes.arrows} onClick={()=>scrollTestimonial("next")}>
+                  <Box className={classes.arrows} onClick={() => scrollTestimonial("next")}>
                     <BsArrowRight />
                   </Box>
                 </SimpleGrid>
@@ -644,41 +631,39 @@ export default function Home() {
           </Container>
           <Carousel
             mx="auto"
-            slideSize="33.333333%"
-            plugins={[activeClass.current]}
-            withIndicators
+            slideSize="38%"
             slideGap={40}
             py={50}
             loop
             withControls={true}
             getEmblaApi={setEmbla}
+            inViewThreshold={1}
           >
-            <Carousel.Slide style={{
-                ...(tweenValues.length && { opacity: tweenValues[0] }),
-              }}>
+            <Carousel.Slide
+              className={`${classes.testimonialSlide} ${testimonialSlideActive == 0 && "active-carousel-class"}`}
+            >
               <Review />
             </Carousel.Slide>
-            <Carousel.Slide style={{
-                ...(tweenValues.length && { opacity: tweenValues[1] }),
-              }}>
+            <Carousel.Slide
+              className={`${classes.testimonialSlide} ${testimonialSlideActive == 1 && "active-carousel-class"}`}
+            >
               <Review />
             </Carousel.Slide>
-            <Carousel.Slide style={{
-                ...(tweenValues.length && { opacity: tweenValues[2] }),
-              }}>
+            <Carousel.Slide
+              className={`${classes.testimonialSlide} ${testimonialSlideActive == 2 && "active-carousel-class"}`}
+            >
               <Review />
             </Carousel.Slide>
-            <Carousel.Slide style={{
-                ...(tweenValues.length && { opacity: tweenValues[3] }),
-              }}>
+            <Carousel.Slide
+              className={`${classes.testimonialSlide} ${testimonialSlideActive == 3 && "active-carousel-class"}`}
+            >
               <Review />
             </Carousel.Slide>
-            <Carousel.Slide style={{
-                ...(tweenValues.length && { opacity: tweenValues[4] }),
-              }}>
+            <Carousel.Slide
+              className={`${classes.testimonialSlide} ${testimonialSlideActive == 4 && "active-carousel-class"}`}
+            >
               <Review />
             </Carousel.Slide>
-            
           </Carousel>
         </Container>
       </main>
