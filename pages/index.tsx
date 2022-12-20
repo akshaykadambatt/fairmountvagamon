@@ -184,7 +184,7 @@ export default function Home() {
                       </Text>
                       <Box px={6}>
                         <Button variant="white" color="dark" size={"xs"}>
-                          Read article
+                          Book now
                         </Button>
                       </Box>
                     </Reveal>
@@ -229,7 +229,7 @@ export default function Home() {
                       </Text>
                       <Box px={6}>
                         <Button variant="white" color="dark" size={"xs"}>
-                          Read article
+                          Book now
                         </Button>
                       </Box>
                     </Reveal>
@@ -274,7 +274,7 @@ export default function Home() {
                       </Text>
                       <Box px={6}>
                         <Button variant="white" color="dark" size={"xs"}>
-                          Read article
+                          Book now
                         </Button>
                       </Box>
                     </Reveal>

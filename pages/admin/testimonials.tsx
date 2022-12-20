@@ -38,9 +38,8 @@ export default function Pages() {
     },
   });
   const handleFormSubmit = async (values: TestimonialProps) => {
-    console.log(values);
-    const newCityRef = doc(collection(db, "testimonials"));
-    await setDoc(newCityRef, values);
+    const newTestimonial = doc(collection(db, "testimonials"));
+    await setDoc(newTestimonial, values);
   };
   return (
     <Navigation>
