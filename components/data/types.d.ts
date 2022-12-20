@@ -3,4 +3,5 @@ interface TestimonialProps {
   content: string;
   status: boolean;
   order: number;
+  id?: string;
 }

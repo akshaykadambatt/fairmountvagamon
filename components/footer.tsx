@@ -1,28 +1,13 @@
-import {
-  createStyles,
-  Text,
-  Container,
-  ActionIcon,
-  Group,
-} from "@mantine/core";
-import {
-  IconBrandTwitter,
-  IconBrandYoutube,
-  IconBrandInstagram,
-} from "@tabler/icons";
+import { createStyles, Text, Container, ActionIcon, Group, Box } from "@mantine/core";
+import { IconBrandTwitter, IconBrandYoutube, IconBrandInstagram } from "@tabler/icons";
 
 const useStyles = createStyles((theme) => ({
   footer: {
     marginTop: 120,
     paddingTop: theme.spacing.xl * 2,
     paddingBottom: theme.spacing.xl * 2,
-    backgroundColor:
-      theme.colorScheme === "dark"
-        ? theme.colors.dark[6]
-        : theme.colors.gray[0],
-    borderTop: `1px solid ${
-      theme.colorScheme === "dark" ? theme.colors.dark[5] : theme.colors.gray[2]
-    }`,
+    backgroundColor: theme.colorScheme === "dark" ? theme.colors.dark[6] : theme.colors.gray[0],
+    borderTop: `1px solid ${theme.colorScheme === "dark" ? theme.colors.dark[5] : theme.colors.gray[2]}`,
   },
 
   logo: {
@@ -69,10 +54,7 @@ const useStyles = createStyles((theme) => ({
 
   link: {
     display: "block",
-    color:
-      theme.colorScheme === "dark"
-        ? theme.colors.dark[1]
-        : theme.colors.gray[6],
+    color: theme.colorScheme === "dark" ? theme.colors.dark[1] : theme.colors.gray[6],
     fontSize: theme.fontSizes.sm,
     paddingTop: 3,
     paddingBottom: 3,
@@ -97,9 +79,7 @@ const useStyles = createStyles((theme) => ({
     marginTop: theme.spacing.xl,
     paddingTop: theme.spacing.xl,
     paddingBottom: theme.spacing.xl,
-    borderTop: `1px solid ${
-      theme.colorScheme === "dark" ? theme.colors.dark[4] : theme.colors.gray[2]
-    }`,
+    borderTop: `1px solid ${theme.colorScheme === "dark" ? theme.colors.dark[4] : theme.colors.gray[2]}`,
 
     [theme.fn.smallerThan("sm")]: {
       flexDirection: "column",
@@ -149,17 +129,17 @@ export default function FooterLinks({ data }: FooterLinksProps) {
       <Container className={classes.inner}>
         <div className={classes.logo}>
           Fairmount Resorts
-          <Text size="xs" color="dimmed" className={classes.description}>
-            One of the most popular <strong>FairMount Vagamon Resort</strong>,
-            offers a perfect blend of all modern luxuries and a comfortable
-            companionship of nature.
-          </Text>
+          <Box className={classes.description}>
+            <Text size="xs" color="dimmed">Fairmount Vagamon</Text>
+            <Text size="xs" color="dimmed">Kannamkulam, Vagamon</Text>
+            <Text size="xs" color="dimmed">Kerala - 685503</Text>
+          </Box>
         </div>
         <div className={classes.groups}>{groups}</div>
       </Container>
       <Container className={classes.afterFooter}>
         <Text color="dimmed" size="sm">
-          © 2020 mantine.dev. All rights reserved.
+          © 2023 fairmount.com All rights reserved.
         </Text>
 
         <Group spacing={0} className={classes.social} position="right" noWrap>

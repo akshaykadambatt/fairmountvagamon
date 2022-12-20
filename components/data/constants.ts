@@ -1,6 +1,7 @@
 export enum CollectionName {
     BOOKINGS = "bookings",
     THEME = "theme",
+    TESTIMONIALS = "testimonials",
 }
 
 export enum CollectionStatus {

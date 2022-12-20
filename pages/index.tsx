@@ -25,16 +25,17 @@ import resort4 from "../assets/resort4.jpg";
 import { mrDafoe } from "../styles/themes/typography";
 import FeaturesGrid from "../components/features";
 import ClassNames from "embla-carousel-class-names";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { JSXElementConstructor, Key, ReactElement, ReactFragment, ReactPortal, useCallback, useEffect, useRef, useState } from "react";
 import Autoplay from "embla-carousel-autoplay";
 import { db } from "../components/data/firebaseConfig";
-import { collection, query, where, getDocs } from "firebase/firestore";
+import { collection, query, where, getDocs, onSnapshot } from "firebase/firestore";
 import { keyframes } from "@emotion/react";
 import { Reveal } from "react-awesome-reveal";
 import { IoLocationOutline } from "react-icons/io5";
 import { BsArrowLeft, BsArrowRight } from "react-icons/bs";
 import useViewport from "../components/data/useViewport";
 import { flushSync } from "react-dom";
+import { CollectionName } from "../components/data/constants";
 
 const useStyles = createStyles((theme) => ({
   arrows: {
@@ -77,7 +78,7 @@ export default function Home() {
   const autoplay = useRef(Autoplay({ delay: 5000 }));
   const [embla, setEmbla] = useState<Embla | null>(null);
   const theme = useMantineTheme();
-  const [tweenValues, setTweenValues] = useState<number[]>([]);
+  const [testimonials, setTestimonials] = useState<any>();
   const [testimonialSlideActive, setTestimonialSlideActive] = useState<number>(0);
   const { classes } = useStyles();
   useEffect(() => {
@@ -130,6 +131,15 @@ export default function Home() {
       }, 200)
     );
   }, [embla]);
+  useEffect(() => {
+    getDocs(query(collection(db, CollectionName.TESTIMONIALS), where("status", "==", true))).then((querySnapshot) => {
+      let data: TestimonialProps[] = [];
+      querySnapshot.forEach((doc) => {
+        data.push(Object.assign({ ...doc.data() }, { id: doc.id }) as TestimonialProps);
+      });
+      setTestimonials(data);
+    });
+  }, []);
   return (
     <div>
       <Head>
@@ -606,18 +616,19 @@ export default function Home() {
         <Container mt={30} mb={70} py={40} fluid px={0}>
           <Container size="lg">
             <Grid>
-              <Grid.Col span={10}>
+              <Grid.Col span={12} md={10}>
                 <Text style={{ letterSpacing: 5 }}>REVIEWS, TESTIMONIALS</Text>
                 <Title weight={100} order={2} mb={50} mt={10} size={50}>
                   What people say about us.
                 </Title>
               </Grid.Col>
-              <Grid.Col span={2}>
+              <Grid.Col span={12} md={2}>
                 <SimpleGrid
                   cols={2}
                   style={{
                     height: "100%",
                     alignItems: "center",
+                    justifyItems: "center",
                   }}
                 >
                   <Box className={classes.arrows} onClick={() => scrollTestimonial("previous")}>
@@ -630,76 +641,44 @@ export default function Home() {
               </Grid.Col>
             </Grid>
           </Container>
-          <Carousel
-            mx="auto"
-            slideSize="38%"
-            slideGap={40}
-            py={50}
-            loop
-            withControls={true}
-            getEmblaApi={setEmbla}
-            inViewThreshold={1}
-          >
-            <Carousel.Slide
-              className={`${classes.testimonialSlide} ${testimonialSlideActive == 0 && "active-carousel-class"}`}
+          {testimonials && (
+            <Carousel
+              mx="auto"
+              slideSize="38%"
+              slideGap={40}
+              py={50}
+              loop={true}
+              withControls={false}
+              getEmblaApi={setEmbla}
+              inViewThreshold={1}
             >
-              <Review />
-            </Carousel.Slide>
-            <Carousel.Slide
-              className={`${classes.testimonialSlide} ${testimonialSlideActive == 1 && "active-carousel-class"}`}
-            >
-              <Review />
-            </Carousel.Slide>
-            <Carousel.Slide
-              className={`${classes.testimonialSlide} ${testimonialSlideActive == 2 && "active-carousel-class"}`}
-            >
-              <Review />
-            </Carousel.Slide>
-            <Carousel.Slide
-              className={`${classes.testimonialSlide} ${testimonialSlideActive == 3 && "active-carousel-class"}`}
-            >
-              <Review />
-            </Carousel.Slide>
-            <Carousel.Slide
-              className={`${classes.testimonialSlide} ${testimonialSlideActive == 4 && "active-carousel-class"}`}
-            >
-              <Review />
-            </Carousel.Slide>
-          </Carousel>
+              {testimonials.map((testimonial: TestimonialProps,index: number) => (
+                <Carousel.Slide
+                  key={testimonial.id}
+                  className={`${classes.testimonialSlide} ${testimonialSlideActive == index && "active-carousel-class"}`}
+                >
+                  <Box>
+                    <Box
+                      style={{
+                        border: "1px solid #00000030",
+                        boxShadow: "0px 20px 30px 10px #00000010",
+                        borderRadius: 13,
+                      }}
+                      py={10}
+                      px={30}
+                      m={20}
+                      mb={49}
+                    >
+                      <Blockquote cite={testimonial.name}>{testimonial.content}</Blockquote>
+                    </Box>
+                  </Box>
+                </Carousel.Slide>
+              ))}
+            </Carousel>
+          )}
         </Container>
       </main>
-
       <footer></footer>
     </div>
   );
 }
-
-const Review = () => {
-  return (
-    <>
-      <Box>
-        <Box
-          style={{ border: "1px solid #00000030", boxShadow: "0px 20px 30px 10px #00000010", borderRadius: 13 }}
-          py={10}
-          px={30}
-          m={20}
-          mb={49}
-        >
-          {/* <Title order={6} mb={15}>
-          Great Experience!
-        </Title>
-        <Text size={"sm"} mb={15}>
-          Fairmount Vagamon Resort, offers a perfect blend of all modern luxuries and a comfortable companionship of
-          nature. we have provided premium resort experience and a comfortable companionship of nature
-        </Text>
-        <Text size={"sm"} align="right">
-          - Babu Sasi
-        </Text> */}
-          <Blockquote cite="– Forrest Gump">
-            Life is like an npm install – you never know what you are going to get.
-          </Blockquote>
-        </Box>
-      </Box>
-    </>
-  );
-};

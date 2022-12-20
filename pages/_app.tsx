@@ -41,32 +41,7 @@ export default function App({ Component, pageProps }: AppProps) {
                   link: "#",
                 },
                 {
-                  label: "Support",
-                  link: "#",
-                },
-                {
-                  label: "Forums",
-                  link: "#",
-                },
-              ],
-            },
-            {
-              title: "Project",
-              links: [
-                {
-                  label: "Contribute",
-                  link: "#",
-                },
-                {
-                  label: "Media assets",
-                  link: "#",
-                },
-                {
-                  label: "Changelog",
-                  link: "#",
-                },
-                {
-                  label: "Releases",
+                  label: "Check Availability",
                   link: "#",
                 },
               ],
@@ -75,19 +50,15 @@ export default function App({ Component, pageProps }: AppProps) {
               title: "Community",
               links: [
                 {
-                  label: "Join Discord",
+                  label: "Follow us on Instagram",
                   link: "#",
                 },
                 {
-                  label: "Follow on Twitter",
+                  label: "Follow us on Facebook",
                   link: "#",
                 },
                 {
-                  label: "Email newsletter",
-                  link: "#",
-                },
-                {
-                  label: "GitHub discussions",
+                  label: "Email us",
                   link: "#",
                 },
               ],
