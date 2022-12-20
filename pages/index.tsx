@@ -3,6 +3,7 @@ import Image from "next/image";
 import styles from "../styles/Home.module.css";
 import {
   Badge,
+  Blockquote,
   Box,
   Button,
   Container,
@@ -397,7 +398,7 @@ export default function Home() {
                   comfortable companionship of nature. we have provided premium resort experience and a comfortable
                   companionship of nature. we have provided premium resort experience.
                 </Text>
-                <Box display={"flex"} style={{flexDirection:desk?"row":"column"}}>
+                <Box display={"flex"} style={{ flexDirection: desk ? "row" : "column" }}>
                   <Button mr={15}>Check Availabliltiy</Button>
                   <Button variant="outline">Contact Us</Button>
                 </Box>
@@ -592,7 +593,7 @@ export default function Home() {
                   People say it can run at the same speed as lightning striking, Its icy body is so cold, it will not
                   melt even
                 </Text>
-                <Box display={"flex"}  style={{flexDirection:desk?"row":"column"}}>
+                <Box display={"flex"} style={{ flexDirection: desk ? "row" : "column" }}>
                   <Button mr={15} variant="white">
                     Check Availabliltiy
                   </Button>
@@ -676,13 +677,15 @@ export default function Home() {
 const Review = () => {
   return (
     <>
-      <Box
-        style={{ border: "1px solid #00000030", boxShadow: "0px 20px 30px 10px #00000010", borderRadius: 13 }}
-        pt={30}
-        py={20}
-        px={30}
-      >
-        <Title order={6} mb={15}>
+      <Box>
+        <Box
+          style={{ border: "1px solid #00000030", boxShadow: "0px 20px 30px 10px #00000010", borderRadius: 13 }}
+          py={10}
+          px={30}
+          m={20}
+          mb={49}
+        >
+          {/* <Title order={6} mb={15}>
           Great Experience!
         </Title>
         <Text size={"sm"} mb={15}>
@@ -691,7 +694,11 @@ const Review = () => {
         </Text>
         <Text size={"sm"} align="right">
           - Babu Sasi
-        </Text>
+        </Text> */}
+          <Blockquote cite="– Forrest Gump">
+            Life is like an npm install – you never know what you are going to get.
+          </Blockquote>
+        </Box>
       </Box>
     </>
   );

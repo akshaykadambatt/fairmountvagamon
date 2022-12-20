@@ -20,7 +20,8 @@ import {
 import { UserButton } from "./UserButton";
 import { LinksGroup } from "./NavbarLinksGroup";
 import { auth } from "./data/firebaseConfig";
-import { ReactChildren } from "react";
+import { ReactChildren, useEffect } from "react";
+import router from "next/router";
 
 const mockdata = [
   { label: "Dashboard", icon: IconGauge },
@@ -52,7 +53,7 @@ const mockdata = [
       { label: "Users", link: "/" },
     ],
   },
-  { label: "Settings", icon: IconPresentationAnalytics },
+  { label: "Testimonials", icon: IconPresentationAnalytics, link:"testimonials"  },
   { label: "Go to website", icon: IconPresentationAnalytics, link:"/" },
 ];
 
@@ -101,6 +102,14 @@ const Navigation: React.FC<Props> = ({ children }) => {
   const signOut = async () => {
     await auth.signOut();
   };
+  useEffect(() => {
+    auth.onAuthStateChanged((user) => {
+      if (user) {
+      } else {
+        router.push("/admin");
+      }
+    });
+  }, []);
   return (
     <Grid>
       <Grid.Col span={3}>
