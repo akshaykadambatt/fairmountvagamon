@@ -8,6 +8,7 @@ import googleFontTheme from "../styles/themes/";
 import FooterLinks from "../components/footer";
 import { auth } from "../components/data/firebaseConfig";
 import { useRouter } from "next/router";
+import { AuthProvider } from "../components/data/AuthProvider";
 
 const natoSans = Noto_Sans({
   weight: ["100", "300", "400", "500", "700", "800", "900"],
@@ -23,6 +24,7 @@ export default function App({ Component, pageProps }: AppProps) {
   const { asPath, pathname } = useRouter();
   
   return (
+    <AuthProvider>
     <MantineProvider withGlobalStyles withNormalizeCSS theme={googleFontTheme}>
       {pathname?.match('admin')?.length||0 >0  ? null : <HeaderComponent />}
       <Component {...pageProps} />
@@ -67,5 +69,6 @@ export default function App({ Component, pageProps }: AppProps) {
         />
       )}
     </MantineProvider>
+    </AuthProvider>
   );
 }

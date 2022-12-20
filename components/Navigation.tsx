@@ -2,11 +2,16 @@ import {
   Navbar,
   Group,
   Code,
+  Box,
   ScrollArea,
   createStyles,
   Button,
   Grid,
   Text,
+  Popover,
+  TextInput,
+  Menu,
+  Avatar,
 } from "@mantine/core";
 import {
   IconNotes,
@@ -16,12 +21,19 @@ import {
   IconFileAnalytics,
   IconAdjustments,
   IconLock,
+  IconArrowsLeftRight,
+  IconMessageCircle,
+  IconPhoto,
+  IconSearch,
+  IconSettings,
+  IconTrash,
 } from "@tabler/icons";
 import { UserButton } from "./UserButton";
 import { LinksGroup } from "./NavbarLinksGroup";
-import { auth } from "./data/firebaseConfig";
-import { ReactChildren, useEffect } from "react";
+import { ReactChildren, useEffect, useContext } from "react";
 import router from "next/router";
+import { auth } from "../components/data/firebaseConfig";
+import { AuthContext } from "./data/AuthContext";
 
 const mockdata = [
   { label: "Dashboard", icon: IconGauge },
@@ -44,7 +56,7 @@ const mockdata = [
     ],
   },
   {
-    label: "Bookings and availabiliy",
+    label: "Bookings",
     icon: IconNotes,
     initiallyOpened: false,
     links: [
@@ -53,14 +65,13 @@ const mockdata = [
       { label: "Users", link: "/" },
     ],
   },
-  { label: "Testimonials", icon: IconPresentationAnalytics, link:"testimonials"  },
-  { label: "Go to website", icon: IconPresentationAnalytics, link:"/" },
+  { label: "Testimonials", icon: IconPresentationAnalytics, link: "testimonials" },
+  { label: "Go to website", icon: IconPresentationAnalytics, link: "/" },
 ];
 
 const useStyles = createStyles((theme) => ({
   navbar: {
-    backgroundColor:
-      theme.colorScheme === "dark" ? theme.colors.dark[6] : theme.white,
+    backgroundColor: theme.colorScheme === "dark" ? theme.colors.dark[6] : theme.white,
     paddingBottom: 0,
   },
 
@@ -70,9 +81,7 @@ const useStyles = createStyles((theme) => ({
     marginLeft: -theme.spacing.md,
     marginRight: -theme.spacing.md,
     color: theme.colorScheme === "dark" ? theme.white : theme.black,
-    borderBottom: `1px solid ${
-      theme.colorScheme === "dark" ? theme.colors.dark[4] : theme.colors.gray[3]
-    }`,
+    borderBottom: `1px solid ${theme.colorScheme === "dark" ? theme.colors.dark[4] : theme.colors.gray[3]}`,
   },
 
   links: {
@@ -88,17 +97,14 @@ const useStyles = createStyles((theme) => ({
   footer: {
     marginLeft: -theme.spacing.md,
     marginRight: -theme.spacing.md,
-    borderTop: `1px solid ${
-      theme.colorScheme === "dark" ? theme.colors.dark[4] : theme.colors.gray[3]
-    }`,
+    borderTop: `1px solid ${theme.colorScheme === "dark" ? theme.colors.dark[4] : theme.colors.gray[3]}`,
   },
 }));
 type Props = { children: React.ReactNode };
 const Navigation: React.FC<Props> = ({ children }) => {
   const { classes } = useStyles();
-  const links = mockdata.map((item) => (
-    <LinksGroup {...item} key={item.label} />
-  ));
+  const user = useContext(AuthContext);
+  const links = mockdata.map((item) => <LinksGroup {...item} key={item.label} />);
   const signOut = async () => {
     await auth.signOut();
   };
@@ -111,32 +117,36 @@ const Navigation: React.FC<Props> = ({ children }) => {
     });
   }, []);
   return (
-    <Grid>
+    <Grid gutter={0}>
       <Grid.Col span={3}>
-        <Navbar
-          height={600}
-          width={{ sm: "100%" }}
-          p="md"
-          className={classes.navbar}
-        >
+        <Navbar height={"99vh"} width={{ sm: "80%" }} p="md" className={classes.navbar}>
           <Navbar.Section className={classes.header}>
             <Group position="apart">
               <Text>Fairmount Resorts</Text>
               <Code sx={{ fontWeight: 700 }}>v1.0</Code>
             </Group>
           </Navbar.Section>
-
           <Navbar.Section grow className={classes.links} component={ScrollArea}>
             <div className={classes.linksInner}>{links}</div>
           </Navbar.Section>
-
           <Navbar.Section className={classes.footer}>
-            <UserButton
-              image="https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=255&q=80"
-              name="Ann Nullpointer"
-              email="anullpointer@yahoo.com"
-            />
-            <Button onClick={signOut}>Logout</Button>
+            <Menu shadow="md" width={200} position="right-end" transition={"pop-top-left"}>
+              <Menu.Target>
+                <Box>
+                  <UserButton
+                    image={user?.photoURL ? user.photoURL : ""}
+                    name={user?.displayName ? user.displayName : ""}
+                    email={user?.email ? user.email : ""}
+                  />
+                </Box>
+              </Menu.Target>
+              <Menu.Dropdown>
+                <Menu.Label>Account Settings</Menu.Label>
+                <Menu.Item color="red" icon={<IconTrash size={14} />} onClick={signOut}>
+                  Logout
+                </Menu.Item>
+              </Menu.Dropdown>
+            </Menu>
           </Navbar.Section>
         </Navbar>
       </Grid.Col>
