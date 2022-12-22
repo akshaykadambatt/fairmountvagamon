@@ -78,24 +78,24 @@ export default function Pages() {
     setTestimonialsEditId(data.id ? data.id : "");
     setOpened(true);
   };
-
-  const orderShift = async (data: TestimonialProps, type: string) => {
+  
+  const orderShift= async (data: TestimonialProps, type: string) => {
     let order;
-    switch (type) {
+    switch (type){
       case "up":
-        order = data.order - 1;
+        order = data.order-1;
         break;
       case "down":
-        order = data.order + 1;
+        order = data.order+1;
         break;
       default:
         break;
     }
-    let q = doc(db, CollectionName.TESTIMONIALS, data.id ? data.id : "");
+    let q = doc(db, CollectionName.TESTIMONIALS, data.id?data.id:"");
     await updateDoc(q, {
-      order: order,
+      order: order
     });
-  };
+  }
   useEffect(() => {
     const unsub1 = onSnapshot(query(collection(db, CollectionName.TESTIMONIALS)), (collectionSnapshot) => {
       let data: TestimonialProps[] = [];
@@ -127,7 +127,6 @@ export default function Pages() {
             {...form.getInputProps("content")}
             autosize
             minRows={5}
-            maxRows={10}
           />
           <NumberInput placeholder="Order" label="Order" withAsterisk {...form.getInputProps("order")} />
           <Switch label="Active" {...form.getInputProps("status", { type: "checkbox" })} />
@@ -145,16 +144,14 @@ export default function Pages() {
           }}
           pb={20}
         >
-          <Title order={2} weight={100}>
-            Testimonials
-          </Title>
-          <Button onClick={() => setOpened(true)}>Add Testimonial</Button>
+          <Title order={2} weight={100}>Products</Title>
+          <Button onClick={() => setOpened(true)}>Add Product</Button>
         </Box>
         <Grid>
           <Grid.Col span={4}></Grid.Col>
           <Grid.Col span={8}></Grid.Col>
         </Grid>
-        <Table
+        <Table 
           highlightOnHover
           withColumnBorders
           verticalSpacing="xs"
@@ -189,7 +186,9 @@ const Row = ({ data, handleEditAction, orderShift }: RowProps) => {
   return (
     <>
       <tr key={data.id}>
-        <td>{data.name}</td>
+        <td>
+          {data.name}
+        </td>
         <td>{data.content}</td>
         <td>{data.status ? <Badge color="green">Active</Badge> : <Badge color="gray">Inactive</Badge>}</td>
         <td>

@@ -46,7 +46,6 @@ export function UserButton({ image, name, email, icon, ...others }: UserButtonPr
           </Text>
         </div>
 
-        {icon || <IconChevronRight size={14} stroke={1.5} />}
       </Group>
     </UnstyledButton>
   );

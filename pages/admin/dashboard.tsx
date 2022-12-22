@@ -6,7 +6,7 @@ import {
   createStyles,
   Button,
   Grid,
-  Paper,Text, SimpleGrid
+  Paper,Text, SimpleGrid, Title, Container
 } from "@mantine/core";
 import {
   IconNotes,
@@ -59,19 +59,19 @@ const useStyles = createStyles((theme) => ({
   
   const data = [
     {
-      "title": "Revenue",
+      "title": "Pages",
       "icon": "receipt",
       "value": "13,456",
       "diff": 34
     },
     {
-      "title": "Profit",
+      "title": "Products",
       "icon": "coin",
       "value": "4,145",
       "diff": -13
     },
     {
-      "title": "Coupons usage",
+      "title": "Testimonials",
       "icon": "discount",
       "value": "745",
       "diff": 18
@@ -133,9 +133,10 @@ export default function NavbarNested(children: React.ReactNode) {
   });
   return (
     <Navigation>
+      <Container>
+      <Title my={30} weight={100} order={2}>Welcome, Admin</Title>
         <SimpleGrid
-        my={100}
-        p={30}
+       
         cols={4}
         breakpoints={[
           { maxWidth: 'md', cols: 2 },
@@ -143,6 +144,8 @@ export default function NavbarNested(children: React.ReactNode) {
         ]}
       >
         {stats}</SimpleGrid>
+
+      </Container>
     </Navigation>
   );
 }

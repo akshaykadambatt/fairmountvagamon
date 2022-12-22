@@ -27,6 +27,12 @@ import {
   IconSearch,
   IconSettings,
   IconTrash,
+  IconArrowUpRight,
+  IconLogout,
+  IconBuildingStore,
+  IconCalendarPlus,
+  IconUserX,
+  IconUsers,
 } from "@tabler/icons";
 import { UserButton } from "./UserButton";
 import { LinksGroup } from "./NavbarLinksGroup";
@@ -34,9 +40,10 @@ import { ReactChildren, useEffect, useContext } from "react";
 import router from "next/router";
 import { auth } from "../components/data/firebaseConfig";
 import { AuthContext } from "./data/AuthContext";
+import Link from "next/link";
 
 const mockdata = [
-  { label: "Dashboard", icon: IconGauge },
+  { label: "Dashboard", icon: IconGauge, link: "dashboard" },
   {
     label: "Pages",
     icon: IconNotes,
@@ -44,20 +51,22 @@ const mockdata = [
     links: [
       { label: "Pages", link: "pages" },
       { label: "Add New Page", link: "/" },
+      { label: "Gallery", link: "/" },
+      { label: "Contacts", link: "/" },
     ],
   },
   {
     label: "Products",
-    icon: IconNotes,
+    icon: IconBuildingStore,
     initiallyOpened: false,
     links: [
-      { label: "Products", link: "/" },
+      { label: "Products", link: "products" },
       { label: "Add New Product", link: "/" },
     ],
   },
   {
     label: "Bookings",
-    icon: IconNotes,
+    icon: IconCalendarPlus,
     initiallyOpened: false,
     links: [
       { label: "Bookings", link: "/" },
@@ -65,7 +74,7 @@ const mockdata = [
       { label: "Users", link: "/" },
     ],
   },
-  { label: "Testimonials", icon: IconPresentationAnalytics, link: "testimonials" },
+  { label: "Testimonials", icon: IconUsers, link: "testimonials" },
   { label: "Go to website", icon: IconPresentationAnalytics, link: "/" },
 ];
 
@@ -73,6 +82,9 @@ const useStyles = createStyles((theme) => ({
   navbar: {
     backgroundColor: theme.colorScheme === "dark" ? theme.colors.dark[6] : theme.white,
     paddingBottom: 0,
+    position: "sticky",
+    top: 0,
+    zIndex: 10,
   },
 
   header: {
@@ -118,8 +130,8 @@ const Navigation: React.FC<Props> = ({ children }) => {
   }, []);
   return (
     <Grid gutter={0}>
-      <Grid.Col span={3}>
-        <Navbar height={"99vh"} width={{ sm: "80%" }} p="md" className={classes.navbar}>
+      <Grid.Col span="content">
+        <Navbar height={"100vh"} width={{ sm: "100%" }} p="md" pb={0} className={classes.navbar}>
           <Navbar.Section className={classes.header}>
             <Group position="apart">
               <Text>Fairmount Resorts</Text>
@@ -141,8 +153,11 @@ const Navigation: React.FC<Props> = ({ children }) => {
                 </Box>
               </Menu.Target>
               <Menu.Dropdown>
+                <Link href="/" target={"_blank"}>
+                  <Menu.Item icon={<IconArrowUpRight size={14} />}>Visit website</Menu.Item>
+                </Link>
                 <Menu.Label>Account Settings</Menu.Label>
-                <Menu.Item color="red" icon={<IconTrash size={14} />} onClick={signOut}>
+                <Menu.Item color="red" icon={<IconLogout size={14} />} onClick={signOut}>
                   Logout
                 </Menu.Item>
               </Menu.Dropdown>
