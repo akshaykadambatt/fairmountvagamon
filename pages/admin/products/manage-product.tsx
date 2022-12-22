@@ -11,9 +11,11 @@ import {
   Grid,
   Group,
   Modal,
+  MultiSelect,
   NumberInput,
   Popover,
   SimpleGrid,
+  Skeleton,
   Switch,
   Table,
   Text,
@@ -27,8 +29,8 @@ import Navigation from "../../../components/Navigation";
 import { useEffect, useState } from "react";
 import { useForm } from "@mantine/form";
 import { doc, collection, setDoc, onSnapshot, query, where, deleteDoc, updateDoc } from "firebase/firestore";
-import { db } from "../../../components/data/firebaseConfig";
-import { CollectionName } from "../../../components/data/constants";
+import { db, storage } from "../../../components/data/firebaseConfig";
+import { AmenitiesIds, CollectionName } from "../../../components/data/constants";
 import {
   IconChevronDown,
   IconChevronUp,
@@ -40,82 +42,67 @@ import {
 } from "@tabler/icons";
 import { AiOutlineDelete } from "react-icons/ai";
 import { FunctionDeclaration } from "typescript";
+import { listAll, ref } from "firebase/storage";
+import MediaComponent from "../../../components/mediaComponent";
+import MediaModal from "../../../components/mediaModal";
 export default function Pages() {
   const [opened, setOpened] = useState(false);
-  const [testimonials, setTestimonials] = useState<TestimonialProps[]>([]);
-  const [testimonialsEditId, setTestimonialsEditId] = useState("");
+  const [products, setProducts] = useState<ProductProps[]>([]);
+  const [productsEditId, setProductsEditId] = useState("");
+  const [images, setImages] = useState([""]);
+  const [videos, setVideos] = useState([""]);
   const theme = useMantineTheme();
   const form = useForm({
     initialValues: {
       name: "",
-      content: "",
-      status: true,
+      shortDescription: "",
+      description: "",
+      price: 0,
+      amenities: [],
+      images: [""],
+      videos: [""],
+      totalCapacity: 0,
+      peoplePerRoom: 0,
       order: 0,
+      status: true,
+      sale: true,
     },
 
     validate: {
       name: (value) => (value != "" ? null : "Enter name"),
-      content: (value) => (value != "" ? null : "Enter the body of testimonial"),
     },
   });
-  const handleFormSubmit = async (values: TestimonialProps) => {
+  const handleFormSubmit = async (values: ProductProps) => {
+    console.log(values);
+
     let q;
-    if (testimonialsEditId) {
-      q = doc(db, CollectionName.TESTIMONIALS, testimonialsEditId);
+    if (productsEditId) {
+      q = doc(db, CollectionName.PRODUCTS, productsEditId);
     } else {
-      q = doc(collection(db, CollectionName.TESTIMONIALS));
+      q = doc(collection(db, CollectionName.PRODUCTS));
     }
     await setDoc(q, values);
     setOpened(false);
-    setTestimonialsEditId("");
+    setProductsEditId("");
   };
-  const handleEditAction = (data: TestimonialProps) => {
-    console.log(data);
-    form.setFieldValue("name", data.name);
-    form.setFieldValue("content", data.content);
-    form.setFieldValue("status", data.status);
-    form.setFieldValue("id", data.id);
-    setTestimonialsEditId(data.id ? data.id : "");
-    setOpened(true);
-  };
-  
-  const orderShift= async (data: TestimonialProps, type: string) => {
-    let order;
-    switch (type){
-      case "up":
-        order = data.order-1;
-        break;
-      case "down":
-        order = data.order+1;
-        break;
-      default:
-        break;
-    }
-    let q = doc(db, CollectionName.TESTIMONIALS, data.id?data.id:"");
-    await updateDoc(q, {
-      order: order
-    });
-  }
+
   useEffect(() => {
-    const unsub1 = onSnapshot(query(collection(db, CollectionName.TESTIMONIALS)), (collectionSnapshot) => {
-      let data: TestimonialProps[] = [];
+    const unsub1 = onSnapshot(query(collection(db, CollectionName.PRODUCTS)), (collectionSnapshot) => {
+      let data: ProductProps[] = [];
       collectionSnapshot.docs.map((doc) => {
-        data.push(Object.assign({ ...doc.data() }, { id: doc.id }) as TestimonialProps);
+        data.push(Object.assign({ ...doc.data() }, { id: doc.id }) as ProductProps);
       });
-      setTestimonials(data);
+      setProducts(data);
     });
   }, []);
   useEffect(() => {
     if (!opened) form.reset();
   }, [opened]);
-  const rows = testimonials
-    .sort((a, b) => a.order - b.order)
-    .map((e) => <Row data={e} handleEditAction={handleEditAction} orderShift={orderShift} />);
+
   return (
     <Navigation>
-      <Modal size={"lg"} opened={opened} onClose={() => setOpened(false)} title="Manage Testimonial">
-        
-      </Modal>
+      <MediaModal opened={opened} setOpened={setOpened} setImages={setImages} setVideos={setVideos} />
+
       <Container py={20}>
         <Box
           style={{
@@ -125,113 +112,107 @@ export default function Pages() {
           }}
           pb={20}
         >
-          <Title order={2} weight={100}>Products</Title>
-          <Button onClick={() => setOpened(true)}>Add Product</Button>
+          <Title order={2} weight={100}>
+            {form.values.name ? form.values.name : "Products"}
+          </Title>
         </Box>
         <form
           onSubmit={form.onSubmit((values) => {
             handleFormSubmit(values);
           })}
         >
-          <TextInput withAsterisk label="Name" placeholder="Enter the name" {...form.getInputProps("name")} />
-          <Textarea
-            placeholder="Testimonail Body"
-            label="Testimonail Body"
-            withAsterisk
-            {...form.getInputProps("content")}
-            autosize
-            minRows={5}
-          />
-          <NumberInput placeholder="Order" label="Order" withAsterisk {...form.getInputProps("order")} />
-          <Switch label="Active" {...form.getInputProps("status", { type: "checkbox" })} />
-          <Group position="right" mt="md">
-            <Button type="submit">Submit</Button>
-          </Group>
+          <Grid>
+            <Grid.Col span={12}>
+              <TextInput withAsterisk label="Name" placeholder="Enter the name" {...form.getInputProps("name")} />
+            </Grid.Col>
+            <Grid.Col span={6}>
+              <Textarea
+                placeholder="Short Description"
+                label="Short Description"
+                withAsterisk
+                {...form.getInputProps("shortDescription")}
+                autosize
+                minRows={3}
+                maxRows={5}
+              />
+            </Grid.Col>
+            <Grid.Col span={6}>
+              <Textarea
+                placeholder="Description"
+                label="Description"
+                withAsterisk
+                {...form.getInputProps("description")}
+                autosize
+                minRows={3}
+                maxRows={5}
+              />
+            </Grid.Col>
+            <Grid.Col span={12}>
+              <MultiSelect
+                data={[
+                  { value: AmenitiesIds.ROOMSERVICE, label: "Room service" },
+                  { value: AmenitiesIds.RESTAURANT, label: "Restaurant" },
+                  { value: AmenitiesIds.INDIANANDCHINESE, label: "Indian and Chinese Dishes" },
+                  { value: AmenitiesIds.FREEWIFI, label: "Free WiFi" },
+                  { value: AmenitiesIds.WAKEUP, label: "Wake-up Service" },
+                  { value: AmenitiesIds.OUTDOORBUFFET, label: "Outdoor buffet" },
+                  { value: AmenitiesIds.CAMPFIRE, label: "Campfire for groups" },
+                  { value: AmenitiesIds.PARKING, label: "Parking" },
+                  { value: AmenitiesIds.PETS, label: "Pets allowed" },
+                ]}
+                label="Amenities"
+                placeholder="Pick all the available services"
+                {...form.getInputProps("amenities")}
+              />
+            </Grid.Col>
+            
+            <Grid.Col span={3}>
+              <NumberInput placeholder="Price" label="Price" withAsterisk {...form.getInputProps("price")} />
+            </Grid.Col>
+            <Grid.Col span={3}>
+              <NumberInput
+                placeholder="Total Capacity"
+                label="Total Capacity"
+                withAsterisk
+                {...form.getInputProps("totalCapacity")}
+              />
+            </Grid.Col>
+            <Grid.Col span={3}>
+              <NumberInput
+                placeholder="People per room"
+                label="People per room"
+                withAsterisk
+                {...form.getInputProps("peoplePerRoom")}
+              />
+            </Grid.Col>
+            <Grid.Col span={3}>
+              <NumberInput placeholder="Order" label="Order" withAsterisk {...form.getInputProps("order")} />
+            </Grid.Col>
+            <Grid.Col span={6}>
+            Images
+            <Button onClick={() => setOpened(true)}>Open media manager</Button>
+              <Skeleton height={70}></Skeleton>
+            </Grid.Col>
+            <Grid.Col span={6}>
+              Videos
+            <Button onClick={() => setOpened(true)}>Open media manager</Button>
+              <Skeleton height={70}></Skeleton>
+            </Grid.Col>
+
+            <Grid.Col span={3}>
+              <Switch label="Sale badge" {...form.getInputProps("sale", { type: "checkbox" })} />
+            </Grid.Col>
+            <Grid.Col span={3}>
+              <Switch label="Active" {...form.getInputProps("status", { type: "checkbox" })} />
+            </Grid.Col>
+            <Grid.Col span={6}>
+              <Group position="right" mt="md">
+                <Button type="submit">Submit</Button>
+              </Group>
+            </Grid.Col>
+          </Grid>
         </form>
       </Container>
     </Navigation>
   );
 }
-interface RowProps {
-  data: TestimonialProps;
-  handleEditAction: (data: TestimonialProps) => void;
-  orderShift: (data: TestimonialProps, type: string) => void;
-}
-const Row = ({ data, handleEditAction, orderShift }: RowProps) => {
-  const theme = useMantineTheme();
-  const [trashPopover, setTrashPopover] = useState(false);
-  const deleteTestimonial = async (id: string) => {
-    console.log(id);
-    deleteDoc(doc(db, CollectionName.TESTIMONIALS, id));
-  };
-  return (
-    <>
-      <tr key={data.id}>
-        <td>
-          {data.name}
-        </td>
-        <td>{data.content}</td>
-        <td>{data.status ? <Badge color="green">Active</Badge> : <Badge color="gray">Inactive</Badge>}</td>
-        <td>
-          <Button.Group>
-            <Button size="xs" px={10} variant="light" onClick={() => orderShift(data, "up")}>
-              <IconChevronUp size={16} />
-            </Button>
-            <Button size="xs" px={10} variant="light" onClick={() => orderShift(data, "down")}>
-              <IconChevronDown size={16} />
-            </Button>
-            <Button size="xs" px={10} variant="light" onClick={() => handleEditAction(data)}>
-              <IconPencil size={16} />
-            </Button>
-            <Popover
-              closeOnClickOutside
-              transition="pop"
-              withArrow
-              withRoles
-              trapFocus
-              position="bottom-end"
-              opened={trashPopover}
-            >
-              <Popover.Target>
-                <Button color="red" size="xs" px={10} variant="light" onClick={() => setTrashPopover((prev) => !prev)}>
-                  <AiOutlineDelete size={16} />
-                </Button>
-              </Popover.Target>
-              <Popover.Dropdown>
-                <Box>
-                  <Text size={"sm"} mb={10}>
-                    Delete this testimonial?
-                  </Text>
-                  <Box>
-                    <Button
-                      size={"sm"}
-                      compact
-                      mr={8}
-                      variant="light"
-                      color="red"
-                      onClick={() => {
-                        deleteTestimonial(data.id ? data.id : "");
-                        setTrashPopover((prev) => !prev);
-                      }}
-                    >
-                      Delete
-                    </Button>
-                    <Button
-                      size={"sm"}
-                      compact
-                      mr={8}
-                      variant="subtle"
-                      onClick={() => setTrashPopover((prev) => !prev)}
-                    >
-                      Cancel
-                    </Button>
-                  </Box>
-                </Box>
-              </Popover.Dropdown>
-            </Popover>
-          </Button.Group>
-        </td>
-      </tr>
-    </>
-  );
-};

@@ -36,6 +36,7 @@ import {
   IconUsers,
   IconGif,
   IconGitBranch,
+  IconFile,
 } from "@tabler/icons";
 import { UserButton } from "./UserButton";
 import { LinksGroup } from "./NavbarLinksGroup";
@@ -122,6 +123,7 @@ const Navigation: React.FC<Props> = ({ children }) => {
       ],
     },
     { label: "Testimonials", icon: IconUsers, link: "testimonials" },
+    { label: "Media", icon: IconFile, link: "/admin/media" },
     { label: "Go to website", icon: IconPresentationAnalytics, link: "/" },
   ];
   const links = mockdata.map((item) => <LinksGroup {...item} key={item.label} />);
