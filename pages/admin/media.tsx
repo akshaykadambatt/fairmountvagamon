@@ -9,7 +9,16 @@ import MediaComponent from "../../components/mediaComponent";
 export default function Media() {
   return (
     <Navigation>
-        <MediaComponent/>
+      <Container pt={50}>
+        <Title order={2} weight={100} mb={20}>
+          Media
+        </Title>
+        <MediaComponent
+          selectImage={function (data: MediaProps): void {
+            throw new Error("Function not implemented.");
+          }}
+        />
+      </Container>
     </Navigation>
   );
 }

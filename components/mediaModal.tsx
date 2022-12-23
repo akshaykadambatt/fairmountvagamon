@@ -7,18 +7,19 @@ import { Dropzone } from "@mantine/dropzone";
 import MediaComponent from "./mediaComponent";
 interface MediaModalProps {
   opened: boolean;
+  selectImage: (data: MediaProps) => void;
   setOpened: (data: boolean) => void;
-  setImages: (data: string[]) => void;
-  setVideos: (data: string[]) => void;
 }
-export default function MediaModal({ opened, setOpened, setImages, setVideos }: MediaModalProps) {
-  const [media, setMedia] = useState([]);
+export default function MediaModal({ opened, setOpened, selectImage }: MediaModalProps) {
+  const [media, setMedia] = useState<MediaProps>();
   useEffect(() => {}, []);
-
+  const selectModalImage = (e:MediaProps) => {
+    setMedia(e)
+  }
   return (
     <Modal size={"lg"} opened={opened} onClose={() => setOpened(false)} title="Media Manager">
-      <MediaComponent setImages={setImages} setVideos={setVideos} />
-      <Button>Select media</Button>
+      <MediaComponent selectImage={selectModalImage} />
+      <Button onClick={media?()=>selectImage(media):()=>null}>Select media</Button>
     </Modal>
   );
 }

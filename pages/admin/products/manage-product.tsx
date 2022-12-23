@@ -98,10 +98,13 @@ export default function Pages() {
   useEffect(() => {
     if (!opened) form.reset();
   }, [opened]);
-
+  const selectImage = (e:MediaProps) => {
+    console.log("in root", e);
+    
+  }
   return (
     <Navigation>
-      <MediaModal opened={opened} setOpened={setOpened} setImages={setImages} setVideos={setVideos} />
+      <MediaModal opened={opened} setOpened={setOpened} selectImage={selectImage} />
 
       <Container py={20}>
         <Box

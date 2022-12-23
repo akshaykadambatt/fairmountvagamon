@@ -25,4 +25,5 @@ interface ProductProps {
 interface MediaProps {
   name: string;
   url: string;
+  fullPath: string;
 }

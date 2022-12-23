@@ -91,13 +91,13 @@ const Navigation: React.FC<Props> = ({ children }) => {
   const user = useContext(AuthContext);
 
   const mockdata = [
-    { label: "Dashboard", icon: IconGauge, link: "dashboard" },
+    { label: "Dashboard", icon: IconGauge, link: "/admin/dashboard" },
     {
       label: "Pages",
       icon: IconNotes,
       initiallyOpened: pathname?.match("admin/pages")?.length || 0 > 0 ? true : false,
       links: [
-        { label: "Pages", link: "pages" },
+        { label: "Pages", link: "/admin/pages" },
         { label: "Add New Page", link: "/" },
         { label: "Gallery", link: "/" },
         { label: "Contacts", link: "/" },
@@ -122,9 +122,9 @@ const Navigation: React.FC<Props> = ({ children }) => {
         { label: "Users", link: "/" },
       ],
     },
-    { label: "Testimonials", icon: IconUsers, link: "testimonials" },
+    { label: "Testimonials", icon: IconUsers, link: "/admin/testimonials" },
     { label: "Media", icon: IconFile, link: "/admin/media" },
-    { label: "Go to website", icon: IconPresentationAnalytics, link: "/" },
+    // { label: "Go to website", icon: IconPresentationAnalytics, link: "/" },
   ];
   const links = mockdata.map((item) => <LinksGroup {...item} key={item.label} />);
   const signOut = async () => {
@@ -152,7 +152,7 @@ const Navigation: React.FC<Props> = ({ children }) => {
       </Head>
 
       <Grid gutter={0}>
-        <Grid.Col span="content">
+        <Grid.Col span={2}>
           <Navbar height={"100vh"} width={{ sm: "100%" }} p="md" pb={0} className={classes.navbar}>
             <Navbar.Section className={classes.header}>
               <Group position="apart">
@@ -190,7 +190,7 @@ const Navigation: React.FC<Props> = ({ children }) => {
             </Navbar.Section>
           </Navbar>
         </Grid.Col>
-        <Grid.Col span={9}>{children}</Grid.Col>
+        <Grid.Col span={10}>{children}</Grid.Col>
       </Grid>
       <Modal
         size={"70vw"}
