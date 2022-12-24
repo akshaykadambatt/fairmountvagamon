@@ -110,7 +110,7 @@ export default function Pages() {
   }, [opened]);
   const rows = testimonials
     .sort((a, b) => a.order - b.order)
-    .map((e) => <Row data={e} handleEditAction={handleEditAction} orderShift={orderShift} />);
+    .map((e) => <Row key={e.id} data={e} handleEditAction={handleEditAction} orderShift={orderShift} />);
   return (
     <Navigation>
       <Modal size={"lg"} opened={opened} onClose={() => setOpened(false)} title="Manage Testimonial">

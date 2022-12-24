@@ -86,6 +86,7 @@ export default function MediaComponent({ selectImage }: MediaComponentProps) {
               selectImage(e);
               setActive(e.fullPath);
             }}
+            key={e.name}
             style={{display:"inline"}}
             onMouseOver={() => (e.url ? null : loadThumb(e.fullPath))}
           >

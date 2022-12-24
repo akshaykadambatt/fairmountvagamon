@@ -212,7 +212,7 @@ export default function Pages() {
               <Text>Images</Text>
               <Box>
                 {form.values["images"].map((e) => (
-                  <ImageBlock data={e} />
+                  <ImageBlock data={e} key={e.name} />
                 ))}
                 <Box onClick={() => setOpened(true)} style={{ display: "inline-block" }}>
                   <ImageBlockPlaceholder />

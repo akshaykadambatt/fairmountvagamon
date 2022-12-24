@@ -70,7 +70,7 @@ export default function Pages() {
       setProducts(data);
     });
   }, []);
-  const rows = products.sort((a, b) => a.order - b.order).map((e) => <Row data={e} orderShift={orderShift} />);
+  const rows = products.sort((a, b) => a.order - b.order).map((e) => <Row key={e.id} data={e} orderShift={orderShift} />);
   return (
     <Navigation>
       <Container size="lg" py={20} px={50}>
