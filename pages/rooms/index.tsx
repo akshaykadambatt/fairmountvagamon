@@ -3,7 +3,7 @@ import Image from "next/image";
 import styles from "../styles/Home.module.css";
 import { Container, Grid, Text, Title } from "@mantine/core";
 import { Carousel } from "@mantine/carousel";
-import HeaderComponent from "../components/header";
+import HeaderComponent from "../../components/header";
 
 export default function Rooms() {
   return (

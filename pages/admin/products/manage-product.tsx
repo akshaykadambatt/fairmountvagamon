@@ -1,5 +1,4 @@
 import Head from "next/head";
-import Image from "next/image";
 import styles from "../styles/Home.module.css";
 import {
   ActionIcon,
@@ -23,12 +22,13 @@ import {
   Textarea,
   Title,
   useMantineTheme,
+  Notification,
 } from "@mantine/core";
 import { Carousel } from "@mantine/carousel";
 import Navigation from "../../../components/Navigation";
 import { useEffect, useState } from "react";
 import { useForm } from "@mantine/form";
-import { doc, collection, setDoc, onSnapshot, query, where, deleteDoc, updateDoc } from "firebase/firestore";
+import { doc, collection, setDoc, onSnapshot, query, where, deleteDoc, updateDoc, getDoc } from "firebase/firestore";
 import { db, storage } from "../../../components/data/firebaseConfig";
 import { AmenitiesIds, CollectionName } from "../../../components/data/constants";
 import {
@@ -45,12 +45,14 @@ import { FunctionDeclaration } from "typescript";
 import { listAll, ref } from "firebase/storage";
 import MediaComponent from "../../../components/mediaComponent";
 import MediaModal from "../../../components/mediaModal";
+import ImageBlock, { ImageBlockPlaceholder } from "../../../components/imageBlock";
+import { useRouter } from "next/router";
 export default function Pages() {
   const [opened, setOpened] = useState(false);
-  const [products, setProducts] = useState<ProductProps[]>([]);
   const [productsEditId, setProductsEditId] = useState("");
   const [images, setImages] = useState([""]);
   const [videos, setVideos] = useState([""]);
+  const router = useRouter();
   const theme = useMantineTheme();
   const form = useForm({
     initialValues: {
@@ -59,13 +61,14 @@ export default function Pages() {
       description: "",
       price: 0,
       amenities: [],
-      images: [""],
-      videos: [""],
+      images: [] as MediaProps[],
+      videos: [] as MediaProps[],
       totalCapacity: 0,
       peoplePerRoom: 0,
       order: 0,
       status: true,
       sale: true,
+      slug: "",
     },
 
     validate: {
@@ -73,11 +76,9 @@ export default function Pages() {
     },
   });
   const handleFormSubmit = async (values: ProductProps) => {
-    console.log(values);
-
     let q;
-    if (productsEditId) {
-      q = doc(db, CollectionName.PRODUCTS, productsEditId);
+    if (router.query.editId) {
+      q = doc(db, CollectionName.PRODUCTS, router.query.editId as string);
     } else {
       q = doc(collection(db, CollectionName.PRODUCTS));
     }
@@ -87,26 +88,26 @@ export default function Pages() {
   };
 
   useEffect(() => {
-    const unsub1 = onSnapshot(query(collection(db, CollectionName.PRODUCTS)), (collectionSnapshot) => {
-      let data: ProductProps[] = [];
-      collectionSnapshot.docs.map((doc) => {
-        data.push(Object.assign({ ...doc.data() }, { id: doc.id }) as ProductProps);
-      });
-      setProducts(data);
-    });
-  }, []);
-  useEffect(() => {
-    if (!opened) form.reset();
-  }, [opened]);
-  const selectImage = (e:MediaProps) => {
+    const run = async () => {
+      if (router.query.editId) {
+        const docRef = doc(db, CollectionName.PRODUCTS, router.query.editId as string);
+        const docSnap = await getDoc(docRef);
+        form.setValues({ ...docSnap.data() });
+      }
+    };
+    run();
+  }, [router.query.editId]);
+
+  const selectImage = (e: MediaProps) => {
     console.log("in root", e);
-    
-  }
+    let newVal: MediaProps[] = form.values["images"];
+    newVal.push(e);
+    form.setFieldValue("images", newVal);
+    console.log(form.values);
+  };
   return (
     <Navigation>
-      <MediaModal opened={opened} setOpened={setOpened} selectImage={selectImage} />
-
-      <Container py={20}>
+      <Container size="lg" py={20} px={50}>
         <Box
           style={{
             display: "flex",
@@ -125,8 +126,18 @@ export default function Pages() {
           })}
         >
           <Grid>
-            <Grid.Col span={12}>
+            <Grid.Col span={7}>
               <TextInput withAsterisk label="Name" placeholder="Enter the name" {...form.getInputProps("name")} />
+            </Grid.Col>
+            <Grid.Col span={5}>
+              <TextInput
+                withAsterisk
+                label="Slug"
+                placeholder="Enter the url"
+                {...form.getInputProps("slug")}
+                icon={<Text>/</Text>}
+                leftSection={<>asdf</>}
+              />
             </Grid.Col>
             <Grid.Col span={6}>
               <Textarea
@@ -168,9 +179,15 @@ export default function Pages() {
                 {...form.getInputProps("amenities")}
               />
             </Grid.Col>
-            
+
             <Grid.Col span={3}>
-              <NumberInput placeholder="Price" label="Price" withAsterisk {...form.getInputProps("price")} />
+              <NumberInput
+                placeholder="Price"
+                label="Price"
+                withAsterisk
+                {...form.getInputProps("price")}
+                icon={<Text>₹</Text>}
+              />
             </Grid.Col>
             <Grid.Col span={3}>
               <NumberInput
@@ -191,15 +208,16 @@ export default function Pages() {
             <Grid.Col span={3}>
               <NumberInput placeholder="Order" label="Order" withAsterisk {...form.getInputProps("order")} />
             </Grid.Col>
-            <Grid.Col span={6}>
-            Images
-            <Button onClick={() => setOpened(true)}>Open media manager</Button>
-              <Skeleton height={70}></Skeleton>
-            </Grid.Col>
-            <Grid.Col span={6}>
-              Videos
-            <Button onClick={() => setOpened(true)}>Open media manager</Button>
-              <Skeleton height={70}></Skeleton>
+            <Grid.Col span={12}>
+              <Text>Images</Text>
+              <Box>
+                {form.values["images"].map((e) => (
+                  <ImageBlock data={e} />
+                ))}
+                <Box onClick={() => setOpened(true)} style={{ display: "inline-block" }}>
+                  <ImageBlockPlaceholder />
+                </Box>
+              </Box>
             </Grid.Col>
 
             <Grid.Col span={3}>
@@ -216,6 +234,7 @@ export default function Pages() {
           </Grid>
         </form>
       </Container>
+      <MediaModal opened={opened} setOpened={setOpened} selectImage={selectImage} />
     </Navigation>
   );
 }

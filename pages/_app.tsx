@@ -22,53 +22,53 @@ const mrsSaintDelafield = Mrs_Saint_Delafield({
 });
 export default function App({ Component, pageProps }: AppProps) {
   const { asPath, pathname } = useRouter();
-  
+
   return (
     <AuthProvider>
-    <MantineProvider withGlobalStyles withNormalizeCSS theme={googleFontTheme}>
-      {pathname?.match('admin')?.length||0 >0  ? null : <HeaderComponent />}
-      <Component {...pageProps} />
-      {pathname?.match('admin')?.length||0 >0 ? null : (
-        <FooterLinks
-          data={[
-            {
-              title: "About",
-              links: [
+        <MantineProvider withGlobalStyles withNormalizeCSS theme={googleFontTheme}>
+          {pathname?.match("admin")?.length || 0 > 0 ? null : <HeaderComponent />}
+          <Component {...pageProps} />
+          {pathname?.match("admin")?.length || 0 > 0 ? null : (
+            <FooterLinks
+              data={[
                 {
-                  label: "Features",
-                  link: "#",
+                  title: "About",
+                  links: [
+                    {
+                      label: "Features",
+                      link: "#",
+                    },
+                    {
+                      label: "Pricing",
+                      link: "#",
+                    },
+                    {
+                      label: "Check Availability",
+                      link: "#",
+                    },
+                  ],
                 },
                 {
-                  label: "Pricing",
-                  link: "#",
+                  title: "Community",
+                  links: [
+                    {
+                      label: "Follow us on Instagram",
+                      link: "#",
+                    },
+                    {
+                      label: "Follow us on Facebook",
+                      link: "#",
+                    },
+                    {
+                      label: "Email us",
+                      link: "#",
+                    },
+                  ],
                 },
-                {
-                  label: "Check Availability",
-                  link: "#",
-                },
-              ],
-            },
-            {
-              title: "Community",
-              links: [
-                {
-                  label: "Follow us on Instagram",
-                  link: "#",
-                },
-                {
-                  label: "Follow us on Facebook",
-                  link: "#",
-                },
-                {
-                  label: "Email us",
-                  link: "#",
-                },
-              ],
-            },
-          ]}
-        />
-      )}
-    </MantineProvider>
+              ]}
+            />
+          )}
+        </MantineProvider>
     </AuthProvider>
   );
 }

@@ -17,9 +17,10 @@ interface ProductProps {
   peoplePerRoom: number;
   price: number;
   amenities: number[];
-  images: string[];
-  videos: string[];
+  images: MediaProps[];
+  videos: MediaProps[];
   id?: string;
+  slug: string;
 }
 
 interface MediaProps {

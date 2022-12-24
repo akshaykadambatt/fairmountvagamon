@@ -34,108 +34,46 @@ import {
   IconChevronUp,
   IconChevronsDown,
   IconChevronsUp,
+  IconEye,
   IconPencil,
   IconSettings,
   IconTrash,
 } from "@tabler/icons";
 import { AiOutlineDelete } from "react-icons/ai";
 import { FunctionDeclaration } from "typescript";
+import Link from "next/link";
 export default function Pages() {
-  const [opened, setOpened] = useState(false);
-  const [testimonials, setTestimonials] = useState<TestimonialProps[]>([]);
-  const [testimonialsEditId, setTestimonialsEditId] = useState("");
-  const theme = useMantineTheme();
-  const form = useForm({
-    initialValues: {
-      name: "",
-      content: "",
-      status: true,
-      order: 0,
-    },
-
-    validate: {
-      name: (value) => (value != "" ? null : "Enter name"),
-      content: (value) => (value != "" ? null : "Enter the body of testimonial"),
-    },
-  });
-  const handleFormSubmit = async (values: TestimonialProps) => {
-    let q;
-    if (testimonialsEditId) {
-      q = doc(db, CollectionName.TESTIMONIALS, testimonialsEditId);
-    } else {
-      q = doc(collection(db, CollectionName.TESTIMONIALS));
-    }
-    await setDoc(q, values);
-    setOpened(false);
-    setTestimonialsEditId("");
-  };
-  const handleEditAction = (data: TestimonialProps) => {
-    console.log(data);
-    form.setFieldValue("name", data.name);
-    form.setFieldValue("content", data.content);
-    form.setFieldValue("status", data.status);
-    form.setFieldValue("id", data.id);
-    setTestimonialsEditId(data.id ? data.id : "");
-    setOpened(true);
-  };
-  
-  const orderShift= async (data: TestimonialProps, type: string) => {
+  const [products, setProducts] = useState<ProductProps[]>([]);
+  const orderShift = async (data: ProductProps, type: string) => {
     let order;
-    switch (type){
+    switch (type) {
       case "up":
-        order = data.order-1;
+        order = data.order - 1;
         break;
       case "down":
-        order = data.order+1;
+        order = data.order + 1;
         break;
       default:
         break;
     }
-    let q = doc(db, CollectionName.TESTIMONIALS, data.id?data.id:"");
+    let q = doc(db, CollectionName.PRODUCTS, data.id ? data.id : "");
     await updateDoc(q, {
-      order: order
+      order: order,
     });
-  }
+  };
   useEffect(() => {
-    const unsub1 = onSnapshot(query(collection(db, CollectionName.TESTIMONIALS)), (collectionSnapshot) => {
-      let data: TestimonialProps[] = [];
+    const unsub1 = onSnapshot(query(collection(db, CollectionName.PRODUCTS)), (collectionSnapshot) => {
+      let data: ProductProps[] = [];
       collectionSnapshot.docs.map((doc) => {
-        data.push(Object.assign({ ...doc.data() }, { id: doc.id }) as TestimonialProps);
+        data.push(Object.assign({ ...doc.data() }, { id: doc.id }) as ProductProps);
       });
-      setTestimonials(data);
+      setProducts(data);
     });
   }, []);
-  useEffect(() => {
-    if (!opened) form.reset();
-  }, [opened]);
-  const rows = testimonials
-    .sort((a, b) => a.order - b.order)
-    .map((e) => <Row data={e} handleEditAction={handleEditAction} orderShift={orderShift} />);
+  const rows = products.sort((a, b) => a.order - b.order).map((e) => <Row data={e} orderShift={orderShift} />);
   return (
     <Navigation>
-      <Modal size={"lg"} opened={opened} onClose={() => setOpened(false)} title="Manage Testimonial">
-        <form
-          onSubmit={form.onSubmit((values) => {
-            handleFormSubmit(values);
-          })}
-        >
-          <TextInput withAsterisk label="Name" placeholder="Enter the name" {...form.getInputProps("name")} />
-          <Textarea
-            placeholder="Testimonail Body"
-            label="Testimonail Body"
-            withAsterisk
-            {...form.getInputProps("content")}
-            autosize
-            minRows={5}
-          />
-          <NumberInput placeholder="Order" label="Order" withAsterisk {...form.getInputProps("order")} />
-          <Switch label="Active" {...form.getInputProps("status", { type: "checkbox" })} />
-          <Group position="right" mt="md">
-            <Button type="submit">Submit</Button>
-          </Group>
-        </form>
-      </Modal>
-      <Container py={20}>
+      <Container size="lg" py={20} px={50}>
         <Box
           style={{
             display: "flex",
@@ -144,14 +82,14 @@ export default function Pages() {
           }}
           pb={20}
         >
-          <Title order={2} weight={100}>Products</Title>
-          <Button onClick={() => setOpened(true)}>Add Product</Button>
+          <Title order={2} weight={100}>
+            Products
+          </Title>
+          <Button component={Link} href="/admin/products/manage-product">
+            Add Product
+          </Button>
         </Box>
-        <Grid>
-          <Grid.Col span={4}></Grid.Col>
-          <Grid.Col span={8}></Grid.Col>
-        </Grid>
-        <Table 
+        <Table
           highlightOnHover
           withColumnBorders
           verticalSpacing="xs"
@@ -160,7 +98,9 @@ export default function Pages() {
           <thead>
             <tr>
               <th style={{ minWidth: "130px" }}>Name</th>
-              <th>Content</th>
+              <th>Short Description</th>
+              <th>Price</th>
+              <th>Capacity</th>
               <th>Status</th>
               <th style={{ minWidth: "10px" }}>Actions</th>
             </tr>
@@ -172,34 +112,42 @@ export default function Pages() {
   );
 }
 interface RowProps {
-  data: TestimonialProps;
-  handleEditAction: (data: TestimonialProps) => void;
-  orderShift: (data: TestimonialProps, type: string) => void;
+  data: ProductProps;
+  orderShift: (data: ProductProps, type: string) => void;
 }
-const Row = ({ data, handleEditAction, orderShift }: RowProps) => {
+const Row = ({ data, orderShift }: RowProps) => {
   const theme = useMantineTheme();
   const [trashPopover, setTrashPopover] = useState(false);
   const deleteTestimonial = async (id: string) => {
     console.log(id);
-    deleteDoc(doc(db, CollectionName.TESTIMONIALS, id));
+    deleteDoc(doc(db, CollectionName.PRODUCTS, id));
   };
   return (
     <>
       <tr key={data.id}>
-        <td>
-          {data.name}
-        </td>
-        <td>{data.content}</td>
+        <td>{data.name}</td>
+        <td>{data.shortDescription}</td>
+        <td>₹{data.price}</td>
+        <td>{data.totalCapacity}</td>
         <td>{data.status ? <Badge color="green">Active</Badge> : <Badge color="gray">Inactive</Badge>}</td>
         <td>
           <Button.Group>
+            <Button size="xs" px={10} variant="light" component={Link} href={"/rooms/" + data.slug || ""} target="_blank">
+              <IconEye size={16} />
+            </Button>
             <Button size="xs" px={10} variant="light" onClick={() => orderShift(data, "up")}>
               <IconChevronUp size={16} />
             </Button>
             <Button size="xs" px={10} variant="light" onClick={() => orderShift(data, "down")}>
               <IconChevronDown size={16} />
             </Button>
-            <Button size="xs" px={10} variant="light" onClick={() => handleEditAction(data)}>
+            <Button
+              size="xs"
+              px={10}
+              variant="light"
+              component={Link}
+              href={"/admin/products/manage-product?editId=" + data.id}
+            >
               <IconPencil size={16} />
             </Button>
             <Popover
