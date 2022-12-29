@@ -38,7 +38,7 @@ interface CarouselCardProps {
 }
 export function CarouselCard({ data }: CarouselCardProps) {
   const { classes } = useStyles();
-  const images = data.images.map(e=>e.url);
+  const images = data.images.map(e=>e.url) || [""];
 
   const slides = images.map((image) => (
     <Carousel.Slide key={image}>
@@ -91,7 +91,7 @@ export function CarouselCard({ data }: CarouselCardProps) {
           </Text>
         </div>
 
-        <Button radius="md" component={Link} href={"rooms/"+data.slug}>Book now</Button>
+        <Button radius="md" component={Link} href={"rooms/"+data.slug}>More Details</Button>
       </Group>
     </Card>
   );

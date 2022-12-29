@@ -42,12 +42,6 @@ export default function Rooms() {
                 {products?.map((data: ProductProps) => (
                     <CarouselCard data={data}/>
                 ))}
-                {products?.map((data: ProductProps) => (
-                    <CarouselCard data={data}/>
-                ))}
-                {products?.map((data: ProductProps) => (
-                    <CarouselCard data={data}/>
-                ))}
                 {!products && <>
                 <Skeleton height={400}/>
                 <Skeleton height={400}/>
