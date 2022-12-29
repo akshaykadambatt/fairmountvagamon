@@ -47,6 +47,7 @@ import MediaComponent from "../../../components/mediaComponent";
 import MediaModal from "../../../components/mediaModal";
 import ImageBlock, { ImageBlockPlaceholder } from "../../../components/imageBlock";
 import { useRouter } from "next/router";
+import { showNotification } from "@mantine/notifications";
 export default function Pages() {
   const [opened, setOpened] = useState(false);
   const [productsEditId, setProductsEditId] = useState("");
@@ -85,6 +86,17 @@ export default function Pages() {
     await setDoc(q, values);
     setOpened(false);
     setProductsEditId("");
+    showNotification({
+      title: 'Product added',
+      styles: () => ({
+        title: {
+          fontSize:14,
+        },
+        description: {
+          fontSize:10,
+        }
+      }),
+    })
   };
 
   useEffect(() => {
@@ -104,6 +116,18 @@ export default function Pages() {
     newVal.push(e);
     form.setFieldValue("images", newVal);
     console.log(form.values);
+    showNotification({
+      title: 'Media added',
+      message: 'Close the popup or select more',
+      styles: (theme) => ({
+        title: {
+          fontSize:14,
+        },
+        description: {
+          fontSize:10,
+        }
+      }),
+    })
   };
   return (
     <Navigation>

@@ -1,7 +1,22 @@
-import { useState } from "react";
-import { createStyles, Header, Container, Group, Burger, Paper, Transition, Button } from "@mantine/core";
+import { useContext, useState } from "react";
+import {
+  createStyles,
+  Header,
+  Container,
+  Group,
+  Burger,
+  Paper,
+  Transition,
+  Button,
+  Box,
+  Text,
+  useMantineTheme,
+  Grid,
+} from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import Link from "next/link";
+import { AuthContext } from "./data/AuthContext";
+import { IconExternalLink } from "@tabler/icons";
 
 const HEADER_HEIGHT = 60;
 
@@ -10,7 +25,7 @@ const useStyles = createStyles((theme) => ({
     position: "sticky",
     zIndex: 20,
     background: "#ffffff60",
-    backdropFilter:"blur(10px)"
+    backdropFilter: "blur(10px)",
   },
 
   dropdown: {
@@ -88,6 +103,8 @@ interface HeaderResponsiveProps {
 
 export default function HeaderComponent() {
   const [opened, { toggle, close }] = useDisclosure(false);
+  const theme = useMantineTheme();
+  const user = useContext(AuthContext);
   const links = [
     { link: "/", label: "Home" },
     { link: "/rooms", label: "Rooms and Rates" },
@@ -114,8 +131,30 @@ export default function HeaderComponent() {
   ));
 
   return (
-    <Header height={HEADER_HEIGHT} mb={0} className={classes.root}>
-      <Container className={`${classes.header} `} size="lg">
+    <Header height={HEADER_HEIGHT + (user ? 28 : 0)} mb={0} className={classes.root}>
+      {user && (
+        <Box style={{ background: theme.colors.dark[7] }} p={3}>
+          <Container size={"lg"}>
+            <Grid justify="flex-end">
+              <Grid.Col span={6}>
+                <Text size="xs" color="white">
+                  Hello, {user?.displayName}
+                </Text>
+              </Grid.Col>
+              <Grid.Col span={6}>
+                <Box style={{ display: "flex", justifyContent: "flex-end" }}>
+                  <Text pr={6} size="xs" color="white" align={"right"} component={Link} href={"/admin/dashboard"}>
+                    Go to admin dashboard
+                  </Text>
+                  <IconExternalLink color="white" size={15} />
+                </Box>
+              </Grid.Col>
+            </Grid>
+          </Container>
+        </Box>
+      )}
+
+      <Container style={{ height: HEADER_HEIGHT }} className={`${classes.header} `} size="lg">
         {/* <MantineLogo size={28} /> */}
         <Link href="/" className={` ${classes.logo}`}>
           Fairmount

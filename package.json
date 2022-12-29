@@ -18,6 +18,7 @@
     "@mantine/form": "^5.9.3",
     "@mantine/hooks": "^5.9.3",
     "@mantine/next": "^5.9.3",
+    "@mantine/notifications": "^5.9.3",
     "@mantine/nprogress": "^5.9.3",
     "@next/font": "^13.0.6",
     "@reduxjs/toolkit": "^1.9.1",
@@ -38,6 +39,7 @@
     "react-dom": "18.2.0",
     "react-icons": "^4.7.1",
     "react-intersection-observer": "^9.4.1",
+    "react-redux": "^8.0.5",
     "typescript": "4.9.4"
   }
 }

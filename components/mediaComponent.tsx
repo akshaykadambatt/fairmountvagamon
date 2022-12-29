@@ -78,8 +78,9 @@ export default function MediaComponent({ selectImage }: MediaComponentProps) {
         value={filterValue}
         placeholder="Search for media"
         onChange={(value) => setFilterValue(value.currentTarget.value)}
-      ></TextInput>
+      />
       <Box mt={20}>
+      <Text color="dimmed" size="sm">Hover for preview</Text>
         {filteredMediaData.map((e, i) => (
           <Box
             onClick={() => {

@@ -1,6 +1,6 @@
 import "../styles/globals.css";
 import type { AppProps } from "next/app";
-import { DefaultMantineColor, Global, MantineProvider } from "@mantine/core";
+import { Box, DefaultMantineColor, Global, MantineProvider } from "@mantine/core";
 import HeaderComponent from "../components/header";
 import { Noto_Sans } from "@next/font/google";
 import { Mrs_Saint_Delafield } from "@next/font/google";
@@ -9,6 +9,9 @@ import FooterLinks from "../components/footer";
 import { auth } from "../components/data/firebaseConfig";
 import { useRouter } from "next/router";
 import { AuthProvider } from "../components/data/AuthProvider";
+import { useContext } from "react";
+import { AuthContext } from "../components/data/AuthContext";
+import { NotificationsProvider } from "@mantine/notifications";
 
 const natoSans = Noto_Sans({
   weight: ["100", "300", "400", "500", "700", "800", "900"],
@@ -22,10 +25,11 @@ const mrsSaintDelafield = Mrs_Saint_Delafield({
 });
 export default function App({ Component, pageProps }: AppProps) {
   const { asPath, pathname } = useRouter();
-
+  
   return (
     <AuthProvider>
         <MantineProvider withGlobalStyles withNormalizeCSS theme={googleFontTheme}>
+        <NotificationsProvider>
           {pathname?.match("admin")?.length || 0 > 0 ? null : <HeaderComponent />}
           <Component {...pageProps} />
           {pathname?.match("admin")?.length || 0 > 0 ? null : (
@@ -68,6 +72,7 @@ export default function App({ Component, pageProps }: AppProps) {
               ]}
             />
           )}
+          </NotificationsProvider>
         </MantineProvider>
     </AuthProvider>
   );

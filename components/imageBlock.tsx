@@ -1,6 +1,7 @@
-import { Box, Image, Text } from "@mantine/core";
+import { Box, Button, HoverCard, Image, Text } from "@mantine/core";
 import { IconSquarePlus } from "@tabler/icons";
 import { ref, listAll, uploadBytes, getDownloadURL } from "firebase/storage";
+import Link from "next/link";
 interface ImageBlockProps {
   data: MediaProps;
   active?: string;
@@ -8,37 +9,62 @@ interface ImageBlockProps {
 export default function ImageBlock({ data, active }: ImageBlockProps) {
   return (
     <Box style={{ height: 150, width: 123, overflow: "hidden", display: "inline-block" }} mt={15} p={9}>
-      <Image
-        src={data.url ? data.url : null}
-        height={100}
-        width={100}
-        alt="With default placeholder"
-        withPlaceholder
-        style={{
-          borderRadius: 10,
-          overflow: "hidden",
-          border: active == data.fullPath ? "2px solid red" : "2px solid #00000030",
-        }}
-      />
-      <Text
-        size="sm"
-        style={{
-          width: "100%",
-          overflow: "hidden",
-          display: "-webkit-box",
-          WebkitLineClamp: "1",
-          WebkitBoxOrient: "vertical",
-        }}
-      >
-        {data.name}
-      </Text>
+      <HoverCard width={280} shadow="md" openDelay={0} transition="pop" withArrow>
+        <HoverCard.Target>
+          <Box>
+            <Image
+              src={data.url ? data.url : null}
+              height={100}
+              width={100}
+              alt={data.name}
+              withPlaceholder
+              style={{
+                borderRadius: 10,
+                overflow: "hidden",
+                border: active == data.fullPath ? "2px solid red" : "2px solid #00000030",
+              }}
+            />
+            <Text
+              size="sm"
+              style={{
+                width: "100%",
+                overflow: "hidden",
+                display: "-webkit-box",
+                WebkitLineClamp: "1",
+                WebkitBoxOrient: "vertical",
+              }}
+            >
+              {data.name}
+            </Text>
+          </Box>
+        </HoverCard.Target>
+        <HoverCard.Dropdown>
+          <Text size="sm" weight={700}>
+            {data.name}
+          </Text>
+          <Text
+            size="xs"
+            style={{ wordWrap: "break-word", lineHeight: 1 }}
+            target="_blank"
+            color="blue"
+            component={Link}
+            href={data.url}
+          >
+            {data.url}
+          </Text>
+        </HoverCard.Dropdown>
+      </HoverCard>
     </Box>
   );
 }
 
 export function ImageBlockPlaceholder() {
   return (
-    <Box style={{ height: 150, width: 123, overflow: "hidden", display: "inline-block", cursor:"pointer" }} mt={15} p={9}>
+    <Box
+      style={{ height: 150, width: 123, overflow: "hidden", display: "inline-block", cursor: "pointer" }}
+      mt={15}
+      p={9}
+    >
       <Box style={{ borderRadius: 10, overflow: "hidden", display: "flex", justifyContent: "center" }}>
         <IconSquarePlus size={99} stroke={0.6} color={"rgba(0, 0, 0, 0.59)"} />
       </Box>

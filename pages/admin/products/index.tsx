@@ -23,12 +23,12 @@ import {
   useMantineTheme,
 } from "@mantine/core";
 import { Carousel } from "@mantine/carousel";
-import Navigation from "../../components/Navigation";
+import Navigation from "../../../components/Navigation";
 import { useEffect, useState } from "react";
 import { useForm } from "@mantine/form";
 import { doc, collection, setDoc, onSnapshot, query, where, deleteDoc, updateDoc } from "firebase/firestore";
-import { db } from "../../components/data/firebaseConfig";
-import { CollectionName } from "../../components/data/constants";
+import { db } from "../../../components/data/firebaseConfig";
+import { CollectionName } from "../../../components/data/constants";
 import {
   IconChevronDown,
   IconChevronUp,
