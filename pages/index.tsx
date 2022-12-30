@@ -143,9 +143,14 @@ export default function Home() {
   return (
     <div>
       <Head>
-        <title>Fairmount Restorts</title>
-        <meta name="description" content="Fairmount Restorts website" />
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Fairmount Resorts</title>
         <link rel="icon" href="/favicon.ico" />
+        <meta name="theme-color" content="#FFFFFF" />
+        <meta name="keywords" content="Fair Mount, Vagamon, Resort, Stay, Honey Moon, Nature, Trip, Refereshment, Vacation, Holidays, Top, Hills, Camp, resort at vagamon, fairmount vagamon, fairmount vagamon resorts, resort offers, experience resort, most popular resort, resort experience, resort nature" />
+        <meta name="description" content="Best resort admist of vagamon's beauty, experience the refreshing nature" />
+        <meta name="author" content="Fairmount Vagamon" />
       </Head>
       <main>
         <Container size="lg" fluid p={0}>
