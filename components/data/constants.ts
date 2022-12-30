@@ -3,6 +3,7 @@ export enum CollectionName {
     THEME = "theme",
     TESTIMONIALS = "testimonials",
     PRODUCTS = "products",
+    PAGES = "pages",
 }
 
 export enum CollectionStatus {

@@ -10,14 +10,18 @@ import {
   ActionIcon,
   Container,
   Box,
-} from '@mantine/core';
-import { IconBrandTwitter, IconBrandYoutube, IconBrandInstagram } from '@tabler/icons';
-import { ContactIconsList } from '../components/ContactIcons';
+} from "@mantine/core";
+import { IconBrandTwitter, IconBrandYoutube, IconBrandInstagram, TablerIcon, IconAt, IconPhone, IconLockOpen, IconLocation, IconBrandFacebook, IconBrandWhatsapp } from "@tabler/icons";
+import { doc, getDoc } from "firebase/firestore";
+import { useEffect, useState } from "react";
+import { CollectionName } from "../components/data/constants";
+import { db } from "../components/data/firebaseConfig";
+import Link from "next/link";
 
 const useStyles = createStyles((theme) => ({
   wrapper: {
     minHeight: 400,
-    boxSizing: 'border-box',
+    boxSizing: "border-box",
     backgroundImage: `linear-gradient(-60deg, ${theme.colors[theme.primaryColor][4]} 0%, ${
       theme.colors[theme.primaryColor][7]
     } 100%)`,
@@ -40,7 +44,7 @@ const useStyles = createStyles((theme) => ({
     maxWidth: 300,
 
     [`@media (max-width: ${theme.breakpoints.sm}px)`]: {
-      maxWidth: '100%',
+      maxWidth: "100%",
     },
   },
 
@@ -54,7 +58,7 @@ const useStyles = createStyles((theme) => ({
   social: {
     color: theme.white,
 
-    '&:hover': {
+    "&:hover": {
       color: theme.colors[theme.primaryColor][1],
     },
   },
@@ -64,7 +68,7 @@ const useStyles = createStyles((theme) => ({
     borderColor: theme.colors.gray[4],
     color: theme.black,
 
-    '&::placeholder': {
+    "&::placeholder": {
       color: theme.colors.gray[5],
     },
   },
@@ -76,68 +80,141 @@ const useStyles = createStyles((theme) => ({
   control: {
     backgroundColor: theme.colors[theme.primaryColor][6],
   },
+
+  wrapper2: {
+    display: "flex",
+    alignItems: "center",
+    color: theme.white,
+  },
+
+  icon: {
+    marginRight: theme.spacing.md,
+    backgroundImage: "none",
+    backgroundColor: "transparent",
+  },
+
+  title2: {
+    color: theme.colors[theme.primaryColor][0],
+  },
+
+  description2: {
+    color: theme.white,
+  },
 }));
 
-const social = [IconBrandTwitter, IconBrandYoutube, IconBrandInstagram];
+function SideIcon({ name, data, Icon }: { name: string; data: string; Icon: TablerIcon }) {
+  return (
+    <Box style={{ display: "flex", alignItems: "center", color: "white" }} my={17}>
+      <Icon size={28} />
+      <Box pl={15}>
+        <Text size="xs">{name}</Text>
+        <Text>{data}</Text>
+      </Box>
+    </Box>
+  );
+}
 
 export default function Contact() {
   const { classes } = useStyles();
-
-  const icons = social.map((Icon, index) => (
-    <ActionIcon key={index} size={28} className={classes.social} variant="transparent">
-      <Icon size={22} stroke={1.5} />
-    </ActionIcon>
-  ));
+  const [values, setValues] = useState<ContactData>();
+  useEffect(() => {
+    const run = async () => {
+      const docRef = doc(db, CollectionName.PAGES, "contacts");
+      const docSnap = await getDoc(docRef);
+      setValues({ ...docSnap.data() } as ContactData);
+    };
+    run();
+  }, []);
 
   return (
     <Container my={30}>
-    <div className={classes.wrapper}>
-      <SimpleGrid cols={2} spacing={50} breakpoints={[{ maxWidth: 'sm', cols: 1 }]}>
-        <div>
-          <Title className={classes.title}>Contact us</Title>
-          <Text className={classes.description} mt="sm" mb={30}>
-            Leave your email and we will get back to you within 24 hours
-          </Text>
-          <ContactIconsList variant="white" />
+      <div className={classes.wrapper}>
+        <SimpleGrid cols={2} spacing={50} breakpoints={[{ maxWidth: "sm", cols: 1 }]}>
+          <div>
+            <Title className={classes.title}>Contact us</Title>
+            <Text className={classes.description} mt="sm" mb={30}>
+              Leave your email and we will get back to you within 24 hours
+            </Text>
 
-          <Group mt="xl">{icons}</Group>
-        </div>
-        <div className={classes.form}>
-          <TextInput
-            label="Email"
-            placeholder="your@email.com"
-            required
-            classNames={{ input: classes.input, label: classes.inputLabel }}
-          />
-          <TextInput
-            label="Name"
-            placeholder="John Doe"
-            mt="md"
-            classNames={{ input: classes.input, label: classes.inputLabel }}
-          />
-          <Textarea
-            required
-            label="Your message"
-            placeholder="I want to order your goods"
-            minRows={4}
-            mt="md"
-            classNames={{ input: classes.input, label: classes.inputLabel }}
-          />
+            <SideIcon name="Email" data={values?.email || ""} Icon={IconAt} />
+            <SideIcon name="Phone" data={values?.phone || ""} Icon={IconPhone} />
+            <SideIcon name="Hours" data={values?.hours || ""} Icon={IconLockOpen} />
+            <SideIcon name="Instagram" data={values?.address || ""} Icon={IconLocation} />
 
-          <Group position="right" mt="md">
-            <Button className={classes.control}>Send message</Button>
-          </Group>
-        </div>
-      </SimpleGrid>
-    </div>
-    <Box my={40} style={{borderRadius:20, overflow:"hidden"}}>
-          <div
-            dangerouslySetInnerHTML={{
-              __html:
-                '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3933.0738354558407!2d76.90342611432996!3d9.67473258120565!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3b07b4976ea12685%3A0x7695e1e5cc9b13e5!2sFairmount%20Vagamon%20Resorts!5e0!3m2!1sen!2sin!4v1670861868831!5m2!1sen!2sin" style="width:100%;border:none;" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
-            }}
-          />
-        </Box>
+            <Group mt="xl">
+              <ActionIcon
+                component={Link}
+                href={values?.twitter || ""}
+                size={28}
+                className={classes.social}
+                variant="transparent"
+              >
+                <IconBrandTwitter size={22} stroke={1.5} />
+              </ActionIcon>
+              <ActionIcon
+                component={Link}
+                href={values?.instagram || ""}
+                size={28}
+                className={classes.social}
+                variant="transparent"
+              >
+                <IconBrandInstagram size={22} stroke={1.5} />
+              </ActionIcon>
+              <ActionIcon
+                component={Link}
+                href={values?.facebook || ""}
+                size={28}
+                className={classes.social}
+                variant="transparent"
+              >
+                <IconBrandFacebook size={22} stroke={1.5} />
+              </ActionIcon>
+              <ActionIcon
+                component={Link}
+                href={values?.whatsapp || ""}
+                size={28}
+                className={classes.social}
+                variant="transparent"
+              >
+                <IconBrandWhatsapp size={22} stroke={1.5} />
+              </ActionIcon>
+            </Group>
+          </div>
+          <div className={classes.form}>
+            <TextInput
+              label="Email"
+              placeholder="your@email.com"
+              required
+              classNames={{ input: classes.input, label: classes.inputLabel }}
+            />
+            <TextInput
+              label="Name"
+              placeholder="John Doe"
+              mt="md"
+              classNames={{ input: classes.input, label: classes.inputLabel }}
+            />
+            <Textarea
+              required
+              label="Your message"
+              placeholder="I want to order your goods"
+              minRows={4}
+              mt="md"
+              classNames={{ input: classes.input, label: classes.inputLabel }}
+            />
+
+            <Group position="right" mt="md">
+              <Button className={classes.control}>Send message</Button>
+            </Group>
+          </div>
+        </SimpleGrid>
+      </div>
+      <Box my={40} style={{ borderRadius: 20, overflow: "hidden" }}>
+        <div
+          dangerouslySetInnerHTML={{
+            __html: values?.map||""
+          }}
+        />
+      </Box>
     </Container>
   );
 }

@@ -28,3 +28,19 @@ interface MediaProps {
   url: string;
   fullPath: string;
 }
+
+interface ContactData {
+  email: string;
+  phone: string;
+  address: string;
+  hours: string;
+  twitter: string;
+  youtube: string;
+  instagram: string;
+  whatsapp: string;
+  facebook: string;
+  map: string;
+  coordinatesx: string;
+  coordinatesy: string;
+  status: boolean;
+}

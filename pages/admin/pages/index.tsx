@@ -83,10 +83,10 @@ export default function Pages() {
           pb={20}
         >
           <Title order={2} weight={100}>
-            Products
+            Pages
           </Title>
           <Button component={Link} href="/admin/products/manage-product">
-            Add Product
+            Add Page
           </Button>
         </Box>
         <Table
@@ -167,7 +167,7 @@ const Row = ({ data, orderShift }: RowProps) => {
               <Popover.Dropdown>
                 <Box>
                   <Text size={"sm"} mb={10}>
-                    Delete this product?
+                    Delete this page?
                   </Text>
                   <Box>
                     <Button

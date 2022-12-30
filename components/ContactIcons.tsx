@@ -1,5 +1,9 @@
 import { createStyles, ThemeIcon, Text, SimpleGrid, Box, Stack } from '@mantine/core';
 import { IconSun, IconPhone, IconMapPin, IconAt } from '@tabler/icons';
+import { doc, getDoc } from 'firebase/firestore';
+import { useState, useEffect } from 'react';
+import { CollectionName } from './data/constants';
+import { db } from './data/firebaseConfig';
 
 type ContactIconVariant = 'white' | 'gradient';
 
@@ -50,6 +54,15 @@ function ContactIcon({
   ...others
 }: ContactIconProps) {
   const { classes, cx } = useStyles({ variant });
+  const [values,setValues] = useState<ContactData>();
+  useEffect(() => {
+    const run = async () => {
+        const docRef = doc(db, CollectionName.PAGES, "contacts");
+        const docSnap = await getDoc(docRef);
+        setValues({ ...docSnap.data() } as ContactData);
+    };
+    run();
+  }, []);
   return (
     <div className={cx(classes.wrapper, className)} {...others}>
       {variant === 'gradient' ? (

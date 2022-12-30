@@ -109,7 +109,7 @@ export default function HeaderComponent() {
     { link: "/", label: "Home" },
     { link: "/rooms", label: "Rooms and Rates" },
     { link: "/roomss", label: "Experiences" },
-    { link: "/roomss", label: "Gallery" },
+    { link: "/gallery", label: "Gallery" },
     { link: "/contact", label: "Contact Us" },
   ];
   const [active, setActive] = useState(links[0].link);
