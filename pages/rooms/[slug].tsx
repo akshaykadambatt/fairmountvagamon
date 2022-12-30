@@ -103,7 +103,7 @@ export default function Room() {
           <Title order={3} pb={20} color="white" weight={100}>Amenities</Title>
           <Box style={{display:"flex",gap:20,flexWrap:"wrap"}}>
             {product?.amenities.map((e) => (
-              <>
+              <Box key={e}>
                 {AmenitiesIds.CAMPFIRE == e && (
                   <Box className={classes.amenities}><Box style={{display:"block"}} >
                     <IconCampfire color="green" size={30} stroke={1} /></Box>
@@ -152,7 +152,7 @@ export default function Room() {
                     <Text size="sm">Room Service</Text>
                   </Box>
                 )}
-              </>
+              </Box>
             ))}
           </Box>
         </Container>

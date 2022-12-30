@@ -40,7 +40,7 @@ export default function Rooms() {
             <Grid.Col span={12}>
               <SimpleGrid cols={3} pt={30}>
                 {products?.map((data: ProductProps) => (
-                    <CarouselCard data={data}/>
+                    <CarouselCard key={data.name} data={data}/>
                 ))}
                 {!products && <>
                 <Skeleton height={400}/>
