@@ -90,7 +90,7 @@ export default function Room() {
         }}
       >
         {product?.images.map((e) => (
-          <Carousel.Slide style={{ background: `url(${e.url})`, backgroundSize: "cover" }}>
+          <Carousel.Slide key={e.name} style={{ background: `url(${e.url})`, backgroundSize: "cover" }}>
             <Container size="lg" py={"15%"} my={30}></Container>
           </Carousel.Slide>
         ))}
