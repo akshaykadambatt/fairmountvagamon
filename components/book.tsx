@@ -49,6 +49,7 @@ const SelectItem = forwardRef<HTMLDivElement, ItemProps>(
     </div>
   )
 );
+SelectItem.displayName = 'SelectItem';
 export default function Book() {
   const theme = useMantineTheme();
   const [year, setYear] = useState(new Date().getFullYear());
