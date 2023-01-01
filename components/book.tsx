@@ -2,12 +2,15 @@ import Head from "next/head";
 import Image from "next/image";
 import styles from "../styles/Home.module.css";
 import {
+  Avatar,
   Box,
   Button,
   Container,
   Grid,
+  Group,
   NumberInput,
   Popover,
+  Select,
   Text,
   TextInput,
   Title,
@@ -17,13 +20,20 @@ import { Carousel } from "@mantine/carousel";
 import HeaderComponent from "../components/header";
 import { DateRangePicker } from "@mantine/dates";
 import { query, collection, getDocs, where } from "firebase/firestore";
-import { useEffect, useState } from "react";
+import { forwardRef, useEffect, useState } from "react";
 import { db } from "./data/firebaseConfig";
 import { CollectionName, CollectionStatus } from "./data/constants";
 import { RangeCalendar } from "@mantine/dates";
 import useViewport from "./data/useViewport";
 import { useClickOutside } from "@mantine/hooks";
 import dayjs from "dayjs";
+interface ItemProps extends React.ComponentPropsWithoutRef<"div"> {
+  image: string;
+  label: string;
+  description: string;
+  value: string;
+}
+
 export default function Book() {
   const theme = useMantineTheme();
   const [year, setYear] = useState(new Date().getFullYear());
@@ -33,6 +43,14 @@ export default function Book() {
   const [value, setValue] = useState<[Date | null, Date | null]>([null, null]);
   const [beautifiedDate, setBeautifiedDate] = useState<string | undefined>();
   const [bookingData, setBookingData] = useState<any>();
+  const [productData, setProductData] = useState<ItemProps[]>([
+    {
+      image: "",
+      label: "Loading",
+      value: "Loading",
+      description: "Loading",
+    },
+  ]);
   useEffect(() => {
     //get this year's bookings
     let data;
@@ -61,6 +79,32 @@ export default function Book() {
       });
     });
   }, [year]);
+
+  
+  useEffect(()=>{
+    console.log('adsf');
+    let queryy = query(
+      collection(db, CollectionName.PRODUCTS),
+      where("status", "==", true)
+    );
+    let data:any[] = [];
+    getDocs(queryy).then((productsSnapshot) => {
+      let queryData = productsSnapshot.docs.map((product) => ({
+        ...product.data(),
+      } as ProductProps));
+      queryData.forEach((product) => {
+        console.log(product.name);
+        data.push({
+          image: product.images[0].url,
+          label: product.name,
+          value: product.id,
+          description: product.shortDescription,
+        })
+      });
+      setProductData(data)
+    });
+    
+  },[])
   useEffect(() => {
     if (value[0] || value[1]) {
       setBeautifiedDate(
@@ -100,13 +144,42 @@ export default function Book() {
       return date.getDate();
     }
   }
+  const SelectItem = forwardRef<HTMLDivElement, ItemProps>(
+    ({ image, label, description, ...others }: ItemProps, ref) => (
+      <div ref={ref} {...others} key={JSON.stringify(value)}>
+        <Group noWrap>
+          <Avatar src={image} />
 
+          <div>
+            <Text size="sm">{label}</Text>
+            <Text size="xs" opacity={0.65}>
+              {description}
+            </Text>
+          </div>
+        </Group>
+      </div>
+    )
+  );
   return (
     <Grid align="center">
       <Grid.Col span={12} md={9}>
         <Grid>
           <Grid.Col span={12} md={8}>
-            <Popover
+            <Select
+              label="Choose employee of the month"
+              description="Enter your desired stay length"
+              placeholder="Pick one"
+              itemComponent={SelectItem}
+              data={productData}
+              searchable
+              maxDropdownHeight={400}
+              nothingFound="Nobody here"
+              filter={(value, item) =>
+                item.label?.toLowerCase().includes(value.toLowerCase().trim()) ||
+                item.description.toLowerCase().includes(value.toLowerCase().trim())
+              }
+            />
+            {/* <Popover
               opened={popoverOpened}
               trapFocus
               position="bottom"
@@ -145,7 +218,7 @@ export default function Book() {
                   />
                 </Box>
               </Popover.Dropdown>
-            </Popover>
+            </Popover> */}
           </Grid.Col>
           <Grid.Col span={12} md={4}>
             <NumberInput
