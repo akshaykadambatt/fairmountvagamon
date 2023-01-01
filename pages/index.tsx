@@ -153,6 +153,23 @@ export default function Home() {
         <meta name="author" content="Fairmount Vagamon" />
       </Head>
       <main>
+        <div
+          dangerouslySetInnerHTML={{
+            __html: "<!--Start of Tawk.to Script-->
+                     <script type="text/javascript">
+                     var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+                     (function(){
+                     var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+                     s1.async=true;
+                     s1.src='https://embed.tawk.to/63a55b55daff0e1306de0427/1gkuupi6t';
+                     s1.charset='UTF-8';
+                     s1.setAttribute('crossorigin','*');
+                     s0.parentNode.insertBefore(s1,s0);
+                     })();
+                     </script>
+                     <!--End of Tawk.to Script-->"
+          }}
+        />
         <Container size="lg" fluid p={0}>
           <Carousel
             mx="auto"
