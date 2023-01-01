@@ -33,7 +33,22 @@ interface ItemProps extends React.ComponentPropsWithoutRef<"div"> {
   description: string;
   value: string;
 }
+const SelectItem = forwardRef<HTMLDivElement, ItemProps>(
+  ({ image, label, description, ...others }: ItemProps, ref) => (
+    <div ref={ref} {...others}>
+      <Group noWrap>
+        <Avatar src={image} />
 
+        <div>
+          <Text size="sm">{label}</Text>
+          <Text size="xs" opacity={0.65}>
+            {description}
+          </Text>
+        </div>
+      </Group>
+    </div>
+  )
+);
 export default function Book() {
   const theme = useMantineTheme();
   const [year, setYear] = useState(new Date().getFullYear());
@@ -82,7 +97,6 @@ export default function Book() {
 
   
   useEffect(()=>{
-    console.log('adsf');
     let queryy = query(
       collection(db, CollectionName.PRODUCTS),
       where("status", "==", true)
@@ -93,7 +107,6 @@ export default function Book() {
         ...product.data(),
       } as ProductProps));
       queryData.forEach((product) => {
-        console.log(product.name);
         data.push({
           image: product.images[0].url,
           label: product.name,
@@ -144,22 +157,7 @@ export default function Book() {
       return date.getDate();
     }
   }
-  const SelectItem = forwardRef<HTMLDivElement, ItemProps>(
-    ({ image, label, description, ...others }: ItemProps, ref) => (
-      <div ref={ref} {...others} key={JSON.stringify(value)}>
-        <Group noWrap>
-          <Avatar src={image} />
-
-          <div>
-            <Text size="sm">{label}</Text>
-            <Text size="xs" opacity={0.65}>
-              {description}
-            </Text>
-          </div>
-        </Group>
-      </div>
-    )
-  );
+  
   return (
     <Grid align="center">
       <Grid.Col span={12} md={9}>
