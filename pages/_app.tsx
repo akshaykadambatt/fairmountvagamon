@@ -12,6 +12,8 @@ import { AuthProvider } from "../components/data/AuthProvider";
 import { useContext } from "react";
 import { AuthContext } from "../components/data/AuthContext";
 import { NotificationsProvider } from "@mantine/notifications";
+import { Provider } from "react-redux";
+import configureStore from "../components/data/configureStore";
 
 const natoSans = Noto_Sans({
   weight: ["100", "300", "400", "500", "700", "800", "900"],
@@ -27,6 +29,7 @@ export default function App({ Component, pageProps }: AppProps) {
   const { asPath, pathname } = useRouter();
   
   return (
+    <Provider store={configureStore}>
     <AuthProvider>
         <MantineProvider withGlobalStyles withNormalizeCSS theme={googleFontTheme}>
         <NotificationsProvider>
@@ -75,5 +78,6 @@ export default function App({ Component, pageProps }: AppProps) {
           </NotificationsProvider>
         </MantineProvider>
     </AuthProvider>
+    </Provider>
   );
 }

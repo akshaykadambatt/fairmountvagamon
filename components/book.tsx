@@ -27,29 +27,24 @@ import { RangeCalendar } from "@mantine/dates";
 import useViewport from "./data/useViewport";
 import { useClickOutside } from "@mantine/hooks";
 import dayjs from "dayjs";
-interface ItemProps extends React.ComponentPropsWithoutRef<"div"> {
-  image: string;
-  label: string;
-  description: string;
-  value: string;
-}
-const SelectItem = forwardRef<HTMLDivElement, ItemProps>(
-  ({ image, label, description, ...others }: ItemProps, ref) => (
-    <div ref={ref} {...others}>
-      <Group noWrap>
-        <Avatar src={image} />
+import { useDispatch, useSelector } from "react-redux";
+import { setNotification, setSelectedProduct } from "./data/actions";
+import { RootState } from "./data/configureStore";
 
-        <div>
-          <Text size="sm">{label}</Text>
-          <Text size="xs" opacity={0.65}>
-            {description}
-          </Text>
-        </div>
-      </Group>
-    </div>
-  )
-);
-SelectItem.displayName = 'SelectItem';
+const SelectItem = forwardRef<HTMLDivElement, ProductProps>(({ images, name, shortDescription, ...others }: ProductProps, ref) => (
+  <div ref={ref} {...others}>
+    <Group noWrap>
+      <Avatar src={images[0].url} />
+      <div>
+        <Text size="sm">{name}</Text>
+        <Text size="xs" opacity={0.65}>
+          {shortDescription}
+        </Text>
+      </div>
+    </Group>
+  </div>
+));
+SelectItem.displayName = "SelectItem";
 export default function Book() {
   const theme = useMantineTheme();
   const [year, setYear] = useState(new Date().getFullYear());
@@ -59,14 +54,11 @@ export default function Book() {
   const [value, setValue] = useState<[Date | null, Date | null]>([null, null]);
   const [beautifiedDate, setBeautifiedDate] = useState<string | undefined>();
   const [bookingData, setBookingData] = useState<any>();
-  const [productData, setProductData] = useState<ItemProps[]>([
-    {
-      image: "",
-      label: "Loading",
-      value: "Loading",
-      description: "Loading",
-    },
-  ]);
+  const dispatch = useDispatch();
+  const { selectedProduct } = useSelector(
+    (state: RootState) => state.actions
+  );
+  const [productData, setProductData] = useState<ProductProps[]>([]);
   useEffect(() => {
     //get this year's bookings
     let data;
@@ -96,29 +88,16 @@ export default function Book() {
     });
   }, [year]);
 
-  
-  useEffect(()=>{
-    let queryy = query(
-      collection(db, CollectionName.PRODUCTS),
-      where("status", "==", true)
-    );
-    let data:any[] = [];
+  useEffect(() => {
+    let queryy = query(collection(db, CollectionName.PRODUCTS), where("status", "==", true));
+    let data: any[] = [];
     getDocs(queryy).then((productsSnapshot) => {
-      let queryData = productsSnapshot.docs.map((product) => ({
-        ...product.data(),
-      } as ProductProps));
-      queryData.forEach((product) => {
-        data.push({
-          image: product.images[0].url,
-          label: product.name,
-          value: product.id,
-          description: product.shortDescription,
-        })
-      });
-      setProductData(data)
+      let queryData = productsSnapshot.docs.map(
+        (product) => Object.assign({ ...product.data() }, { id: product.id }) as ProductProps
+      );
+      setProductData(queryData);
     });
-    
-  },[])
+  }, []);
   useEffect(() => {
     if (value[0] || value[1]) {
       setBeautifiedDate(
@@ -158,19 +137,24 @@ export default function Book() {
       return date.getDate();
     }
   }
-  
+
   return (
     <Grid align="center">
       <Grid.Col span={12} md={9}>
         <Grid>
           <Grid.Col span={12} md={8}>
             <Select
-              label="Choose employee of the month"
-              description="Enter your desired stay length"
+              label="Select a service"
+              description="Pick a type of room or service that you'd like"
               placeholder="Pick one"
               itemComponent={SelectItem}
-              data={productData}
-              searchable
+              data={productData.map(e=> Object.assign(e,{value:e.id||""}))}
+              value={selectedProduct.id}
+              onChange={(value) => {
+                dispatch(setSelectedProduct(productData.filter(e=>{
+                  return e.id==value
+                })[0]));
+              }}
               maxDropdownHeight={400}
               nothingFound="Nobody here"
               filter={(value, item) =>

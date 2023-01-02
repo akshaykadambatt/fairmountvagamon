@@ -21,6 +21,7 @@ interface ProductProps {
   videos: MediaProps[];
   id?: string;
   slug: string;
+  [key: string]: any;
 }
 
 interface MediaProps {
