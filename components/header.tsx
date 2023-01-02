@@ -17,6 +17,8 @@ import { useDisclosure } from "@mantine/hooks";
 import Link from "next/link";
 import { AuthContext } from "./data/AuthContext";
 import { IconExternalLink } from "@tabler/icons";
+import navlogo from '../assets/navlogo.svg';
+import Image from "next/image";
 
 const HEADER_HEIGHT = 60;
 
@@ -157,7 +159,7 @@ export default function HeaderComponent() {
       <Container style={{ height: HEADER_HEIGHT }} className={`${classes.header} `} size="lg">
         {/* <MantineLogo size={28} /> */}
         <Link href="/" className={` ${classes.logo}`}>
-          Fairmount
+          <Image src={navlogo} alt="Fairmount Logo" height={40}/>
         </Link>
         <Group spacing={5} className={classes.links}>
           {items}
