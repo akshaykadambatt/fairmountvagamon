@@ -21,9 +21,11 @@ interface ProductProps {
   videos: MediaProps[];
   id?: string;
   slug: string;
-  [key: string]: any;
 }
-
+interface ProductPropsWithValue extends ProductProps {
+  value: string;
+  label: string;
+}
 interface MediaProps {
   name: string;
   url: string;

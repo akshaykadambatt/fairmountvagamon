@@ -7,7 +7,7 @@ export const actionSlice = createSlice({
   initialState: {
     userId: "" as string,
     notification: { title: "", body: "" } as { title: string; body: string },
-    selectedProduct: {} as ProductProps,
+    selectedProduct: {} as ProductPropsWithValue,
   },
   reducers: {
     setUserId: (state, action) => {
@@ -19,6 +19,8 @@ export const actionSlice = createSlice({
     },
     setSelectedProduct: (state, action) => {
       state.selectedProduct = action.payload;
+      console.log(state.selectedProduct);
+      
     },
   },
 });

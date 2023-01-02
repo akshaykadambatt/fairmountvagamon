@@ -31,20 +31,23 @@ import { useDispatch, useSelector } from "react-redux";
 import { setNotification, setSelectedProduct } from "./data/actions";
 import { RootState } from "./data/configureStore";
 
-const SelectItem = forwardRef<HTMLDivElement, ProductProps>(({ images, name, shortDescription, ...others }: ProductProps, ref) => (
-  <div ref={ref} {...others}>
-    <Group noWrap>
-      <Avatar src={images[0].url} />
-      <div>
-        <Text size="sm">{name}</Text>
-        <Text size="xs" opacity={0.65}>
-          {shortDescription}
-        </Text>
-      </div>
-    </Group>
-  </div>
-));
+const SelectItem = forwardRef<HTMLDivElement, ProductPropsWithValue>(
+  ({ images, name, shortDescription, ...others }: ProductProps, ref) => (
+    <div ref={ref} {...others}>
+      <Group noWrap>
+        <Avatar src={images[0].url} />
+        <div>
+          <Text size="sm">{name}</Text>
+          <Text size="xs" opacity={0.65}>
+            {shortDescription}
+          </Text>
+        </div>
+      </Group>
+    </div>
+  )
+);
 SelectItem.displayName = "SelectItem";
+
 export default function Book() {
   const theme = useMantineTheme();
   const [year, setYear] = useState(new Date().getFullYear());
@@ -55,10 +58,8 @@ export default function Book() {
   const [beautifiedDate, setBeautifiedDate] = useState<string | undefined>();
   const [bookingData, setBookingData] = useState<any>();
   const dispatch = useDispatch();
-  const { selectedProduct } = useSelector(
-    (state: RootState) => state.actions
-  );
-  const [productData, setProductData] = useState<ProductProps[]>([]);
+  const { selectedProduct } = useSelector((state: RootState) => state.actions);
+  const [productData, setProductData] = useState<ProductPropsWithValue[]>([]);
   useEffect(() => {
     //get this year's bookings
     let data;
@@ -93,9 +94,14 @@ export default function Book() {
     let data: any[] = [];
     getDocs(queryy).then((productsSnapshot) => {
       let queryData = productsSnapshot.docs.map(
-        (product) => Object.assign({ ...product.data() }, { id: product.id }) as ProductProps
+        (product) =>
+          Object.assign(
+            { ...product.data() },
+            { id: product.id, value: product.id, label: product.data().name }
+          ) as unknown as ProductPropsWithValue
       );
       setProductData(queryData);
+      console.log(queryData);
     });
   }, []);
   useEffect(() => {
@@ -148,13 +154,7 @@ export default function Book() {
               description="Pick a type of room or service that you'd like"
               placeholder="Pick one"
               itemComponent={SelectItem}
-              data={productData.map(e=> Object.assign(e,{value:e.id||""}))}
-              value={selectedProduct.id}
-              onChange={(value) => {
-                dispatch(setSelectedProduct(productData.filter(e=>{
-                  return e.id==value
-                })[0]));
-              }}
+              data={productData}
               maxDropdownHeight={400}
               nothingFound="Nobody here"
               filter={(value, item) =>
