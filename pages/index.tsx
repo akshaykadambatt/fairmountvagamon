@@ -578,7 +578,7 @@ export default function Home() {
           <Container size={"lg"}>
             <Text style={{ letterSpacing: 5 }}>EXPERIENCE</Text>
             <Title weight={100} order={2} mb={50} mt={10} size={50}>
-              Fairmount Resort, Vagamon
+              Vagamon at Fairmount
             </Title>
             <Cardslider />
           </Container>
