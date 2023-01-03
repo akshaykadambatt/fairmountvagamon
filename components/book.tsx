@@ -28,7 +28,7 @@ import useViewport from "./data/useViewport";
 import { useClickOutside } from "@mantine/hooks";
 import dayjs from "dayjs";
 import { useDispatch, useSelector } from "react-redux";
-import { setNotification, setSelectedProduct } from "./data/actions";
+import { setNotification, setSelectedDate, setSelectedProduct } from "./data/actions";
 import { RootState } from "./data/configureStore";
 
 const SelectItem = forwardRef<HTMLDivElement, ProductPropsWithValue>(
@@ -48,7 +48,7 @@ const SelectItem = forwardRef<HTMLDivElement, ProductPropsWithValue>(
 );
 SelectItem.displayName = "SelectItem";
 
-export default function Book() {
+export default function Book({ noCheckButton }: { noCheckButton?: boolean }) {
   const theme = useMantineTheme();
   const [year, setYear] = useState(new Date().getFullYear());
   const [popoverOpened, setPopoverOpened] = useState(false);
@@ -58,8 +58,8 @@ export default function Book() {
   const [beautifiedDate, setBeautifiedDate] = useState<string | undefined>();
   const [bookingData, setBookingData] = useState<any>();
   const dispatch = useDispatch();
-  const { selectedProduct } = useSelector((state: RootState) => state.actions);
-  const [productData, setProductData] = useState<ProductPropsWithValue[]>([]);
+  const { selectedProduct, selectedDate } = useSelector((state: RootState) => state.actions);
+  const [productData, setProductData] = useState<ProductPropsWithValue[]>([selectedProduct]);
   useEffect(() => {
     //get this year's bookings
     let data;
@@ -143,18 +143,33 @@ export default function Book() {
       return date.getDate();
     }
   }
-
+  useEffect(()=>{
+    dispatch(setSelectedDate(value));
+  },[value])
+  useEffect(()=>{
+    setValue(selectedDate)
+  },[])
   return (
     <Grid align="center">
-      <Grid.Col span={12} md={9}>
+      <Grid.Col span={12} md={noCheckButton ? 12 : 9}>
         <Grid>
-          <Grid.Col span={12} md={8}>
+          <Grid.Col span={12} md={7}>
             <Select
               label="Select a service"
               description="Pick a type of room or service that you'd like"
               placeholder="Pick one"
               itemComponent={SelectItem}
               data={productData}
+              value={selectedProduct.value}
+              onChange={(value) => {
+                dispatch(
+                  setSelectedProduct(
+                    productData.filter((e) => {
+                      return e.id == value;
+                    })[0]
+                  )
+                );
+              }}
               maxDropdownHeight={400}
               nothingFound="Nobody here"
               filter={(value, item) =>
@@ -162,7 +177,16 @@ export default function Book() {
                 item.description.toLowerCase().includes(value.toLowerCase().trim())
               }
             />
-            {/* <Popover
+          </Grid.Col>
+          <Grid.Col span={12} md={5}>
+            {/* <NumberInput
+              defaultValue={1}
+              description="Enter the number of people staying"
+              placeholder="Number of people"
+              label="Number of people"
+              withAsterisk
+            /> */}
+            <Popover
               opened={popoverOpened}
               trapFocus
               position="bottom"
@@ -186,7 +210,7 @@ export default function Book() {
                   <RangeCalendar
                     excludeDate={(date) => date < new Date()}
                     allowSingleDateInRange
-                    value={value}
+                    value={selectedDate}
                     onChange={(value) => {
                       setValue([null, null]);
                       setValue(value);
@@ -201,24 +225,17 @@ export default function Book() {
                   />
                 </Box>
               </Popover.Dropdown>
-            </Popover> */}
-          </Grid.Col>
-          <Grid.Col span={12} md={4}>
-            <NumberInput
-              defaultValue={1}
-              description="Enter the number of people staying"
-              placeholder="Number of people"
-              label="Number of people"
-              withAsterisk
-            />
+            </Popover>
           </Grid.Col>
         </Grid>
       </Grid.Col>
-      <Grid.Col span={12} md={3}>
-        <Button fullWidth size={"md"}>
-          Check availability
-        </Button>
-      </Grid.Col>
+      {!noCheckButton && (
+        <Grid.Col span={12} md={3}>
+          <Button fullWidth size={"md"}>
+            Check availability
+          </Button>
+        </Grid.Col>
+      )}
     </Grid>
   );
 }

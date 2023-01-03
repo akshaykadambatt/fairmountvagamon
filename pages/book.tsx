@@ -28,7 +28,7 @@ export default function Contact() {
   return <Container my={30}>
     <Stepper active={active} onStepClick={setActive} breakpoint="sm">
         <Stepper.Step label="First step" description="Create an account">
-          <Book/>
+          <Book noCheckButton={true}/>
         </Stepper.Step>
         <Stepper.Step label="Second step" description="Verify email">
           Step 2 content: Verify email

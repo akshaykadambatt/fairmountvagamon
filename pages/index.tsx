@@ -411,7 +411,7 @@ export default function Home() {
                   boxShadow: "3px 4px 20px 20px #00000008",
                 }}
               >
-                <Book />
+                <Book/>
               </Box>
             </Box>
           </Reveal>

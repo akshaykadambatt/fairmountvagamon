@@ -8,6 +8,7 @@ export const actionSlice = createSlice({
     userId: "" as string,
     notification: { title: "", body: "" } as { title: string; body: string },
     selectedProduct: {} as ProductPropsWithValue,
+    selectedDate: [null, null] as [Date | null, Date | null],
   },
   reducers: {
     setUserId: (state, action) => {
@@ -19,12 +20,13 @@ export const actionSlice = createSlice({
     },
     setSelectedProduct: (state, action) => {
       state.selectedProduct = action.payload;
-      console.log(state.selectedProduct);
-      
+    },
+    setSelectedDate: (state, action) => {
+      state.selectedDate = action.payload;
     },
   },
 });
 
-export const { setUserId, setNotification, setSelectedProduct } = actionSlice.actions;
+export const { setUserId, setNotification, setSelectedProduct, setSelectedDate } = actionSlice.actions;
 
 export default actionSlice.reducer;
