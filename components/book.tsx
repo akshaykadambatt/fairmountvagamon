@@ -61,7 +61,7 @@ export default function Book({ noCheckButton }: { noCheckButton?: boolean }) {
   const { selectedProduct, selectedDate } = useSelector((state: RootState) => state.actions);
   const [productData, setProductData] = useState<ProductPropsWithValue[]>([selectedProduct]);
   useEffect(() => {
-    //get this year's bookings
+    //get this year's bookings 
     let data;
     let weight = {} as any;
     let queryy = query(
