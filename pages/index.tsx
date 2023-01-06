@@ -76,10 +76,10 @@ export default function Home() {
 `;
   const activeClass = useRef(ClassNames({ selected: "active-carousel-class" }));
   const autoplay = useRef(Autoplay({ delay: 5000 }));
-  const [embla, setEmbla] = useState<Embla | null>(null);
+  const [embla, setEmbla] = useState < Embla | null > (null);
   const theme = useMantineTheme();
-  const [testimonials, setTestimonials] = useState<any>();
-  const [testimonialSlideActive, setTestimonialSlideActive] = useState<number>(0);
+  const [testimonials, setTestimonials] = useState < any > ();
+  const [testimonialSlideActive, setTestimonialSlideActive] = useState < number > (0);
   const { classes } = useStyles();
   useEffect(() => {
     let queryy = query(collection(db, "theme"));
@@ -196,7 +196,7 @@ export default function Home() {
                   <Grid.Col span={12} xs={8}>
                     <Reveal keyframes={customAnimation} cascade duration={500} damping={0.3}>
                       <Text weight={100} px={6} color="#fff">
-                      WELCOME TO
+                        WELCOME TO
                       </Text>
                       <Title
                         px={10}
@@ -215,8 +215,8 @@ export default function Home() {
                         RESORTS, WAGAMON
                       </Text>
                       <Text weight={100} px={6} mb={10} color="#fff" size={13}>
-                      Enclosed between rolling hills and lush tea gardens, Fairmount Vagamon Resorts is an offbeat property offering comfortable accommodations and beautiful landmarks to visit nearby. 
-                      The rooms offer scenic views of hills. It has a shared dining area and living area to enjoy with your friends and family.
+                        Enclosed between rolling hills and lush tea gardens, Fairmount Vagamon Resorts is an offbeat property offering comfortable accommodations and beautiful landmarks to visit nearby.
+                        The rooms offer scenic views of hills. It has a shared dining area and living area to enjoy with your friends and family.
                       </Text>
                       <Box px={6}>
                         <Button variant="white" color="dark" size={"xs"}>
@@ -409,7 +409,7 @@ export default function Home() {
                   boxShadow: "3px 4px 20px 20px #00000008",
                 }}
               >
-                <Book/>
+                <Book />
               </Box>
             </Box>
           </Reveal>
