@@ -27,13 +27,13 @@ export default function Contact() {
   const prevStep = () => setActive((current) => (current > 0 ? current - 1 : current));
   return <Container my={30}>
     <Stepper active={active} onStepClick={setActive} breakpoint="sm">
-        <Stepper.Step label="First step" description="Create an account">
+        <Stepper.Step label="Select dates" description="Dates and service">
           <Book noCheckButton={true}/>
         </Stepper.Step>
-        <Stepper.Step label="Second step" description="Verify email">
+        <Stepper.Step label="Select occupants" description="Occupants and addons">
           <BookSecondStep/>
         </Stepper.Step>
-        <Stepper.Step label="Final step" description="Get full access">
+        <Stepper.Step label="Confirm booking" description="View booking summary">
           <BookThirdStep/>
         </Stepper.Step>
         <Stepper.Completed>
