@@ -9,6 +9,10 @@ export const actionSlice = createSlice({
     notification: { title: "", body: "" } as { title: string; body: string },
     selectedProduct: {} as ProductPropsWithValue,
     selectedDate: [null, null] as [Date | null, Date | null],
+    selectedNumberOfOccupants: [0, 0], //[adults, children]
+    selectedAddons: [] as number[],
+    selectedNotes: "",
+    selectedTerms: false,
   },
   reducers: {
     setUserId: (state, action) => {
@@ -24,9 +28,30 @@ export const actionSlice = createSlice({
     setSelectedDate: (state, action) => {
       state.selectedDate = action.payload;
     },
+    setSelectedNumberOfOccupants: (state, action) => {
+      state.selectedNumberOfOccupants = action.payload;
+    },
+    setSelectedAddons: (state, action) => {
+      state.selectedAddons = action.payload;
+    },
+    setSelectedNotes: (state, action) => {
+      state.selectedNotes = action.payload;
+    },
+    setSelectedTerms: (state, action) => {
+      state.selectedTerms = action.payload;
+    },
   },
 });
 
-export const { setUserId, setNotification, setSelectedProduct, setSelectedDate } = actionSlice.actions;
+export const {
+  setSelectedTerms,
+  setSelectedNotes,
+  setSelectedAddons,
+  setUserId,
+  setNotification,
+  setSelectedProduct,
+  setSelectedDate,
+  setSelectedNumberOfOccupants,
+} = actionSlice.actions;
 
 export default actionSlice.reducer;

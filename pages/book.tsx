@@ -18,7 +18,7 @@ import {
   IconBrandInstagram,
 } from "@tabler/icons";
 import { useState } from "react";
-import Book from "../components/book";
+import Book, { BookSecondStep, BookSuccess, BookThirdStep } from "../components/book";
 import { ContactIconsList } from "../components/ContactIcons";
 
 export default function Contact() {
@@ -31,19 +31,19 @@ export default function Contact() {
           <Book noCheckButton={true}/>
         </Stepper.Step>
         <Stepper.Step label="Second step" description="Verify email">
-          Step 2 content: Verify email
+          <BookSecondStep/>
         </Stepper.Step>
         <Stepper.Step label="Final step" description="Get full access">
-          Step 3 content: Get full access
+          <BookThirdStep/>
         </Stepper.Step>
         <Stepper.Completed>
-          Completed, click back button to get to previous step
+          <BookSuccess/>
         </Stepper.Completed>
       </Stepper>
 
-      <Group position="center" mt="xl">
-        <Button variant="default" onClick={prevStep}>Back</Button>
-        <Button onClick={nextStep}>Next step</Button>
+      <Group position="right" mt="xl">
+        {(active!=0&&active!=3) && <Button variant="default" onClick={prevStep}>Back</Button>}
+        {active<3 && <Button onClick={nextStep}>Next step</Button>}
       </Group>
   </Container>;
 }
