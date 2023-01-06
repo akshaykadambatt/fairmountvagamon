@@ -396,7 +396,7 @@ export function BookSecondStep() {
           ))}
           {!addons &&
             [1, 2, 2.5, 3.3].map((e) => (
-              <Skeleton height={26} width={`${e * 10}%`} style={{ display: "inline-block" }} radius="xl" />
+              <Skeleton height={26} width={`${e * 10}%`} style={{ display: "inline-block" }} radius="xl" key={e} />
             ))}
         </Chip.Group>
         <Text size={"xs"} color="dimmed">
@@ -437,7 +437,7 @@ export function BookThirdStep() {
     <Grid>
       <Grid.Col span={12}>
         <Title order={6}>Confirm your reservation</Title>
-        <Text>Here's a summary of all the selections you made on the previous steps.</Text>
+        <Text>Here&apos;s a summary of all the selections you made on the previous steps.</Text>
         <code>
           selectedNumberOfOccupants {selectedNumberOfOccupants}
           <br></br>
