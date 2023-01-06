@@ -196,7 +196,7 @@ export default function Home() {
                   <Grid.Col span={12} xs={8}>
                     <Reveal keyframes={customAnimation} cascade duration={500} damping={0.3}>
                       <Text weight={100} px={6} color="#fff">
-                        WELCOME TO
+                      WELCOME TO
                       </Text>
                       <Title
                         px={10}
@@ -215,9 +215,8 @@ export default function Home() {
                         RESORTS, WAGAMON
                       </Text>
                       <Text weight={100} px={6} mb={10} color="#fff" size={13}>
-                        One of the most popular FairMount Vagamon Resort, offers a perfect blend of all modern luxuries
-                        and a comfortable companionship of nature. we have provided premium resort experience and a
-                        comfortable companionship of nature. we have provided premium resort experience
+                      Enclosed between rolling hills and lush tea gardens, Fairmount Vagamon Resorts is an offbeat property offering comfortable accommodations and beautiful landmarks to visit nearby. 
+                      The rooms offer scenic views of hills. It has a shared dining area and living area to enjoy with your friends and family.
                       </Text>
                       <Box px={6}>
                         <Button variant="white" color="dark" size={"xs"}>
@@ -368,8 +367,7 @@ export default function Home() {
               <Reveal keyframes={customAnimation} triggerOnce={true} delay={1000} fraction={1} duration={500}>
                 <Text size={13}>
                   One of the most popular <strong>Fairmount Vagamon Resort</strong>, offers a perfect blend of all
-                  modern luxuries and a comfortable companionship of nature. we have provided premium resort experience
-                  and a comfortable companionship of nature. we have provided premium resort experience.
+                  modern luxuries and a comfortable companionship of nature with a premium resort experience.
                 </Text>
               </Reveal>
             </Grid.Col>
