@@ -5,6 +5,12 @@ interface TestimonialProps {
   order: number;
   id?: string;
 }
+interface AddonProps {
+  name: string;
+  content: string;
+  status: boolean;
+  id?: string;
+}
 
 interface ProductProps {
   name: string;

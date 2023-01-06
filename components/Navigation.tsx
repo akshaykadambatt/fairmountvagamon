@@ -117,9 +117,9 @@ const Navigation: React.FC<Props> = ({ children }) => {
       icon: IconCalendarPlus,
       initiallyOpened: pathname?.match("admin/bookings")?.length || 0 > 0 ? true : false,
       links: [
-        { label: "Bookings", link: "/" },
-        { label: "Modify availability", link: "/" },
-        { label: "Users", link: "/" },
+        { label: "Bookings", link: "/admin/bookings" },
+        { label: "Modify availability", link: "/admin/bookings/availability" },
+        { label: "Addons", link: "/admin/bookings/addons" },
       ],
     },
     { label: "Testimonials", icon: IconUsers, link: "/admin/testimonials" },

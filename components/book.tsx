@@ -1,5 +1,6 @@
 import Head from "next/head";
 import Image from "next/image";
+import Link from "next/link";
 import styles from "../styles/Home.module.css";
 import {
   Avatar,
@@ -14,6 +15,7 @@ import {
   Popover,
   Select,
   SimpleGrid,
+  Skeleton,
   Text,
   TextInput,
   Textarea,
@@ -113,7 +115,6 @@ export default function Book({ noCheckButton }: { noCheckButton?: boolean }) {
           ) as unknown as ProductPropsWithValue
       );
       setProductData(queryData);
-      console.log(queryData);
     });
   }, []);
   useEffect(() => {
@@ -257,6 +258,8 @@ export function BookSecondStep() {
   const [adults, setAdults] = useState(0);
   const [children, setChildren] = useState(0);
   const [value, setValue] = useState(`${adults} ${children}`);
+  const [addons, setAddons] = useState<AddonProps[]>();
+  const adultsRef = useClickOutside(() => setPopoverOpened(false));
   const dispatch = useDispatch();
   const { selectedNumberOfOccupants, selectedAddons, selectedNotes, selectedTerms } = useSelector(
     (state: RootState) => state.actions
@@ -292,6 +295,15 @@ export function BookSecondStep() {
   useEffect(() => {
     setAdults(selectedNumberOfOccupants[0]);
     setChildren(selectedNumberOfOccupants[1]);
+    //get addons
+    let queryy = query(collection(db, CollectionName.ADDONS), where("status", "==", true));
+    let data: any[] = [];
+    getDocs(queryy).then((addonsSnapshot) => {
+      let queryData = addonsSnapshot.docs.map(
+        (addon) => Object.assign({ ...addon.data() }, { id: addon.id }) as unknown as AddonProps
+      );
+      setAddons(queryData);
+    });
   }, []);
   return (
     <Grid>
@@ -309,7 +321,7 @@ export function BookSecondStep() {
             </div>
           </Popover.Target>
           <Popover.Dropdown>
-            <Box>
+            <Box ref={adultsRef}>
               <Title order={6} mb={15}>
                 Select the number of occupants
               </Title>
@@ -377,15 +389,15 @@ export function BookSecondStep() {
             dispatch(setSelectedAddons(value));
           }}
         >
-          <Chip value="1" size="xs">
-            Pool
-          </Chip>
-          <Chip value="2" size="xs">
-            Huts
-          </Chip>
-          <Chip value="3" size="xs">
-            Food service
-          </Chip>
+          {addons?.map((e) => (
+            <Chip value={e.id} size="xs" key={e.id}>
+              {e.name}
+            </Chip>
+          ))}
+          {!addons &&
+            [1, 2, 2.5, 3.3].map((e) => (
+              <Skeleton height={26} width={`${e * 10}%`} style={{ display: "inline-block" }} radius="xl" />
+            ))}
         </Chip.Group>
         <Text size={"xs"} color="dimmed">
           Additional charges apply
@@ -397,6 +409,9 @@ export function BookSecondStep() {
           description="Add notes that we should keep in mind when accomodating you"
           placeholder="Add your notes here"
           value={selectedNotes}
+          autosize
+            minRows={3}
+            maxRows={10}
           onChange={(v) => {
             dispatch(setSelectedNotes(v.currentTarget.value));
           }}
@@ -416,22 +431,25 @@ export function BookSecondStep() {
 }
 
 export function BookThirdStep() {
-  const { selectedProduct,selectedDate,selectedNumberOfOccupants, selectedAddons, selectedNotes, selectedTerms } = useSelector(
-    (state: RootState) => state.actions
-  );
+  const { selectedProduct, selectedDate, selectedNumberOfOccupants, selectedAddons, selectedNotes, selectedTerms } =
+    useSelector((state: RootState) => state.actions);
   return (
     <Grid>
       <Grid.Col span={12}>
         <Title order={6}>Confirm your reservation</Title>
         <Text>Here's a summary of all the selections you made on the previous steps.</Text>
         <code>
-          
-        selectedNumberOfOccupants {selectedNumberOfOccupants}<br></br>
-        selectedAddons {selectedAddons}<br></br>
-        selectedNotes {selectedNotes}<br></br>
-        selectedTerms {selectedTerms}<br></br>
-        selectedDate {JSON.stringify(selectedDate)}<br></br>
-        selectedProduct {JSON.stringify(selectedProduct)}
+          selectedNumberOfOccupants {selectedNumberOfOccupants}
+          <br></br>
+          selectedAddons {selectedAddons}
+          <br></br>
+          selectedNotes {selectedNotes}
+          <br></br>
+          selectedTerms {selectedTerms}
+          <br></br>
+          selectedDate {JSON.stringify(selectedDate)}
+          <br></br>
+          selectedProduct {JSON.stringify(selectedProduct)}
         </code>
       </Grid.Col>
     </Grid>
@@ -441,7 +459,25 @@ export function BookThirdStep() {
 export function BookSuccess() {
   return (
     <Grid>
-      <Grid.Col span={6}>Booking confirmed</Grid.Col>
+      <Grid.Col span={12}>
+        <Title order={5} my={10}>
+          Reservation Confirmed
+        </Title>
+        <Text mb={5}>Reservation ID: <strong>#3413134</strong></Text>
+        <Text mb={15}>
+          We have recieved your reservation request and we will process the order as soon as possible. Expect a call
+          from Fairmount within 3-5 business days. For any enquiries contact us on the website / phone / WhatsApp lines. We
+          are ready to help.{" "}
+          <Link href="/contact" style={{ textDecoration: "underline" }}>
+            Contact Us
+          </Link>
+          . We have recieved your reservation request and we will process the order as soon as possible. Expect a call
+          from Fairmount within 3-5 business days. For any enquiries contact us on the website/phone/WhatsApp lines. We
+          are ready to help.
+        </Text>
+        <Button component={Link} href="/experiences">Explore Vagamon</Button>
+        <Button component={Link} href="/contact" ml={10} variant="outline">Contact Us</Button>
+      </Grid.Col>
     </Grid>
   );
 }
