@@ -9,7 +9,6 @@ import { useEffect, useState } from "react";
 import { CollectionName } from "../../components/data/constants";
 import { db } from "../../components/data/firebaseConfig";
 import { CarouselCard } from "../../components/CarouselCard";
-import { ProductProps } from "../../components/data/types";
 
 export default function Rooms() {
   const [products, setProducts] = useState<ProductProps[]>();

@@ -1,5 +1,3 @@
-import { BookingState } from "./constants";
-
 interface TestimonialProps {
   name: string;
   content: string;
@@ -69,5 +67,5 @@ interface BookingData {
   productData: ProductProps;
   shownPrice: number;
   deleted: boolean;
-  state: BookingState;
+  state: number;
 }
