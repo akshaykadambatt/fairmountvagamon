@@ -16,8 +16,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
       html: msg.replace(/\r\n/g, "<br>"),
     };
     const msgs = {
-      to: "test@example.com", // Change to your recipient
-      from: "test@example.com", // Change to your verified sender
+      to: "hellooo@mailinator.com", // Change to your recipient
+      from: "fairmountvagamonresort@gmail.com", // Change to your verified sender
       subject: "Sending with SendGrid is Fun",
       text: "and easy to do anywhere, even with Node.js",
       html: "<strong>and easy to do anywhere, even with Node.js</strong>",
@@ -29,6 +29,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
       })
       .catch((error: any) => {
         console.error(error);
+        console.error(error.response.body);
       });
     try {
       await sgMail.send(data);
