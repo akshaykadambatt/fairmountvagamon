@@ -23,7 +23,7 @@ export default function Contact() {
   const prevStep = () => setActive((current) => (current > 0 ? current - 1 : current));
   const enterBookEntry = () => {
     nextStep()
-    
+
   };
   const handleSubmit = async (e: any) => {
     e.preventDefault();
@@ -65,7 +65,7 @@ export default function Contact() {
         )}
         {active < 3 &&
           (active == 2 ? (
-            <Button onClick={enterBookEntry}>Book</Button>
+            <Button onClick={enterBookEntry}>Confirm The Reservation</Button>
           ) : (
             <Button onClick={nextStep}>Next step</Button>
           ))}

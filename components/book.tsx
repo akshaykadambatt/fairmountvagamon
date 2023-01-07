@@ -4,6 +4,7 @@ import Link from "next/link";
 import styles from "../styles/Home.module.css";
 import {
   Avatar,
+  Badge,
   Box,
   Button,
   Checkbox,
@@ -39,6 +40,7 @@ import {
   setSelectedAddons,
   setSelectedDate,
   setSelectedEmail,
+  setSelectedName,
   setSelectedNotes,
   setSelectedNumberOfOccupants,
   setSelectedPhone,
@@ -270,8 +272,15 @@ export function BookSecondStep() {
   const [addons, setAddons] = useState<AddonProps[]>();
   const adultsRef = useClickOutside(() => setPopoverOpened(false));
   const dispatch = useDispatch();
-  const { selectedPhone, selectedEmail, selectedNumberOfOccupants, selectedAddons, selectedNotes, selectedTerms } =
-    useSelector((state: RootState) => state.actions);
+  const {
+    selectedName,
+    selectedPhone,
+    selectedEmail,
+    selectedNumberOfOccupants,
+    selectedAddons,
+    selectedNotes,
+    selectedTerms,
+  } = useSelector((state: RootState) => state.actions);
   const incrementChildren = () => {
     setChildren((p) => {
       p++;
@@ -413,17 +422,27 @@ export function BookSecondStep() {
       </Grid.Col>
       <Grid.Col span={12}>
         <Grid>
-          <Grid.Col span={6}>
+          <Grid.Col span={4}>
+            <TextInput
+              placeholder="Name"
+              label="Enter your name name"
+              value={selectedName}
+              onChange={(value) => {
+                dispatch(setSelectedName(value.currentTarget.value));
+              }}
+            />
+          </Grid.Col>
+          <Grid.Col span={4}>
             <TextInput
               placeholder="Phone"
-              label="Enter your phone number"
+              label="Enter your phone"
               value={selectedPhone}
               onChange={(value) => {
                 dispatch(setSelectedPhone(value.currentTarget.value));
               }}
             />
           </Grid.Col>
-          <Grid.Col span={6}>
+          <Grid.Col span={4}>
             <TextInput
               placeholder="Email"
               label="Enter your email"
@@ -463,31 +482,76 @@ export function BookSecondStep() {
 }
 
 export function BookThirdStep() {
-  const { selectedProduct, selectedDate, selectedNumberOfOccupants, selectedAddons, selectedNotes, selectedTerms } =
-    useSelector((state: RootState) => state.actions);
+  const {
+    selectedEmail,
+    selectedPhone,
+    selectedName,
+    selectedProduct,
+    selectedDate,
+    selectedNumberOfOccupants,
+    selectedAddons,
+    selectedNotes,
+    selectedTerms,
+  } = useSelector((state: RootState) => state.actions);
+  const theme = useMantineTheme();
   return (
     <Grid>
       <Grid.Col span={12}>
         <Title order={6}>Confirm your reservation</Title>
         <Text>Here&apos;s a summary of all the selections you made on the previous steps.</Text>
-        <code>
-          selectedNumberOfOccupants {selectedNumberOfOccupants}
-          <br></br>
-          selectedAddons {selectedAddons}
-          <br></br>
-          selectedNotes {selectedNotes}
-          <br></br>
-          selectedTerms {selectedTerms}
-          <br></br>
-          selectedDate {JSON.stringify(selectedDate)}
-          <br></br>
-          selectedProduct {JSON.stringify(selectedProduct)}
-        </code>
+        <BookingCard success={false} />
+        <code>selectedAddons {selectedAddons}</code>
       </Grid.Col>
     </Grid>
   );
 }
-
+export function BookingCard({ success }: { success: boolean }) {
+  const {
+    selectedEmail,
+    selectedPhone,
+    selectedName,
+    selectedProduct,
+    selectedDate,
+    selectedNumberOfOccupants,
+    selectedAddons,
+    selectedNotes,
+    selectedTerms,
+  } = useSelector((state: RootState) => state.actions);
+  const theme = useMantineTheme();
+  return (
+    <Box
+      style={{  borderRadius: 12, border:"2px solid green"
+    ,borderColor:success ? theme.colors.green[8] : theme.colors.green[2] }}
+      py={30}
+      px={40}
+      my={20}
+    >
+      <Box style={{ display: "flex", alignItems: "center", gap: "13px" }}>
+        <Title order={5} pb={5}>
+          {selectedProduct.name}
+        </Title>
+        <Badge color={success ? theme.colors.green[8] : theme.colors.green[1] }>{success ? "Confirmed" : "To be confirmed"}</Badge>
+      </Box>
+      <Text color="dimmed">
+        {selectedNumberOfOccupants[0]} Adults and {selectedNumberOfOccupants[1]} Children, from{" "}
+        {dayjs(selectedDate[0]).format("DD-MMM-YYYY")}
+        &nbsp;&nbsp;to {dayjs(selectedDate[1]).format("DD-MMM-YYYY")}
+      </Text>
+      <Text>
+        Reservation to be made in the name of {selectedName} ( {selectedPhone || selectedEmail} )
+      </Text>
+      <Text align="right" color="dimmed">
+        Approximate Price{" "}
+      </Text>
+      <Title align="right" order={5} weight={100}>
+        ₹{selectedProduct.price}
+      </Title>
+      <Text align="right" color="dimmed">
+        + addons
+      </Text>
+    </Box>
+  );
+}
 export function BookSuccess() {
   return (
     <Grid>
@@ -498,6 +562,7 @@ export function BookSuccess() {
         <Text mb={5}>
           Reservation ID: <strong>#3413134</strong>
         </Text>
+        <BookingCard success={true} />
         <Text mb={15}>
           We have recieved your reservation request and we will process the order as soon as possible. Expect a call
           from Fairmount within 3-5 business days. For any enquiries contact us on the website / phone / WhatsApp lines.
