@@ -23,3 +23,9 @@ export enum AmenitiesIds {
     PARKING = 7,
     PETS = 8,
 }
+
+export enum BookingState {
+    INACTIVE = 0,
+    CONFIRMED = 1,
+    PENDING = 2,
+}

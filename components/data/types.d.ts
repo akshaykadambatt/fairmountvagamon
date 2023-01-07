@@ -1,3 +1,5 @@
+import { BookingState } from "./constants";
+
 interface TestimonialProps {
   name: string;
   content: string;
@@ -52,4 +54,20 @@ interface ContactData {
   coordinatesx: string;
   coordinatesy: string;
   status: boolean;
+}
+
+interface BookingData {
+  email: string;
+  phone: string;
+  status: boolean;
+  id?: string;
+  numberOfOccupants: number[];
+  addons: string[];
+  notes: string;
+  date: Date[];
+  product: string;
+  productData: ProductProps;
+  shownPrice: number;
+  deleted: boolean;
+  state: BookingState;
 }

@@ -107,7 +107,7 @@ export default function HeaderComponent() {
   const [opened, { toggle, close }] = useDisclosure(false);
   const theme = useMantineTheme();
   const user = useContext(AuthContext);
-  const links = [
+  let links = [
     { link: "/", label: "Home" },
     { link: "/rooms", label: "Rooms and Rates" },
     { link: "/roomss", label: "Experiences" },
@@ -117,6 +117,22 @@ export default function HeaderComponent() {
   const [active, setActive] = useState(links[0].link);
   const { classes, cx } = useStyles();
   const items = links.map((link) => (
+    <Link
+      key={link.label}
+      href={link.link}
+      className={cx(classes.link, {
+        [classes.linkActive]: active === link.link,
+      })}
+      onClick={(event) => {
+        setActive(link.link);
+        close();
+      }}
+    >
+      {link.label}
+    </Link>
+  ));
+  links.push({link:"/book", label:"Check Availability"})
+  const mobItems = links.map((link) => (
     <Link
       key={link.label}
       href={link.link}
@@ -171,10 +187,7 @@ export default function HeaderComponent() {
         <Transition transition="pop-top-right" duration={200} mounted={opened}>
           {(styles) => (
             <Paper className={classes.dropdown} withBorder style={styles}>
-              {items}
-              <Link href="/book">
-                <Button size="xs">Check availability</Button>
-              </Link>
+              {mobItems}
             </Paper>
           )}
         </Transition>
