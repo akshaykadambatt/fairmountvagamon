@@ -38,8 +38,10 @@ import {
   setNotification,
   setSelectedAddons,
   setSelectedDate,
+  setSelectedEmail,
   setSelectedNotes,
   setSelectedNumberOfOccupants,
+  setSelectedPhone,
   setSelectedProduct,
   setSelectedTerms,
 } from "./data/actions";
@@ -50,12 +52,19 @@ const SelectItem = forwardRef<HTMLDivElement, ProductPropsWithValue>(
     <div ref={ref} {...others}>
       <Group noWrap>
         <Avatar src={images ? images[0].url : ""} />
-        <div>
-          <Text size="sm">{name}</Text>
-          <Text size="xs" opacity={0.65}>
-            {shortDescription}
-          </Text>
-        </div>
+        <Grid>
+          <Grid.Col span={10}>
+            <Text size="sm">{name}</Text>
+            <Text size="xs" opacity={0.65}>
+              {shortDescription}
+            </Text>
+          </Grid.Col>
+          <Grid.Col span={2}>
+            <Text size="lg" weight={100}>
+              ₹ {others.price}
+            </Text>
+          </Grid.Col>
+        </Grid>
       </Group>
     </div>
   )
@@ -261,9 +270,8 @@ export function BookSecondStep() {
   const [addons, setAddons] = useState<AddonProps[]>();
   const adultsRef = useClickOutside(() => setPopoverOpened(false));
   const dispatch = useDispatch();
-  const { selectedNumberOfOccupants, selectedAddons, selectedNotes, selectedTerms } = useSelector(
-    (state: RootState) => state.actions
-  );
+  const { selectedPhone, selectedEmail, selectedNumberOfOccupants, selectedAddons, selectedNotes, selectedTerms } =
+    useSelector((state: RootState) => state.actions);
   const incrementChildren = () => {
     setChildren((p) => {
       p++;
@@ -404,14 +412,38 @@ export function BookSecondStep() {
         </Text>
       </Grid.Col>
       <Grid.Col span={12}>
+        <Grid>
+          <Grid.Col span={6}>
+            <TextInput
+              placeholder="Phone"
+              label="Enter your phone number"
+              value={selectedPhone}
+              onChange={(value) => {
+                dispatch(setSelectedPhone(value.currentTarget.value));
+              }}
+            />
+          </Grid.Col>
+          <Grid.Col span={6}>
+            <TextInput
+              placeholder="Email"
+              label="Enter your email"
+              value={selectedEmail}
+              onChange={(value) => {
+                dispatch(setSelectedEmail(value.currentTarget.value));
+              }}
+            />
+          </Grid.Col>
+        </Grid>
+      </Grid.Col>
+      <Grid.Col span={12}>
         <Textarea
           label="Additional comments/notes"
           description="Add notes that we should keep in mind when accomodating you"
           placeholder="Add your notes here"
           value={selectedNotes}
           autosize
-            minRows={3}
-            maxRows={10}
+          minRows={3}
+          maxRows={10}
           onChange={(v) => {
             dispatch(setSelectedNotes(v.currentTarget.value));
           }}
@@ -463,11 +495,13 @@ export function BookSuccess() {
         <Title order={5} my={10}>
           Reservation Confirmed
         </Title>
-        <Text mb={5}>Reservation ID: <strong>#3413134</strong></Text>
+        <Text mb={5}>
+          Reservation ID: <strong>#3413134</strong>
+        </Text>
         <Text mb={15}>
           We have recieved your reservation request and we will process the order as soon as possible. Expect a call
-          from Fairmount within 3-5 business days. For any enquiries contact us on the website / phone / WhatsApp lines. We
-          are ready to help.{" "}
+          from Fairmount within 3-5 business days. For any enquiries contact us on the website / phone / WhatsApp lines.
+          We are ready to help.{" "}
           <Link href="/contact" style={{ textDecoration: "underline" }}>
             Contact Us
           </Link>
@@ -475,8 +509,12 @@ export function BookSuccess() {
           from Fairmount within 3-5 business days. For any enquiries contact us on the website/phone/WhatsApp lines. We
           are ready to help.
         </Text>
-        <Button component={Link} href="/experiences">Explore Vagamon</Button>
-        <Button component={Link} href="/contact" ml={10} variant="outline">Contact Us</Button>
+        <Button component={Link} href="/experiences">
+          Explore Vagamon
+        </Button>
+        <Button component={Link} href="/contact" ml={10} variant="outline">
+          Contact Us
+        </Button>
       </Grid.Col>
     </Grid>
   );

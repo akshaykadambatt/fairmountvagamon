@@ -13,6 +13,8 @@ export const actionSlice = createSlice({
     selectedAddons: [] as number[],
     selectedNotes: "",
     selectedTerms: false,
+    selectedEmail: "",
+    selectedPhone: "",
   },
   reducers: {
     setUserId: (state, action) => {
@@ -40,10 +42,18 @@ export const actionSlice = createSlice({
     setSelectedTerms: (state, action) => {
       state.selectedTerms = action.payload;
     },
+    setSelectedPhone: (state, action) => {
+      state.selectedPhone = action.payload;
+    },
+    setSelectedEmail: (state, action) => {
+      state.selectedEmail = action.payload;
+    },
   },
 });
 
 export const {
+  setSelectedEmail,
+  setSelectedPhone,
   setSelectedTerms,
   setSelectedNotes,
   setSelectedAddons,
