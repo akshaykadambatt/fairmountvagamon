@@ -423,15 +423,16 @@ export default function Home() {
             <Grid gutter={40}>
               <Grid.Col span={12} sm={6}>
                 <Text style={{ width: "90%" }} mb={20} size="sm">
-                  One of the most popular <strong>Fairmount Vagamon Resort</strong>, offers a perfect blend of all
-                  modern luxuries and a comfortable companionship of nature. we have provided premium resort experience
-                  and a comfortable companionship of nature. we have provided premium resort experience. ne of the most
-                  popular{" "}
+                Welcome to <strong>Fairmount</strong>, a premier hill resort located in the stunning region of Vagamon, Kerala. 
+                Nestled in the Western Ghats mountain range, our resort offers the perfect escape from the stresses of everyday life with a perfect blend of all modern luxurious amenities, 
+                delicious dining and comfortable companionship of nature.{" "}
                 </Text>
                 <Text style={{ width: "90%" }} mb={20} size="sm">
-                  <strong>Fairmount Vagamon Resort</strong>, offers a perfect blend of all modern luxuries and a
-                  comfortable companionship of nature. we have provided premium resort experience and a comfortable
-                  companionship of nature. we have provided premium resort experience.
+                At Fairmount, we are committed to providing our guests with the highest level of comfort and service. 
+                With its temperate climate and stunning natural surroundings, Vagamon is the perfect destination, offering a range of activities providing a unique and memorable experience.
+                </Text>
+                <Text style={{ width: "90%" }} mb={20} size="sm">
+                We look forward to welcoming you to Fairmount Residency and helping you create unforgettable memories in the beautiful region of Vagamon.
                 </Text>
                 <Box display={"flex"} style={{ flexDirection: desk ? "row" : "column" }}>
                   <Button mr={15}>Check Availabliltiy</Button>
