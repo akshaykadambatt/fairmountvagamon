@@ -87,10 +87,15 @@ export default function Contact() {
         <Stepper.Step label="Select dates" description="Dates and service">
           <Book noCheckButton={true} />
         </Stepper.Step>
-        <Stepper.Step label="Select occupants" description="Occupants and addons">
+        <Stepper.Step disabled={(selectedProduct.id ? false : true) || (selectedDate[1] ? false : true)} label="Select occupants" description="Occupants and addons">
           <BookSecondStep />
         </Stepper.Step>
-        <Stepper.Step label="Confirm booking" description="View booking summary">
+        <Stepper.Step disabled={
+                (selectedNumberOfOccupants[0]>0?false:true)||
+                (selectedEmail||selectedPhone?false:true)||
+                (selectedName?false:true)||
+                (selectedTerms?false:true)
+              } label="Confirm booking" description="View booking summary">
           <BookThirdStep />
         </Stepper.Step>
         <Stepper.Completed>

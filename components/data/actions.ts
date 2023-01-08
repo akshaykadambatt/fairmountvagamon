@@ -55,6 +55,11 @@ export const actionSlice = createSlice({
     },
     setSelectedId: (state, action) => {
       state.selectedId = action.payload;
+      // state.selectedDate= [null,null]
+      // state.selectedAddons = []
+      // state.selectedId = ""
+      // state.selectedNotes = ""
+      // state.selectedNumberOfOccupants = []
     },
   },
 });
