@@ -325,7 +325,7 @@ export function BookSecondStep() {
   }, []);
   return (
     <Grid>
-      <Grid.Col span={5}>
+      <Grid.Col span={12} sm={5}>
         <Popover opened={popoverOpened} position="bottom" width="target" transition="pop">
           <Popover.Target>
             <div onFocusCapture={() => setPopoverOpened(true)}>
@@ -393,7 +393,7 @@ export function BookSecondStep() {
           </Popover.Dropdown>
         </Popover>
       </Grid.Col>
-      <Grid.Col span={7}>
+      <Grid.Col span={12} sm={7}>
         <Text size={"md"}>Addons</Text>
         <Text size={"xs"} color="dimmed">
           Select from the following addons to make your experience at Fairmount better
@@ -423,7 +423,7 @@ export function BookSecondStep() {
       </Grid.Col>
       <Grid.Col span={12}>
         <Grid>
-          <Grid.Col span={4}>
+          <Grid.Col span={12} sm={4}>
             <TextInput
               placeholder="Name"
               label="Enter your name name"
@@ -433,7 +433,7 @@ export function BookSecondStep() {
               }}
             />
           </Grid.Col>
-          <Grid.Col span={4}>
+          <Grid.Col span={12} sm={4}>
             <TextInput
               placeholder="Phone"
               label="Enter your phone"
@@ -444,7 +444,7 @@ export function BookSecondStep() {
               }}
             />
           </Grid.Col>
-          <Grid.Col span={4}>
+          <Grid.Col span={12} sm={4}>
             <TextInput
               placeholder="Email"
               label="Enter your email"
