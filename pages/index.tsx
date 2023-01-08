@@ -405,7 +405,7 @@ export default function Home() {
                 style={{
                   background: "#fff",
                   width: "100%",
-                  borderRadius: "10px",
+                  borderRadius: "5px",
                   boxShadow: "3px 4px 20px 20px #00000008",
                 }}
               >

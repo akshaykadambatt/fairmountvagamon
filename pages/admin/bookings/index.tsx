@@ -40,50 +40,72 @@ import {
 } from "@tabler/icons";
 import { AiOutlineDelete } from "react-icons/ai";
 import { FunctionDeclaration } from "typescript";
+import { BookingAddonsSelector, BookingAdultChildrenSelector } from "../../../components/book";
 export default function Pages() {
   const [opened, setOpened] = useState(false);
-  const [addon, setAddon] = useState<AddonProps[]>([]);
+  const [addon, setAddon] = useState<BookingData[]>([]);
   const [addonEditId, setAddonEditId] = useState("");
   const theme = useMantineTheme();
+  const [adults, setAdults] = useState(0);
+  const [children, setChildren] = useState(0);
+  const [selectedAddonsState, setSelectedAddonsState] = useState<string[]>([]);
   const form = useForm({
     initialValues: {
       name: "",
-      content: "",
+      email: "",
+      phone: "",
+      numberOfOccupants: [adults, children], //[adults,children]
+      addons: [] as string[], //[firestoreId,firestoreId,...]
+      notes: "",
+      date: [null, null],
+      product: "",
+      productData: {},
+      shownPrice: 0, //productData.price
+      deleted: false,
+      referenceId: "",
+      state: 0, //default: BookingState.PENDING (2)
       status: true,
-      order: 0,
-    },
-
+    } as BookingData,
     validate: {
       name: (value) => (value != "" ? null : "Enter name"),
-      content: (value) => (value != "" ? null : "Enter the body of testimonial"),
     },
   });
-  const handleFormSubmit = async (values: AddonProps) => {
+  const handleFormSubmit = async (values: BookingData) => {
     let q;
     if (addonEditId) {
-      q = doc(db, CollectionName.ADDONS, addonEditId);
+      q = doc(db, CollectionName.BOOKINGS, addonEditId);
     } else {
-      q = doc(collection(db, CollectionName.ADDONS));
+      q = doc(collection(db, CollectionName.BOOKINGS));
     }
     await setDoc(q, values);
     setOpened(false);
     setAddonEditId("");
   };
-  const handleEditAction = (data: AddonProps) => {
+  const handleEditAction = (data: BookingData) => {
     console.log(data);
     form.setFieldValue("name", data.name);
-    form.setFieldValue("content", data.content);
+    form.setFieldValue("email", data.email);
+    form.setFieldValue("phone", data.phone);
+    form.setFieldValue("date", data.date);
+    form.setFieldValue("notes", data.notes);
     form.setFieldValue("status", data.status);
     form.setFieldValue("id", data.id);
+    form.setFieldValue("numberOfOccupants", [data.numberOfOccupants[0], data.numberOfOccupants[1]]);
+    setAdults(data.numberOfOccupants[0]);
+    setChildren(data.numberOfOccupants[1]);
     setAddonEditId(data.id ? data.id : "");
+    setSelectedAddonsState(data.addons);
     setOpened(true);
   };
-
   useEffect(() => {
-    const unsub1 = onSnapshot(query(collection(db, CollectionName.ADDONS)), (collectionSnapshot) => {
-      let data: AddonProps[] = [];
+    form.setFieldValue("numberOfOccupants", [adults, children]);
+    form.setFieldValue("addons", selectedAddonsState);
+  }, [adults, children, selectedAddonsState]);
+  useEffect(() => {
+    const unsub1 = onSnapshot(query(collection(db, CollectionName.BOOKINGS)), (collectionSnapshot) => {
+      let data: BookingData[] = [];
       collectionSnapshot.docs.map((doc) => {
-        data.push(Object.assign({ ...doc.data() }, { id: doc.id }) as AddonProps);
+        data.push(Object.assign({ ...doc.data() }, { id: doc.id }) as BookingData);
       });
       setAddon(data);
     });
@@ -91,33 +113,44 @@ export default function Pages() {
   useEffect(() => {
     if (!opened) form.reset();
   }, [opened]);
-  const rows = addon
-    .map((e) => <Row key={e.id} data={e} handleEditAction={handleEditAction}/>);
+  const rows = addon.map((e) => <Row key={e.id} data={e} handleEditAction={handleEditAction} />);
   return (
     <Navigation>
-      <Modal size={"lg"} opened={opened} onClose={() => setOpened(false)} title="Manage Addon">
+      <Modal size={"xl"} opened={opened} onClose={() => setOpened(false)} title="Manage Booking">
         <form
           onSubmit={form.onSubmit((values) => {
-            handleFormSubmit(values);
+            // handleFormSubmit(values);
           })}
         >
-          <TextInput withAsterisk label="Name" placeholder="Enter the name" {...form.getInputProps("name")} />
+          <TextInput label="Name" placeholder="Enter the name" {...form.getInputProps("name")} />
+          <TextInput label="email" placeholder="Enter the email" {...form.getInputProps("email")} />
+          <TextInput label="phone" placeholder="Enter the phone" {...form.getInputProps("phone")} />
+          <TextInput label="date" placeholder="Enter the date" {...form.getInputProps("date")} />
           <Textarea
-            placeholder="Addon Description"
-            label="Addon Description"
-            withAsterisk
-            {...form.getInputProps("content")}
+            placeholder="Booking notes from user"
+            label="Booking notes from user"
+            {...form.getInputProps("notes")}
             autosize
-            minRows={5}
+            minRows={3}
             maxRows={10}
           />
+          <TextInput label="phone" placeholder="Enter the phone" {...form.getInputProps("phone")} />
+          <BookingAdultChildrenSelector
+            label={"Occupants"}
+            adults={adults}
+            setAdults={setAdults}
+            children={children}
+            setChildren={setChildren}
+          />
+          <Text size={"md"}>Addons</Text>
+          <BookingAddonsSelector selectedAddons={selectedAddonsState} addonChangeHandler={setSelectedAddonsState} />
           <Switch label="Active" {...form.getInputProps("status", { type: "checkbox" })} />
           <Group position="right" mt="md">
             <Button type="submit">Submit</Button>
           </Group>
         </form>
       </Modal>
-      <Container py={20}>
+      <Container py={20} size="md">
         <Box
           style={{
             display: "flex",
@@ -127,9 +160,8 @@ export default function Pages() {
           pb={20}
         >
           <Title order={2} weight={100}>
-            Addons
+            Bookings
           </Title>
-          <Button onClick={() => setOpened(true)}>Add New Addon</Button>
         </Box>
         <Grid>
           <Grid.Col span={4}></Grid.Col>
@@ -138,13 +170,15 @@ export default function Pages() {
         <Table
           highlightOnHover
           withColumnBorders
-          verticalSpacing="xs"
+          verticalSpacing={5}
           style={{ borderRadius: "5px", boxShadow: "0 0 0 1px #00000024", overflow: "hidden" }}
         >
           <thead>
             <tr>
+              <th> </th>
               <th style={{ minWidth: "130px" }}>Name</th>
-              <th>Content</th>
+              <th>Email/Phone</th>
+              <th>Order</th>
               <th>Status</th>
               <th style={{ minWidth: "10px" }}>Actions</th>
             </tr>
@@ -156,21 +190,32 @@ export default function Pages() {
   );
 }
 interface RowProps {
-  data: AddonProps;
-  handleEditAction: (data: AddonProps) => void;
+  data: BookingData;
+  handleEditAction: (data: BookingData) => void;
 }
 const Row = ({ data, handleEditAction }: RowProps) => {
   const theme = useMantineTheme();
   const [trashPopover, setTrashPopover] = useState(false);
   const deleteTestimonial = async (id: string) => {
     console.log(id);
-    deleteDoc(doc(db, CollectionName.ADDONS, id));
+    deleteDoc(doc(db, CollectionName.BOOKINGS, id));
   };
   return (
     <>
       <tr key={data.id}>
+        <td>
+          <Checkbox
+            value={data.id}
+            onClick={(e) => {
+              if (e.currentTarget.checked) {
+                console.log(e.currentTarget.value);
+              }
+            }}
+          />
+        </td>
         <td>{data.name}</td>
-        <td>{data.content}</td>
+        <td>{data.email || data.phone}</td>
+        <td>{data.productData?.name}</td>
         <td>{data.status ? <Badge color="green">Active</Badge> : <Badge color="gray">Inactive</Badge>}</td>
         <td>
           <Button.Group>

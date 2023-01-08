@@ -28,7 +28,7 @@ import { Carousel } from "@mantine/carousel";
 import HeaderComponent from "../components/header";
 import { DateRangePicker } from "@mantine/dates";
 import { query, collection, getDocs, where } from "firebase/firestore";
-import { forwardRef, useEffect, useState } from "react";
+import { Dispatch, SetStateAction, forwardRef, useEffect, useState } from "react";
 import { db } from "./data/firebaseConfig";
 import { CollectionName, CollectionStatus } from "./data/constants";
 import { RangeCalendar } from "@mantine/dates";
@@ -144,6 +144,7 @@ export default function Book({ noCheckButton }: { noCheckButton?: boolean }) {
     }
   }
   function renderDayHandler(date: Date) {
+    if (!bookingData) return date.getDate();
     if (date < new Date()) {
       return date.getDate();
     } else if (bookingData[date.toDateString()] > 10) {
@@ -266,12 +267,6 @@ export default function Book({ noCheckButton }: { noCheckButton?: boolean }) {
 }
 
 export function BookSecondStep() {
-  const [popoverOpened, setPopoverOpened] = useState(false);
-  const [adults, setAdults] = useState(0);
-  const [children, setChildren] = useState(0);
-  const [value, setValue] = useState(`${adults} ${children}`);
-  const [addons, setAddons] = useState<AddonProps[]>();
-  const adultsRef = useClickOutside(() => setPopoverOpened(false));
   const dispatch = useDispatch();
   const {
     selectedName,
@@ -282,141 +277,39 @@ export function BookSecondStep() {
     selectedNotes,
     selectedTerms,
   } = useSelector((state: RootState) => state.actions);
-  const incrementChildren = () => {
-    setChildren((p) => {
-      p++;
-      return p;
-    });
-  };
-  const decrementChildren = () => {
-    setChildren((p) => {
-      p--;
-      return p;
-    });
-  };
-  const incrementAdults = () => {
-    setAdults((p) => {
-      p++;
-      return p;
-    });
-  };
-  const decrementAdults = () => {
-    setAdults((p) => {
-      p--;
-      return p;
-    });
-  };
+  const [selectedAddonsState, setSelectedAddonsState] = useState<string[]>([]);
+  const [adults, setAdults] = useState(0);
+  const [children, setChildren] = useState(0);
   useEffect(() => {
-    setValue(`${adults} adults, ${children} children`);
     dispatch(setSelectedNumberOfOccupants([adults, children]));
   }, [children, adults]);
   useEffect(() => {
     setAdults(selectedNumberOfOccupants[0]);
     setChildren(selectedNumberOfOccupants[1]);
-    //get addons
-    let queryy = query(collection(db, CollectionName.ADDONS), where("status", "==", true));
-    let data: any[] = [];
-    getDocs(queryy).then((addonsSnapshot) => {
-      let queryData = addonsSnapshot.docs.map(
-        (addon) => Object.assign({ ...addon.data() }, { id: addon.id }) as unknown as AddonProps
-      );
-      setAddons(queryData);
-    });
+    setSelectedAddonsState(selectedAddons);
   }, []);
+  useEffect(() => {
+    dispatch(setSelectedAddons(selectedAddonsState));
+  }, [selectedAddonsState]);
   return (
     <Grid>
       <Grid.Col span={12} sm={5}>
-        <Popover opened={popoverOpened} position="bottom" width="target" transition="pop">
-          <Popover.Target>
-            <div onFocusCapture={() => setPopoverOpened(true)}>
-              <TextInput
-                placeholder="Select the number of occupants"
-                label="Number of occupants"
-                description="Enter number of occupants as adults and children seperately"
-                withAsterisk
-                value={value}
-              />
-            </div>
-          </Popover.Target>
-          <Popover.Dropdown>
-            <Box ref={adultsRef}>
-              <Title order={6} mb={15}>
-                Select the number of occupants
-              </Title>
-              <SimpleGrid cols={1}>
-                <SimpleGrid cols={2}>
-                  <Text size={"sm"}>Adults</Text>
-                  <Box>
-                    <Button
-                      variant="default"
-                      style={{ borderRadius: 100, height: 26, width: 26, padding: 0, margin: "0 7px 0 7px" }}
-                      onClick={decrementAdults}
-                    >
-                      -
-                    </Button>
-                    <Text size={"sm"} style={{ display: "inline-block" }}>
-                      {adults}
-                    </Text>
-                    <Button
-                      variant="default"
-                      style={{ borderRadius: 100, height: 26, width: 26, padding: 0, margin: "0 7px 0 7px" }}
-                      onClick={incrementAdults}
-                    >
-                      +
-                    </Button>
-                  </Box>
-                </SimpleGrid>
-                <SimpleGrid cols={2}>
-                  <Text size={"sm"}>Children</Text>
-                  <Box>
-                    <Button
-                      variant="default"
-                      style={{ borderRadius: 100, height: 26, width: 26, padding: 0, margin: "0 7px 0 7px" }}
-                      onClick={decrementChildren}
-                    >
-                      -
-                    </Button>
-                    <Text size={"sm"} style={{ display: "inline-block" }}>
-                      {children}
-                    </Text>
-                    <Button
-                      variant="default"
-                      style={{ borderRadius: 100, height: 26, width: 26, padding: 0, margin: "0 7px 0 7px" }}
-                      onClick={incrementChildren}
-                    >
-                      +
-                    </Button>
-                  </Box>
-                </SimpleGrid>
-              </SimpleGrid>
-            </Box>
-          </Popover.Dropdown>
-        </Popover>
+        <BookingAdultChildrenSelector
+          adults={adults}
+          setAdults={setAdults}
+          children={children}
+          withAsterisk
+          setChildren={setChildren}
+          label="Number of occupants"
+          description="Enter number of occupants as adults and children seperately"
+        />
       </Grid.Col>
       <Grid.Col span={12} sm={7}>
         <Text size={"md"}>Addons</Text>
         <Text size={"xs"} color="dimmed">
           Select from the following addons to make your experience at Fairmount better
         </Text>
-        <Chip.Group
-          multiple
-          mt={2}
-          mb={5}
-          value={selectedAddons.map((e) => `${e}`)}
-          onChange={(value) => {
-            dispatch(setSelectedAddons(value));
-          }}
-        >
-          {addons?.map((e) => (
-            <Chip value={e.id} size="xs" key={e.id}>
-              {e.name}
-            </Chip>
-          ))}
-          {!addons &&
-            [1, 2, 2.5, 3.3].map((e) => (
-              <Skeleton height={26} width={`${e * 10}%`} style={{ display: "inline-block" }} radius="xl" key={e} />
-            ))}
-        </Chip.Group>
+        <BookingAddonsSelector selectedAddons={selectedAddonsState} addonChangeHandler={setSelectedAddonsState} />
         <Text size={"xs"} color="dimmed">
           Additional charges apply
         </Text>
@@ -427,6 +320,7 @@ export function BookSecondStep() {
             <TextInput
               placeholder="Name"
               label="Enter your name name"
+              name="Name"
               value={selectedName}
               onChange={(value) => {
                 dispatch(setSelectedName(value.currentTarget.value));
@@ -437,8 +331,9 @@ export function BookSecondStep() {
             <TextInput
               placeholder="Phone"
               label="Enter your phone"
+              name="Phone"
               value={selectedPhone}
-              error={!(/^\d{9,11}$/).test(selectedPhone||"1234567890")}
+              error={!/^\d{9,11}$/.test(selectedPhone || "1234567890")}
               onChange={(value) => {
                 dispatch(setSelectedPhone(value.currentTarget.value));
               }}
@@ -448,8 +343,9 @@ export function BookSecondStep() {
             <TextInput
               placeholder="Email"
               label="Enter your email"
+              name="Email"
               value={selectedEmail}
-              error={!(/\S+@\S+\.\S+/).test(selectedEmail||"a@a.a")}
+              error={!/\S+@\S+\.\S+/.test(selectedEmail || "a@a.a")}
               onChange={(value) => {
                 dispatch(setSelectedEmail(value.currentTarget.value));
               }}
@@ -484,6 +380,7 @@ export function BookSecondStep() {
   );
 }
 
+
 export function BookThirdStep() {
   const {
     selectedEmail,
@@ -501,7 +398,9 @@ export function BookThirdStep() {
   return (
     <Grid>
       <Grid.Col span={12}>
-        <Title order={5} className={classes.heading}>Confirm your reservation</Title>
+        <Title order={5} className={classes.heading}>
+          Confirm your reservation
+        </Title>
         <Text>Here&apos;s a summary of all the selections you made on the previous steps.</Text>
         <BookingCard success={false} />
       </Grid.Col>
@@ -528,7 +427,7 @@ export function BookingCard({ success }: { success: boolean }) {
         borderRadius: 12,
         border: "2px solid green",
         borderColor: success ? theme.colors.green[8] : theme.colors.dark[2],
-        background: success ? theme.fn.rgba(theme.colors.green[1],0.3) : theme.fn.rgba(theme.colors.dark[1],0.1),
+        background: success ? theme.fn.rgba(theme.colors.green[1], 0.3) : theme.fn.rgba(theme.colors.dark[1], 0.1),
       }}
       py={30}
       px={40}
@@ -563,22 +462,19 @@ export function BookingCard({ success }: { success: boolean }) {
 
 const useStyles = createStyles((theme) => ({
   heading: {
-    marginBlock:10
+    marginBlock: 10,
   },
-
 }));
 export function BookSuccess() {
   const { classes, cx } = useStyles();
-  const {
-    selectedId,
-  } = useSelector((state: RootState) => state.actions);
+  const { selectedId } = useSelector((state: RootState) => state.actions);
   return (
     <Grid>
       <Grid.Col span={12}>
         <Title order={5} className={classes.heading}>
           Reservation Confirmed
         </Title>
-        <Text >
+        <Text>
           Reservation ID: <strong>{selectedId}</strong>
         </Text>
         <BookingCard success={true} />
@@ -601,5 +497,169 @@ export function BookSuccess() {
         </Button>
       </Grid.Col>
     </Grid>
+  );
+}
+
+export function BookingAdultChildrenSelector({
+  adults,
+  setAdults,
+  children,
+  setChildren,
+  label,
+  description,
+  withAsterisk,
+}: {
+  adults: number;
+  setAdults: Dispatch<SetStateAction<number>>;
+  children: number;
+  setChildren: Dispatch<SetStateAction<number>>;
+  withAsterisk?: boolean;
+  label: string;
+  description?: string;
+}) {
+  const { selectedTerms } = useSelector((state: RootState) => state.actions);
+  const [value, setValue] = useState(`0 0`);
+  const [popoverOpened, setPopoverOpened] = useState(false);
+  const adultsRef = useClickOutside(() => setPopoverOpened(false));
+  const incrementChildren = () => {
+    setChildren((p) => {
+      p++;
+      return p;
+    });
+  };
+  const decrementChildren = () => {
+    setChildren((p) => {
+      p--;
+      return p;
+    });
+  };
+  const incrementAdults = () => {
+    setAdults((p) => {
+      p++;
+      return p;
+    });
+  };
+  const decrementAdults = () => {
+    setAdults((p) => {
+      p--;
+      return p;
+    });
+  };
+  useEffect(() => {
+    setValue(`${adults} adults, ${children} children`);
+  }, [children, adults]);
+  return (
+    <Popover opened={popoverOpened} position="bottom" width="target" transition="pop">
+      <Popover.Target>
+        <div onFocusCapture={() => setPopoverOpened(true)}>
+          <TextInput
+            placeholder="Select the number of occupants"
+            label={label}
+            description={description}
+            withAsterisk={withAsterisk}
+            value={value}
+          />
+        </div>
+      </Popover.Target>
+      <Popover.Dropdown>
+        <Box ref={adultsRef}>
+          <Title order={6} mb={15}>
+            Select the number of occupants
+          </Title>
+          <SimpleGrid cols={1}>
+            <SimpleGrid cols={2}>
+              <Text size={"sm"}>Adults</Text>
+              <Box>
+                <Button
+                  variant="default"
+                  style={{ borderRadius: 100, height: 26, width: 26, padding: 0, margin: "0 7px 0 7px" }}
+                  onClick={decrementAdults}
+                >
+                  -
+                </Button>
+                <Text size={"sm"} style={{ display: "inline-block" }}>
+                  {adults}
+                </Text>
+                <Button
+                  variant="default"
+                  style={{ borderRadius: 100, height: 26, width: 26, padding: 0, margin: "0 7px 0 7px" }}
+                  onClick={incrementAdults}
+                >
+                  +
+                </Button>
+              </Box>
+            </SimpleGrid>
+            <SimpleGrid cols={2}>
+              <Text size={"sm"}>Children</Text>
+              <Box>
+                <Button
+                  variant="default"
+                  style={{ borderRadius: 100, height: 26, width: 26, padding: 0, margin: "0 7px 0 7px" }}
+                  onClick={decrementChildren}
+                >
+                  -
+                </Button>
+                <Text size={"sm"} style={{ display: "inline-block" }}>
+                  {children}
+                </Text>
+                <Button
+                  variant="default"
+                  style={{ borderRadius: 100, height: 26, width: 26, padding: 0, margin: "0 7px 0 7px" }}
+                  onClick={incrementChildren}
+                >
+                  +
+                </Button>
+              </Box>
+            </SimpleGrid>
+          </SimpleGrid>
+        </Box>
+      </Popover.Dropdown>
+    </Popover>
+  );
+}
+
+export function BookingAddonsSelector({
+  selectedAddons,
+  addonChangeHandler,
+}: {
+  selectedAddons: string[];
+  addonChangeHandler: Dispatch<SetStateAction<string[]>>;
+}) {
+  const { selectedTerms } = useSelector((state: RootState) => state.actions);
+  const [addons, setAddons] = useState<AddonProps[]>();
+  const theme = useMantineTheme();
+  const { classes, cx } = useStyles();
+  useEffect(() => {
+    //get addons
+    let queryy = query(collection(db, CollectionName.ADDONS), where("status", "==", true));
+    let data: any[] = [];
+    getDocs(queryy).then((addonsSnapshot) => {
+      let queryData = addonsSnapshot.docs.map(
+        (addon) => Object.assign({ ...addon.data() }, { id: addon.id }) as unknown as AddonProps
+      );
+      setAddons(queryData);
+    });
+  }, []);
+  return (
+    <Chip.Group
+      multiple
+      mt={2}
+      mb={5}
+      value={selectedAddons.map((e) => `${e}`)}
+      onChange={(value) => {
+        console.log(value);
+        addonChangeHandler(value);
+      }}
+    >
+      {addons?.map((e) => (
+        <Chip value={e.id} size="xs" key={e.id}>
+          {e.name}
+        </Chip>
+      ))}
+      {!addons &&
+        [1, 2, 2.5, 3.3].map((e) => (
+          <Skeleton height={26} width={`${e * 10}%`} style={{ display: "inline-block" }} radius="xl" key={e} />
+        ))}
+    </Chip.Group>
   );
 }

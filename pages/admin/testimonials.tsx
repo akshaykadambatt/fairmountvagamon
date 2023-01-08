@@ -158,7 +158,7 @@ export default function Pages() {
           highlightOnHover
           withColumnBorders
           verticalSpacing="xs"
-          style={{ borderRadius: "10px", boxShadow: "0 0 0 1px #00000024", overflow: "hidden" }}
+          style={{ borderRadius: "5px", boxShadow: "0 0 0 1px #00000024", overflow: "hidden" }}
         >
           <thead>
             <tr>
