@@ -438,6 +438,7 @@ export function BookSecondStep() {
               placeholder="Phone"
               label="Enter your phone"
               value={selectedPhone}
+              error={!(/^\d{9,11}$/).test(selectedPhone||"1234567890")}
               onChange={(value) => {
                 dispatch(setSelectedPhone(value.currentTarget.value));
               }}
@@ -448,6 +449,7 @@ export function BookSecondStep() {
               placeholder="Email"
               label="Enter your email"
               value={selectedEmail}
+              error={!(/\S+@\S+\.\S+/).test(selectedEmail||"a@a.a")}
               onChange={(value) => {
                 dispatch(setSelectedEmail(value.currentTarget.value));
               }}

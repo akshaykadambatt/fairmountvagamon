@@ -68,5 +68,6 @@ interface BookingData {
   productData: ProductProps;
   shownPrice: number; //productData.price
   deleted: boolean;
+  referenceId: string;
   state: number; //default: BookingState.PENDING (2)
 }

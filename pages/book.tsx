@@ -42,8 +42,9 @@ export default function Contact() {
     selectedId,
   } = useSelector((state: RootState) => state.actions);
   const enterBookEntry = async () => {
-    setLoading(true)
+    setLoading(true);
     let q = doc(collection(db, CollectionName.BOOKINGS));
+    let referenceId = q.id.slice(0, 3) + q.id.slice(-3, -1);
     let data: BookingData = {
       email: selectedEmail,
       phone: selectedPhone,
@@ -57,11 +58,12 @@ export default function Contact() {
       productData: selectedProduct,
       shownPrice: selectedProduct.price,
       deleted: false,
+      referenceId: referenceId,
       state: BookingState.PENDING,
     };
-    await setDoc(q, data)
-    dispatch(setSelectedId(q.id.slice(0,3)+q.id.slice(-6,-1)));
-    setLoading(false)
+    await setDoc(q, data);
+    dispatch(setSelectedId(referenceId));
+    setLoading(false);
     nextStep();
   };
   const handleSubmit = async (e: any) => {
@@ -80,8 +82,8 @@ export default function Contact() {
 
   return (
     <Container my={30}>
-      <Button onClick={handleSubmit}>send mail</Button>
-      <Stepper active={active} onStepClick={setActive} breakpoint="sm">
+      {/* <Button onClick={handleSubmit}>send mail</Button> */}
+      <Stepper active={active} onStepClick={selectedId ? () => {} : setActive} breakpoint="sm">
         <Stepper.Step label="Select dates" description="Dates and service">
           <Book noCheckButton={true} />
         </Stepper.Step>
@@ -95,7 +97,6 @@ export default function Contact() {
           <BookSuccess />
         </Stepper.Completed>
       </Stepper>
-
       <Group position="right" mt="xl">
         {active != 0 && active != 3 && (
           <Button variant="default" onClick={prevStep}>
@@ -104,9 +105,28 @@ export default function Contact() {
         )}
         {active < 3 &&
           (active == 2 ? (
-            <Button onClick={enterBookEntry} loading={loading}>Confirm The Reservation</Button>
+            <Button onClick={enterBookEntry} loading={loading}>
+              Confirm The Reservation
+            </Button>
           ) : (
-            <Button onClick={nextStep}>Next step</Button>
+            <>
+              {active == 0 && (
+                <Button
+                  onClick={nextStep}
+                  disabled={(selectedProduct.id ? false : true) || (selectedDate[1] ? false : true)}
+                >
+                  Next step
+                </Button>
+              )}
+              {active == 1 && <Button onClick={nextStep}
+              disabled={
+                (selectedNumberOfOccupants[0]>0?false:true)||
+                (selectedEmail||selectedPhone?false:true)||
+                (selectedName?false:true)||
+                (selectedTerms?false:true)
+              }
+              >Next step</Button>}
+            </>
           ))}
       </Group>
     </Container>
