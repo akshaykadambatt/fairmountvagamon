@@ -432,7 +432,7 @@ export default function Home() {
                 With its temperate climate and stunning natural surroundings, Vagamon is the perfect destination, offering a range of activities providing a unique and memorable experience.
                 </Text>
                 <Text style={{ width: "90%" }} mb={20} size="sm">
-                We look forward to welcoming you to Fairmount Residency and helping you create unforgettable memories in the beautiful region of Vagamon.
+                We look forward to welcoming you to Fairmount and helping you create unforgettable memories in the beautiful region of <strong>Vagamon</strong>.
                 </Text>
                 <Box display={"flex"} style={{ flexDirection: desk ? "row" : "column" }}>
                   <Button mr={15}>Check Availabliltiy</Button>
