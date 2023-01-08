@@ -502,7 +502,6 @@ export function BookThirdStep() {
         <Title order={5} className={classes.heading}>Confirm your reservation</Title>
         <Text>Here&apos;s a summary of all the selections you made on the previous steps.</Text>
         <BookingCard success={false} />
-        <code>selectedAddons {selectedAddons}</code>
       </Grid.Col>
     </Grid>
   );
@@ -518,6 +517,7 @@ export function BookingCard({ success }: { success: boolean }) {
     selectedAddons,
     selectedNotes,
     selectedTerms,
+    selectedId,
   } = useSelector((state: RootState) => state.actions);
   const theme = useMantineTheme();
   return (
@@ -567,6 +567,9 @@ const useStyles = createStyles((theme) => ({
 }));
 export function BookSuccess() {
   const { classes, cx } = useStyles();
+  const {
+    selectedId,
+  } = useSelector((state: RootState) => state.actions);
   return (
     <Grid>
       <Grid.Col span={12}>
@@ -574,7 +577,7 @@ export function BookSuccess() {
           Reservation Confirmed
         </Title>
         <Text >
-          Reservation ID: <strong>#3413134</strong>
+          Reservation ID: <strong>{selectedId}</strong>
         </Text>
         <BookingCard success={true} />
         <Text mb={15}>

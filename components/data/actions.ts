@@ -16,6 +16,7 @@ export const actionSlice = createSlice({
     selectedEmail: "",
     selectedPhone: "",
     selectedName: "",
+    selectedId: "",
   },
   reducers: {
     setUserId: (state, action) => {
@@ -52,10 +53,14 @@ export const actionSlice = createSlice({
     setSelectedName: (state, action) => {
       state.selectedName = action.payload;
     },
+    setSelectedId: (state, action) => {
+      state.selectedId = action.payload;
+    },
   },
 });
 
 export const {
+  setSelectedId,
   setSelectedName,
   setSelectedEmail,
   setSelectedPhone,

@@ -19,11 +19,13 @@ import { ContactIconsList } from "../components/ContactIcons";
 import { doc, collection, setDoc } from "firebase/firestore";
 import { BookingState, CollectionName } from "../components/data/constants";
 import { db } from "../components/data/firebaseConfig";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../components/data/configureStore";
+import { setSelectedId } from "../components/data/actions";
 
 export default function Contact() {
   const [active, setActive] = useState(0);
+  const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
   const nextStep = () => setActive((current) => (current < 3 ? current + 1 : current));
   const prevStep = () => setActive((current) => (current > 0 ? current - 1 : current));
@@ -37,6 +39,7 @@ export default function Contact() {
     selectedAddons,
     selectedNotes,
     selectedTerms,
+    selectedId,
   } = useSelector((state: RootState) => state.actions);
   const enterBookEntry = async () => {
     setLoading(true)
@@ -56,7 +59,8 @@ export default function Contact() {
       deleted: false,
       state: BookingState.PENDING,
     };
-    await setDoc(q, data);
+    await setDoc(q, data)
+    dispatch(setSelectedId(q.id.slice(0,3)+q.id.slice(-6,-1)));
     setLoading(false)
     nextStep();
   };
