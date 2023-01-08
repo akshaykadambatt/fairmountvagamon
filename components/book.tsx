@@ -21,6 +21,7 @@ import {
   TextInput,
   Textarea,
   Title,
+  createStyles,
   useMantineTheme,
 } from "@mantine/core";
 import { Carousel } from "@mantine/carousel";
@@ -494,10 +495,11 @@ export function BookThirdStep() {
     selectedTerms,
   } = useSelector((state: RootState) => state.actions);
   const theme = useMantineTheme();
+  const { classes, cx } = useStyles();
   return (
     <Grid>
       <Grid.Col span={12}>
-        <Title order={6}>Confirm your reservation</Title>
+        <Title order={5} className={classes.heading}>Confirm your reservation</Title>
         <Text>Here&apos;s a summary of all the selections you made on the previous steps.</Text>
         <BookingCard success={false} />
         <code>selectedAddons {selectedAddons}</code>
@@ -520,8 +522,12 @@ export function BookingCard({ success }: { success: boolean }) {
   const theme = useMantineTheme();
   return (
     <Box
-      style={{  borderRadius: 12, border:"2px solid green"
-    ,borderColor:success ? theme.colors.green[8] : theme.colors.green[2] }}
+      style={{
+        borderRadius: 12,
+        border: "2px solid green",
+        borderColor: success ? theme.colors.green[8] : theme.colors.dark[2],
+        background: success ? theme.fn.rgba(theme.colors.green[1],0.3) : theme.fn.rgba(theme.colors.dark[1],0.1),
+      }}
       py={30}
       px={40}
       my={20}
@@ -530,7 +536,7 @@ export function BookingCard({ success }: { success: boolean }) {
         <Title order={5} pb={5}>
           {selectedProduct.name}
         </Title>
-        <Badge color={success ? theme.colors.green[8] : theme.colors.green[1] }>{success ? "Confirmed" : "To be confirmed"}</Badge>
+        <Badge color={success ? "green" : "gray"}>{success ? "Confirmed" : "To be confirmed"}</Badge>
       </Box>
       <Text color="dimmed">
         {selectedNumberOfOccupants[0]} Adults and {selectedNumberOfOccupants[1]} Children, from{" "}
@@ -552,14 +558,22 @@ export function BookingCard({ success }: { success: boolean }) {
     </Box>
   );
 }
+
+const useStyles = createStyles((theme) => ({
+  heading: {
+    marginBlock:10
+  },
+
+}));
 export function BookSuccess() {
+  const { classes, cx } = useStyles();
   return (
     <Grid>
       <Grid.Col span={12}>
-        <Title order={5} my={10}>
+        <Title order={5} className={classes.heading}>
           Reservation Confirmed
         </Title>
-        <Text mb={5}>
+        <Text >
           Reservation ID: <strong>#3413134</strong>
         </Text>
         <BookingCard success={true} />

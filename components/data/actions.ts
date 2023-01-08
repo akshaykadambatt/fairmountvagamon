@@ -10,7 +10,7 @@ export const actionSlice = createSlice({
     selectedProduct: {} as ProductPropsWithValue,
     selectedDate: [null, null] as [Date | null, Date | null],
     selectedNumberOfOccupants: [0, 0], //[adults, children]
-    selectedAddons: [] as number[],
+    selectedAddons: [] as string[],
     selectedNotes: "",
     selectedTerms: false,
     selectedEmail: "",

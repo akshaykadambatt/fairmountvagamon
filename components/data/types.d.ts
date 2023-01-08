@@ -57,15 +57,16 @@ interface ContactData {
 interface BookingData {
   email: string;
   phone: string;
+  name: string;
   status: boolean;
   id?: string;
-  numberOfOccupants: number[];
-  addons: string[];
+  numberOfOccupants: number[]; //[adults,children]
+  addons: string[]; //[firestoreId,firestoreId,...]
   notes: string;
-  date: Date[];
+  date: [Date | null, Date | null];
   product: string;
   productData: ProductProps;
-  shownPrice: number;
+  shownPrice: number; //productData.price
   deleted: boolean;
-  state: number;
+  state: number; //default: BookingState.PENDING (2)
 }
