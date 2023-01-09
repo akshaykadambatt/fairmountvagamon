@@ -297,7 +297,7 @@ export function BookSecondStep() {
         <BookingAdultChildrenSelector
           adults={adults}
           setAdults={setAdults}
-          children={children}
+          childrenCount={children}
           withAsterisk
           setChildren={setChildren}
           label="Number of occupants"
@@ -503,7 +503,7 @@ export function BookSuccess() {
 export function BookingAdultChildrenSelector({
   adults,
   setAdults,
-  children,
+  childrenCount,
   setChildren,
   label,
   description,
@@ -511,7 +511,7 @@ export function BookingAdultChildrenSelector({
 }: {
   adults: number;
   setAdults: Dispatch<SetStateAction<number>>;
-  children: number;
+  childrenCount: number;
   setChildren: Dispatch<SetStateAction<number>>;
   withAsterisk?: boolean;
   label: string;
@@ -546,8 +546,8 @@ export function BookingAdultChildrenSelector({
     });
   };
   useEffect(() => {
-    setValue(`${adults} adults, ${children} children`);
-  }, [children, adults]);
+    setValue(`${adults} adults, ${childrenCount} children`);
+  }, [childrenCount, adults]);
   return (
     <Popover opened={popoverOpened} position="bottom" width="target" transition="pop">
       <Popover.Target>
@@ -600,7 +600,7 @@ export function BookingAdultChildrenSelector({
                   -
                 </Button>
                 <Text size={"sm"} style={{ display: "inline-block" }}>
-                  {children}
+                  {childrenCount}
                 </Text>
                 <Button
                   variant="default"

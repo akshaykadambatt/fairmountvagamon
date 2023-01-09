@@ -144,7 +144,7 @@ export default function Pages() {
             label={"Occupants"}
             adults={adults}
             setAdults={setAdults}
-            children={children}
+            childrenCount={children}
             setChildren={setChildren}
           />
           <Text size={"md"}>Addons</Text>
