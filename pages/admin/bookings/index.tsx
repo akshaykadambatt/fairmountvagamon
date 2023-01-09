@@ -83,7 +83,6 @@ export default function Pages() {
     setAddonEditId("");
   };
   const handleEditAction = (data: BookingData) => {
-    console.log(data);
     form.setFieldValue("name", data.name);
     form.setFieldValue("email", data.email);
     form.setFieldValue("phone", data.phone);
@@ -92,9 +91,7 @@ export default function Pages() {
     form.setFieldValue("status", data.status);
     form.setFieldValue("id", data.id);
     form.setFieldValue("numberOfOccupants", [data.numberOfOccupants[0], data.numberOfOccupants[1]]);
-    setBookingDate([(data.date[0] as unknown as Timestamp).toDate(),(data.date[1] as unknown as Timestamp).toDate()])
-    console.log();
-    
+    setBookingDate([(data.date[0] as unknown as Timestamp).toDate(), (data.date[1] as unknown as Timestamp).toDate()]);
     setAdults(data.numberOfOccupants[0]);
     setChildren(data.numberOfOccupants[1]);
     setAddonEditId(data.id ? data.id : "");
@@ -124,22 +121,13 @@ export default function Pages() {
       <Modal size={"xl"} opened={opened} onClose={() => setOpened(false)} title="Manage Booking">
         <form
           onSubmit={form.onSubmit((values) => {
-            // handleFormSubmit(values);
+            handleFormSubmit(values);
           })}
         >
           <TextInput label="Name" placeholder="Enter the name" {...form.getInputProps("name")} />
-          <TextInput label="email" placeholder="Enter the email" {...form.getInputProps("email")} />
-          <TextInput label="phone" placeholder="Enter the phone" {...form.getInputProps("phone")} />
+          <TextInput label="Email" placeholder="Enter the email" {...form.getInputProps("email")} />
+          <TextInput label="Phone" placeholder="Enter the phone" {...form.getInputProps("phone")} />
           <BookingDatePicker value={bookingDate} setValue={setBookingDate} label="Date range" />
-          <Textarea
-            placeholder="Booking notes from user"
-            label="Booking notes from user"
-            {...form.getInputProps("notes")}
-            autosize
-            minRows={3}
-            maxRows={10}
-          />
-          <TextInput label="phone" placeholder="Enter the phone" {...form.getInputProps("phone")} />
           <BookingAdultChildrenSelector
             label={"Occupants"}
             adults={adults}
@@ -149,6 +137,14 @@ export default function Pages() {
           />
           <Text size={"md"}>Addons</Text>
           <BookingAddonsSelector selectedAddons={selectedAddonsState} addonChangeHandler={setSelectedAddonsState} />
+          <Textarea
+            placeholder="Booking notes from user"
+            label="Booking notes from user"
+            {...form.getInputProps("notes")}
+            autosize
+            minRows={3}
+            maxRows={10}
+          />
           <Switch label="Active" {...form.getInputProps("status", { type: "checkbox" })} />
           <Group position="right" mt="md">
             <Button type="submit">Submit</Button>
