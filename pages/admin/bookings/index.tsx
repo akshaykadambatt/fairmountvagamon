@@ -26,7 +26,7 @@ import { Carousel } from "@mantine/carousel";
 import Navigation from "../../../components/Navigation";
 import { useEffect, useState } from "react";
 import { useForm } from "@mantine/form";
-import { doc, collection, setDoc, onSnapshot, query, where, deleteDoc, updateDoc } from "firebase/firestore";
+import { doc, collection, setDoc, onSnapshot, query, where, deleteDoc, updateDoc, Timestamp } from "firebase/firestore";
 import { db } from "../../../components/data/firebaseConfig";
 import { CollectionName } from "../../../components/data/constants";
 import {
@@ -40,7 +40,7 @@ import {
 } from "@tabler/icons";
 import { AiOutlineDelete } from "react-icons/ai";
 import { FunctionDeclaration } from "typescript";
-import { BookingAddonsSelector, BookingAdultChildrenSelector } from "../../../components/book";
+import { BookingAddonsSelector, BookingAdultChildrenSelector, BookingDatePicker } from "../../../components/book";
 export default function Pages() {
   const [opened, setOpened] = useState(false);
   const [addon, setAddon] = useState<BookingData[]>([]);
@@ -49,6 +49,7 @@ export default function Pages() {
   const [adults, setAdults] = useState(0);
   const [children, setChildren] = useState(0);
   const [selectedAddonsState, setSelectedAddonsState] = useState<string[]>([]);
+  const [bookingDate, setBookingDate] = useState<BookingDate>([null, null]);
   const form = useForm({
     initialValues: {
       name: "",
@@ -91,6 +92,9 @@ export default function Pages() {
     form.setFieldValue("status", data.status);
     form.setFieldValue("id", data.id);
     form.setFieldValue("numberOfOccupants", [data.numberOfOccupants[0], data.numberOfOccupants[1]]);
+    setBookingDate([(data.date[0] as unknown as Timestamp).toDate(),(data.date[1] as unknown as Timestamp).toDate()])
+    console.log();
+    
     setAdults(data.numberOfOccupants[0]);
     setChildren(data.numberOfOccupants[1]);
     setAddonEditId(data.id ? data.id : "");
@@ -100,7 +104,8 @@ export default function Pages() {
   useEffect(() => {
     form.setFieldValue("numberOfOccupants", [adults, children]);
     form.setFieldValue("addons", selectedAddonsState);
-  }, [adults, children, selectedAddonsState]);
+    form.setFieldValue("date", bookingDate);
+  }, [adults, children, selectedAddonsState, bookingDate]);
   useEffect(() => {
     const unsub1 = onSnapshot(query(collection(db, CollectionName.BOOKINGS)), (collectionSnapshot) => {
       let data: BookingData[] = [];
@@ -125,7 +130,7 @@ export default function Pages() {
           <TextInput label="Name" placeholder="Enter the name" {...form.getInputProps("name")} />
           <TextInput label="email" placeholder="Enter the email" {...form.getInputProps("email")} />
           <TextInput label="phone" placeholder="Enter the phone" {...form.getInputProps("phone")} />
-          <TextInput label="date" placeholder="Enter the date" {...form.getInputProps("date")} />
+          <BookingDatePicker value={bookingDate} setValue={setBookingDate} label="Date range" />
           <Textarea
             placeholder="Booking notes from user"
             label="Booking notes from user"

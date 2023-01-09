@@ -76,16 +76,90 @@ SelectItem.displayName = "SelectItem";
 
 export default function Book({ noCheckButton }: { noCheckButton?: boolean }) {
   const theme = useMantineTheme();
-  const [year, setYear] = useState(new Date().getFullYear());
-  const [popoverOpened, setPopoverOpened] = useState(false);
-  const ref = useClickOutside(() => setPopoverOpened(false));
   const { desk, tab, mob } = useViewport();
-  const [value, setValue] = useState<[Date | null, Date | null]>([null, null]);
-  const [beautifiedDate, setBeautifiedDate] = useState<string | undefined>();
-  const [bookingData, setBookingData] = useState<any>();
+  const [value, setValue] = useState<BookingDate>([null, null]);
   const dispatch = useDispatch();
   const { selectedProduct, selectedDate } = useSelector((state: RootState) => state.actions);
   const [productData, setProductData] = useState<ProductPropsWithValue[]>([selectedProduct]);
+  useEffect(() => {
+    let queryy = query(collection(db, CollectionName.PRODUCTS), where("status", "==", true));
+    let data: any[] = [];
+    getDocs(queryy).then((productsSnapshot) => {
+      let queryData = productsSnapshot.docs.map(
+        (product) =>
+          Object.assign(
+            { ...product.data() },
+            { id: product.id, value: product.id, label: product.data().name }
+          ) as unknown as ProductPropsWithValue
+      );
+      setProductData(queryData);
+    });
+  }, []);
+  useEffect(() => {
+    dispatch(setSelectedDate(value));
+  }, [value]);
+  useEffect(() => {
+    setValue(selectedDate);
+  }, []);
+  return (
+    <Grid align="center">
+      <Grid.Col span={12} md={noCheckButton ? 12 : 9}>
+        <Grid>
+          <Grid.Col span={12} md={7}>
+            <Select
+              label="Select a service"
+              description="Pick a type of room or service that you'd like"
+              placeholder="Pick one"
+              itemComponent={SelectItem}
+              data={productData}
+              value={selectedProduct.value}
+              onChange={(value) => {
+                dispatch(
+                  setSelectedProduct(
+                    productData.filter((e) => {
+                      return e.id == value;
+                    })[0]
+                  )
+                );
+              }}
+              maxDropdownHeight={400}
+              nothingFound="Nobody here"
+              filter={(value, item) =>
+                item.label?.toLowerCase().includes(value.toLowerCase().trim()) ||
+                item.description.toLowerCase().includes(value.toLowerCase().trim())
+              }
+            />
+          </Grid.Col>
+          <Grid.Col span={12} md={5}>
+              <BookingDatePicker value={value} setValue={setValue} productId={selectedProduct.id||""} label={"Book a stay"} description={"Enter your desired stay length"} />
+          </Grid.Col>
+        </Grid>
+      </Grid.Col>
+      {!noCheckButton && (
+        <Grid.Col span={12} md={3}>
+          <Button fullWidth size={"md"}>
+            Check availability
+          </Button>
+        </Grid.Col>
+      )}
+    </Grid>
+  );
+}
+
+export function BookingDatePicker({value, setValue, productId, label, description}: {
+  value: BookingDate;
+  setValue: Dispatch<SetStateAction<BookingDate>>;
+  productId?: string;
+  label:string; description?: string;
+}) {
+  const theme = useMantineTheme();
+  const { selectedTerms } = useSelector((state: RootState) => state.actions);
+  const [popoverOpened, setPopoverOpened] = useState(false);
+  const ref = useClickOutside(() => setPopoverOpened(false));
+  const [beautifiedDate, setBeautifiedDate] = useState<string | undefined>();
+  const [bookingData, setBookingData] = useState<any>();
+  const { desk, tab, mob } = useViewport();
+  const [year, setYear] = useState(new Date().getFullYear());
   useEffect(() => {
     //get this year's bookings
     let data;
@@ -114,21 +188,6 @@ export default function Book({ noCheckButton }: { noCheckButton?: boolean }) {
       });
     });
   }, [year]);
-
-  useEffect(() => {
-    let queryy = query(collection(db, CollectionName.PRODUCTS), where("status", "==", true));
-    let data: any[] = [];
-    getDocs(queryy).then((productsSnapshot) => {
-      let queryData = productsSnapshot.docs.map(
-        (product) =>
-          Object.assign(
-            { ...product.data() },
-            { id: product.id, value: product.id, label: product.data().name }
-          ) as unknown as ProductPropsWithValue
-      );
-      setProductData(queryData);
-    });
-  }, []);
   useEffect(() => {
     if (value[0] || value[1]) {
       setBeautifiedDate(
@@ -169,100 +228,40 @@ export default function Book({ noCheckButton }: { noCheckButton?: boolean }) {
       return date.getDate();
     }
   }
-  useEffect(() => {
-    dispatch(setSelectedDate(value));
-  }, [value]);
-  useEffect(() => {
-    setValue(selectedDate);
-  }, []);
   return (
-    <Grid align="center">
-      <Grid.Col span={12} md={noCheckButton ? 12 : 9}>
-        <Grid>
-          <Grid.Col span={12} md={7}>
-            <Select
-              label="Select a service"
-              description="Pick a type of room or service that you'd like"
-              placeholder="Pick one"
-              itemComponent={SelectItem}
-              data={productData}
-              value={selectedProduct.value}
-              onChange={(value) => {
-                dispatch(
-                  setSelectedProduct(
-                    productData.filter((e) => {
-                      return e.id == value;
-                    })[0]
-                  )
-                );
-              }}
-              maxDropdownHeight={400}
-              nothingFound="Nobody here"
-              filter={(value, item) =>
-                item.label?.toLowerCase().includes(value.toLowerCase().trim()) ||
-                item.description.toLowerCase().includes(value.toLowerCase().trim())
+    <Popover opened={popoverOpened} trapFocus position="bottom" withArrow transition={"pop-top-left"} shadow="md">
+      <Popover.Target>
+        <div onFocusCapture={() => setPopoverOpened(true)}>
+          <TextInput
+            autoComplete="off"
+            value={beautifiedDate}
+            label={label}
+            description={description}
+            placeholder="Pick dates range"
+          ></TextInput>
+        </div>
+      </Popover.Target>
+      <Popover.Dropdown>
+        <Box ref={ref}>
+          <RangeCalendar
+            excludeDate={(date) => date < new Date()}
+            allowSingleDateInRange
+            value={value}
+            onChange={(value) => {
+              setValue([null, null]);
+              setValue(value);
+              if (value[1]) {
+                setPopoverOpened(false);
               }
-            />
-          </Grid.Col>
-          <Grid.Col span={12} md={5}>
-            {/* <NumberInput
-              defaultValue={1}
-              description="Enter the number of people staying"
-              placeholder="Number of people"
-              label="Number of people"
-              withAsterisk
-            /> */}
-            <Popover
-              opened={popoverOpened}
-              trapFocus
-              position="bottom"
-              withArrow
-              transition={"pop-top-left"}
-              shadow="md"
-            >
-              <Popover.Target>
-                <div onFocusCapture={() => setPopoverOpened(true)}>
-                  <TextInput
-                    autoComplete="off"
-                    value={beautifiedDate}
-                    label="Book a stay"
-                    description="Enter your desired stay length"
-                    placeholder="Pick dates range"
-                  ></TextInput>
-                </div>
-              </Popover.Target>
-              <Popover.Dropdown>
-                <Box ref={ref}>
-                  <RangeCalendar
-                    excludeDate={(date) => date < new Date()}
-                    allowSingleDateInRange
-                    value={selectedDate}
-                    onChange={(value) => {
-                      setValue([null, null]);
-                      setValue(value);
-                      if (value[1]) {
-                        setPopoverOpened(false);
-                      }
-                    }}
-                    amountOfMonths={desk ? 2 : 1}
-                    renderDay={renderDayHandler}
-                    onMonthChange={monthChangeHandler}
-                    initialMonth={value[0] ? value[0] : new Date()}
-                  />
-                </Box>
-              </Popover.Dropdown>
-            </Popover>
-          </Grid.Col>
-        </Grid>
-      </Grid.Col>
-      {!noCheckButton && (
-        <Grid.Col span={12} md={3}>
-          <Button fullWidth size={"md"}>
-            Check availability
-          </Button>
-        </Grid.Col>
-      )}
-    </Grid>
+            }}
+            amountOfMonths={desk ? 2 : 1}
+            renderDay={renderDayHandler}
+            onMonthChange={monthChangeHandler}
+            initialMonth={value[0] ? value[0] : new Date()}
+          />
+        </Box>
+      </Popover.Dropdown>
+    </Popover>
   );
 }
 
@@ -277,6 +276,7 @@ export function BookSecondStep() {
     selectedNotes,
     selectedTerms,
   } = useSelector((state: RootState) => state.actions);
+  const { desk, tab, mob } = useViewport();
   const [selectedAddonsState, setSelectedAddonsState] = useState<string[]>([]);
   const [adults, setAdults] = useState(0);
   const [children, setChildren] = useState(0);
@@ -380,7 +380,6 @@ export function BookSecondStep() {
   );
 }
 
-
 export function BookThirdStep() {
   const {
     selectedEmail,
@@ -407,6 +406,7 @@ export function BookThirdStep() {
     </Grid>
   );
 }
+
 export function BookingCard({ success }: { success: boolean }) {
   const {
     selectedEmail,

@@ -54,6 +54,8 @@ interface ContactData {
   status: boolean;
 }
 
+type BookingDate = [Date | null, Date | null]
+
 interface BookingData {
   email: string;
   phone: string;
@@ -63,7 +65,7 @@ interface BookingData {
   numberOfOccupants: number[]; //[adults,children]
   addons: string[]; //[firestoreId,firestoreId,...]
   notes: string;
-  date: [Date | null, Date | null];
+  date: BookingDate;
   product: string;
   productData: ProductProps;
   shownPrice: number; //productData.price
