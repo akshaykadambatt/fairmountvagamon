@@ -583,7 +583,7 @@ export default function Home() {
         <FeaturesGrid
           title={"The Fairmount Experience"}
           description={
-            "People say it can run at the same speed as lightning striking, Its icy body is so cold, it will not melt even if it is immersed in magma.This dust is actually a powerful poison that will even make a pro wrestler sick, Regice cloaks itself with frigid air of -328 degrees Fahrenheit"
+            "Located amidst sprawling tea gardens, the resort offers a serene and peaceful experiance enveloped in the natural beauty of Vagamon, with lush green meadows and a beautiful green forest outside, leaving them free to relax and soak in the beauty of the whole valley, ensures perfect place to relax, rejuvenate, and reconnect with nature, the Fairmount Vagamon offers a one-of-a-kind experience."
           }
         />
         <Container
