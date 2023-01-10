@@ -50,13 +50,19 @@ import {
 } from "./data/actions";
 import { RootState } from "./data/configureStore";
 
+const useStyles = createStyles((theme) => ({
+  heading: {
+    marginBlock: 10,
+  },
+}));
+
 const SelectItem = forwardRef<HTMLDivElement, ProductPropsWithValue>(
   ({ images, name, shortDescription, ...others }: ProductProps, ref) => (
     <div ref={ref} {...others}>
       <Group noWrap>
         <Avatar src={images ? images[0].url : ""} />
-        <Grid>
-          <Grid.Col span={10}>
+        <Grid grow>
+          <Grid.Col span={10} style={{width:"60%"}}>
             <Text size="sm">{name}</Text>
             <Text size="xs" opacity={0.65}>
               {shortDescription}
@@ -76,62 +82,40 @@ SelectItem.displayName = "SelectItem";
 
 export default function Book({ noCheckButton }: { noCheckButton?: boolean }) {
   const theme = useMantineTheme();
-  const { desk, tab, mob } = useViewport();
-  const [value, setValue] = useState<BookingDate>([null, null]);
   const dispatch = useDispatch();
+  const { desk, tab, mob } = useViewport();
   const { selectedProduct, selectedDate } = useSelector((state: RootState) => state.actions);
-  const [productData, setProductData] = useState<ProductPropsWithValue[]>([selectedProduct]);
-  useEffect(() => {
-    let queryy = query(collection(db, CollectionName.PRODUCTS), where("status", "==", true));
-    let data: any[] = [];
-    getDocs(queryy).then((productsSnapshot) => {
-      let queryData = productsSnapshot.docs.map(
-        (product) =>
-          Object.assign(
-            { ...product.data() },
-            { id: product.id, value: product.id, label: product.data().name }
-          ) as unknown as ProductPropsWithValue
-      );
-      setProductData(queryData);
-    });
-  }, []);
+  const [value, setValue] = useState<BookingDate>([null, null]);
+  const [selectedProductState, setSelectedProductState] = useState<ProductPropsWithValue>(selectedProduct);
+
   useEffect(() => {
     dispatch(setSelectedDate(value));
-  }, [value]);
+    dispatch(setSelectedProduct(selectedProductState));
+  }, [value, selectedProductState]);
   useEffect(() => {
     setValue(selectedDate);
+    setSelectedProductState(selectedProduct);
   }, []);
   return (
     <Grid align="center">
       <Grid.Col span={12} md={noCheckButton ? 12 : 9}>
         <Grid>
           <Grid.Col span={12} md={7}>
-            <Select
-              label="Select a service"
-              description="Pick a type of room or service that you'd like"
-              placeholder="Pick one"
-              itemComponent={SelectItem}
-              data={productData}
-              value={selectedProduct.value}
-              onChange={(value) => {
-                dispatch(
-                  setSelectedProduct(
-                    productData.filter((e) => {
-                      return e.id == value;
-                    })[0]
-                  )
-                );
-              }}
-              maxDropdownHeight={400}
-              nothingFound="Nobody here"
-              filter={(value, item) =>
-                item.label?.toLowerCase().includes(value.toLowerCase().trim()) ||
-                item.description.toLowerCase().includes(value.toLowerCase().trim())
-              }
+            <BookingProductsSelect
+              selectedProductState={selectedProductState}
+              setSelectedProductState={setSelectedProductState}
+              label={"Select a service"}
+              description={"Pick a type of room or service that you'd like"}
             />
           </Grid.Col>
           <Grid.Col span={12} md={5}>
-              <BookingDatePicker value={value} setValue={setValue} productId={selectedProduct.id||""} label={"Book a stay"} description={"Enter your desired stay length"} />
+            <BookingDatePicker
+              value={value}
+              setValue={setValue}
+              productId={selectedProduct.id || ""}
+              label={"Book a stay"}
+              description={"Enter your desired stay length"}
+            />
           </Grid.Col>
         </Grid>
       </Grid.Col>
@@ -146,122 +130,54 @@ export default function Book({ noCheckButton }: { noCheckButton?: boolean }) {
   );
 }
 
-export function BookingDatePicker({value, setValue, productId, label, description}: {
-  value: BookingDate;
-  setValue: Dispatch<SetStateAction<BookingDate>>;
-  productId?: string;
-  label:string; description?: string;
+export function BookingProductsSelect({
+  selectedProductState,
+  setSelectedProductState,
+  label,
+  description
+}: {
+  selectedProductState: ProductPropsWithValue;
+  setSelectedProductState: Dispatch<SetStateAction<ProductPropsWithValue>>;
+  label: string;
+  description?: string;
 }) {
-  const theme = useMantineTheme();
-  const { selectedTerms } = useSelector((state: RootState) => state.actions);
-  const [popoverOpened, setPopoverOpened] = useState(false);
-  const ref = useClickOutside(() => setPopoverOpened(false));
-  const [beautifiedDate, setBeautifiedDate] = useState<string | undefined>();
-  const [bookingData, setBookingData] = useState<any>();
-  const { desk, tab, mob } = useViewport();
-  const [year, setYear] = useState(new Date().getFullYear());
+  const [productData, setProductData] = useState<ProductPropsWithValue[]>([selectedProductState]);
   useEffect(() => {
-    //get this year's bookings
-    let data;
-    let weight = {} as any;
-    let queryy = query(
-      collection(db, CollectionName.BOOKINGS),
-      where("year", "array-contains", year),
-      where("status", "==", CollectionStatus.ACTIVE)
-    );
-    getDocs(queryy).then((bookingsSnapshot) => {
-      data = bookingsSnapshot.docs.map((booking) => ({
-        ...booking.data(),
-      }));
-      data.forEach((booking) => {
-        let startDate = new Date(booking.startDate.toDate());
-        let endDate = new Date(booking.endDate.toDate());
-        while (startDate < endDate) {
-          if (weight[startDate.toDateString()]) {
-            weight[startDate.toDateString()] = weight[startDate.toDateString()] + booking.nos;
-          } else {
-            weight[startDate.toDateString()] = booking.nos;
-          }
-          startDate.setDate(startDate.getDate() + 1);
-        }
-        setBookingData(weight);
-      });
+    let queryy = query(collection(db, CollectionName.PRODUCTS), where("status", "==", true));
+    let data: any[] = [];
+    getDocs(queryy).then((productsSnapshot) => {
+      let queryData = productsSnapshot.docs.map(
+        (product) =>
+          Object.assign(
+            { ...product.data() },
+            { id: product.id, value: product.id, label: product.data().name }
+          ) as unknown as ProductPropsWithValue
+      );
+      setProductData(queryData);
     });
-  }, [year]);
-  useEffect(() => {
-    if (value[0] || value[1]) {
-      setBeautifiedDate(
-        (value[0] ? dayjs(value[0]).format("MMMM D, YYYY") : "") +
-          " - " +
-          (value[1] ? dayjs(value[1]).format("MMMM D, YYYY") : "")
-      );
-    }
-  }, [value]);
-  function monthChangeHandler(value: Date) {
-    if (year != value.getFullYear()) {
-      setYear(value.getFullYear());
-    }
-  }
-  function renderDayHandler(date: Date) {
-    if (!bookingData) return date.getDate();
-    if (date < new Date()) {
-      return date.getDate();
-    } else if (bookingData[date.toDateString()] > 10) {
-      return (
-        <Box>
-          <Box style={{ background: theme.fn.rgba(theme.colors.red[9], 0.3) }}>{date.getDate()}</Box>
-        </Box>
-      );
-    } else if (bookingData[date.toDateString()] > 7) {
-      return (
-        <Box>
-          <Box style={{ background: theme.fn.rgba(theme.colors.red[9], 0.2) }}>{date.getDate()}</Box>
-        </Box>
-      );
-    } else if (bookingData[date.toDateString()] > 5) {
-      return (
-        <Box>
-          <Box style={{ background: theme.fn.rgba(theme.colors.red[9], 0.1) }}>{date.getDate()}</Box>
-        </Box>
-      );
-    } else {
-      return date.getDate();
-    }
-  }
+  }, []);
   return (
-    <Popover opened={popoverOpened} trapFocus position="bottom" withArrow transition={"pop-top-left"} shadow="md">
-      <Popover.Target>
-        <div onFocusCapture={() => setPopoverOpened(true)}>
-          <TextInput
-            autoComplete="off"
-            value={beautifiedDate}
-            label={label}
-            description={description}
-            placeholder="Pick dates range"
-          ></TextInput>
-        </div>
-      </Popover.Target>
-      <Popover.Dropdown>
-        <Box ref={ref}>
-          <RangeCalendar
-            excludeDate={(date) => date < new Date()}
-            allowSingleDateInRange
-            value={value}
-            onChange={(value) => {
-              setValue([null, null]);
-              setValue(value);
-              if (value[1]) {
-                setPopoverOpened(false);
-              }
-            }}
-            amountOfMonths={desk ? 2 : 1}
-            renderDay={renderDayHandler}
-            onMonthChange={monthChangeHandler}
-            initialMonth={value[0] ? value[0] : new Date()}
-          />
-        </Box>
-      </Popover.Dropdown>
-    </Popover>
+    <Select
+      label={label}
+      description={description}
+      placeholder="Pick one"
+      itemComponent={SelectItem}
+      data={productData}
+      value={selectedProductState.value}
+      onChange={(value) => {
+        setSelectedProductState(
+          productData.filter((e) => {
+            return e.id == value;
+          })[0]
+        );
+      }}
+      maxDropdownHeight={400}
+      nothingFound="Nobody here"
+      filter={(value, item) =>
+        item.label?.toLowerCase().includes(value.toLowerCase().trim()) ||
+        item.description.toLowerCase().includes(value.toLowerCase().trim())
+      }
+    />
   );
 }
 
@@ -407,6 +323,167 @@ export function BookThirdStep() {
   );
 }
 
+export function BookSuccess() {
+  const { classes, cx } = useStyles();
+  const { selectedId } = useSelector((state: RootState) => state.actions);
+  return (
+    <Grid>
+      <Grid.Col span={12}>
+        <Title order={5} className={classes.heading}>
+          Reservation Confirmed
+        </Title>
+        <Text>
+          Reservation ID: <strong>{selectedId}</strong>
+        </Text>
+        <BookingCard success={true} />
+        <Text mb={15}>
+          We have recieved your reservation request and we will process the order as soon as possible. Expect a call
+          from Fairmount within 3-5 business days. For any enquiries contact us on the website / phone / WhatsApp lines.
+          We are ready to help.{" "}
+          <Link href="/contact" style={{ textDecoration: "underline" }}>
+            Contact Us
+          </Link>
+          . We have recieved your reservation request and we will process the order as soon as possible. Expect a call
+          from Fairmount within 3-5 business days. For any enquiries contact us on the website/phone/WhatsApp lines. We
+          are ready to help.
+        </Text>
+        <Button component={Link} href="/experiences">
+          Explore Vagamon
+        </Button>
+        <Button component={Link} href="/contact" ml={10} variant="outline">
+          Contact Us
+        </Button>
+      </Grid.Col>
+    </Grid>
+  );
+}
+
+export function BookingDatePicker({
+  value,
+  setValue,
+  productId,
+  label,
+  description,
+}: {
+  value: BookingDate;
+  setValue: Dispatch<SetStateAction<BookingDate>>;
+  productId?: string;
+  label: string;
+  description?: string;
+}) {
+  const theme = useMantineTheme();
+  const { selectedTerms } = useSelector((state: RootState) => state.actions);
+  const [popoverOpened, setPopoverOpened] = useState(false);
+  const ref = useClickOutside(() => setPopoverOpened(false));
+  const [beautifiedDate, setBeautifiedDate] = useState<string | undefined>();
+  const [bookingData, setBookingData] = useState<any>();
+  const { desk, tab, mob } = useViewport();
+  const [year, setYear] = useState(new Date().getFullYear());
+  useEffect(() => {
+    //get this year's bookings
+    let data;
+    let weight = {} as any;
+    let queryy = query(
+      collection(db, CollectionName.BOOKINGS),
+      where("year", "array-contains", year),
+      where("status", "==", CollectionStatus.ACTIVE)
+    );
+    getDocs(queryy).then((bookingsSnapshot) => {
+      data = bookingsSnapshot.docs.map((booking) => ({
+        ...booking.data(),
+      }));
+      data.forEach((booking) => {
+        let startDate = new Date(booking.startDate.toDate());
+        let endDate = new Date(booking.endDate.toDate());
+        while (startDate < endDate) {
+          if (weight[startDate.toDateString()]) {
+            weight[startDate.toDateString()] = weight[startDate.toDateString()] + booking.nos;
+          } else {
+            weight[startDate.toDateString()] = booking.nos;
+          }
+          startDate.setDate(startDate.getDate() + 1);
+        }
+        setBookingData(weight);
+      });
+    });
+  }, [year]);
+  useEffect(() => {
+    if (value[0] || value[1]) {
+      setBeautifiedDate(
+        (value[0] ? dayjs(value[0]).format("MMMM D, YYYY") : "") +
+          " - " +
+          (value[1] ? dayjs(value[1]).format("MMMM D, YYYY") : "")
+      );
+    }
+  }, [value]);
+  function monthChangeHandler(value: Date) {
+    if (year != value.getFullYear()) {
+      setYear(value.getFullYear());
+    }
+  }
+  function renderDayHandler(date: Date) {
+    if (!bookingData) return date.getDate();
+    if (date < new Date()) {
+      return date.getDate();
+    } else if (bookingData[date.toDateString()] > 10) {
+      return (
+        <Box>
+          <Box style={{ background: theme.fn.rgba(theme.colors.red[9], 0.3) }}>{date.getDate()}</Box>
+        </Box>
+      );
+    } else if (bookingData[date.toDateString()] > 7) {
+      return (
+        <Box>
+          <Box style={{ background: theme.fn.rgba(theme.colors.red[9], 0.2) }}>{date.getDate()}</Box>
+        </Box>
+      );
+    } else if (bookingData[date.toDateString()] > 5) {
+      return (
+        <Box>
+          <Box style={{ background: theme.fn.rgba(theme.colors.red[9], 0.1) }}>{date.getDate()}</Box>
+        </Box>
+      );
+    } else {
+      return date.getDate();
+    }
+  }
+  return (
+    <Popover opened={popoverOpened} trapFocus position="bottom" withArrow transition={"pop-top-left"} shadow="md">
+      <Popover.Target>
+        <div onFocusCapture={() => setPopoverOpened(true)}>
+          <TextInput
+            autoComplete="off"
+            value={beautifiedDate}
+            label={label}
+            description={description}
+            placeholder="Pick dates range"
+          ></TextInput>
+        </div>
+      </Popover.Target>
+      <Popover.Dropdown>
+        <Box ref={ref}>
+          <RangeCalendar
+            excludeDate={(date) => date < new Date()}
+            allowSingleDateInRange
+            value={value}
+            onChange={(value) => {
+              setValue([null, null]);
+              setValue(value);
+              if (value[1]) {
+                setPopoverOpened(false);
+              }
+            }}
+            amountOfMonths={desk ? 2 : 1}
+            renderDay={renderDayHandler}
+            onMonthChange={monthChangeHandler}
+            initialMonth={value[0] ? value[0] : new Date()}
+          />
+        </Box>
+      </Popover.Dropdown>
+    </Popover>
+  );
+}
+
 export function BookingCard({ success }: { success: boolean }) {
   const {
     selectedEmail,
@@ -457,46 +534,6 @@ export function BookingCard({ success }: { success: boolean }) {
         + addons
       </Text>
     </Box>
-  );
-}
-
-const useStyles = createStyles((theme) => ({
-  heading: {
-    marginBlock: 10,
-  },
-}));
-export function BookSuccess() {
-  const { classes, cx } = useStyles();
-  const { selectedId } = useSelector((state: RootState) => state.actions);
-  return (
-    <Grid>
-      <Grid.Col span={12}>
-        <Title order={5} className={classes.heading}>
-          Reservation Confirmed
-        </Title>
-        <Text>
-          Reservation ID: <strong>{selectedId}</strong>
-        </Text>
-        <BookingCard success={true} />
-        <Text mb={15}>
-          We have recieved your reservation request and we will process the order as soon as possible. Expect a call
-          from Fairmount within 3-5 business days. For any enquiries contact us on the website / phone / WhatsApp lines.
-          We are ready to help.{" "}
-          <Link href="/contact" style={{ textDecoration: "underline" }}>
-            Contact Us
-          </Link>
-          . We have recieved your reservation request and we will process the order as soon as possible. Expect a call
-          from Fairmount within 3-5 business days. For any enquiries contact us on the website/phone/WhatsApp lines. We
-          are ready to help.
-        </Text>
-        <Button component={Link} href="/experiences">
-          Explore Vagamon
-        </Button>
-        <Button component={Link} href="/contact" ml={10} variant="outline">
-          Contact Us
-        </Button>
-      </Grid.Col>
-    </Grid>
   );
 }
 

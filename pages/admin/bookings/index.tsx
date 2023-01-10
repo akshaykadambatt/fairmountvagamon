@@ -40,7 +40,7 @@ import {
 } from "@tabler/icons";
 import { AiOutlineDelete } from "react-icons/ai";
 import { FunctionDeclaration } from "typescript";
-import { BookingAddonsSelector, BookingAdultChildrenSelector, BookingDatePicker } from "../../../components/book";
+import { BookingAddonsSelector, BookingAdultChildrenSelector, BookingDatePicker, BookingProductsSelect } from "../../../components/book";
 export default function Pages() {
   const [opened, setOpened] = useState(false);
   const [addon, setAddon] = useState<BookingData[]>([]);
@@ -49,6 +49,7 @@ export default function Pages() {
   const [adults, setAdults] = useState(0);
   const [children, setChildren] = useState(0);
   const [selectedAddonsState, setSelectedAddonsState] = useState<string[]>([]);
+  const [selectedProductState, setSelectedProductState] = useState<ProductPropsWithValue>({} as ProductPropsWithValue);
   const [bookingDate, setBookingDate] = useState<BookingDate>([null, null]);
   const form = useForm({
     initialValues: {
@@ -127,6 +128,11 @@ export default function Pages() {
           <TextInput label="Name" placeholder="Enter the name" {...form.getInputProps("name")} />
           <TextInput label="Email" placeholder="Enter the email" {...form.getInputProps("email")} />
           <TextInput label="Phone" placeholder="Enter the phone" {...form.getInputProps("phone")} />
+          <BookingProductsSelect
+              selectedProductState={selectedProductState}
+              setSelectedProductState={setSelectedProductState}
+              label={"Selected service"}
+            />
           <BookingDatePicker value={bookingDate} setValue={setBookingDate} label="Date range" />
           <BookingAdultChildrenSelector
             label={"Occupants"}
