@@ -583,7 +583,7 @@ export default function Home() {
         <FeaturesGrid
           title={"The Fairmount Experience"}
           description={
-            "Located amidst sprawling tea gardens, the resort offers a serene and peaceful experiance enveloped in the natural beauty of Vagamon, with lush green meadows and a beautiful green forest outside, leaving them free to relax and soak in the beauty of the whole valley, ensures perfect place to relax, rejuvenate, and reconnect with nature, the Fairmount Vagamon offers a one-of-a-kind experience."
+            "Located amidst sprawling tea gardens, the resort offers a serene and peaceful experiance enveloped in the natural beauty of Vagamon, with lush green meadows and a beautiful green forest outside, leaving them free to relax and soak in the beauty of the whole valley, ensures perfect place to rejuvenate, and reconnect with nature, the Fairmount Vagamon offers a one-of-a-kind experience."
           }
         />
         <Container
