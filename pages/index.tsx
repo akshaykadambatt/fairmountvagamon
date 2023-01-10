@@ -458,8 +458,7 @@ export default function Home() {
                           Thangalpara
                         </Title>
                         <Text size={13} color="gray">
-                          Vast and beautiful. we have provided premium resort experience and a comfortable companionship
-                          of nature.
+                        The Thangalpara hill is considered sacred by the Muslim community, as well as an exciting destination for adventure and enriching experience while enjoying the natural beauty of Vagamon.
                         </Text>
                       </Grid.Col>
                     </Grid>
@@ -476,8 +475,7 @@ export default function Home() {
                           Vagamon Meadows
                         </Title>
                         <Text size={13} color="gray">
-                          Vast and beautiful. we have provided premium resort experience and a comfortable companionship
-                          of nature.
+                        Vagamon Meadows is one of the most iconic and picturesque attractions of the hill station, characterized by vast expanses of lush green grass, dotted with wildflowers, and surrounded by towering hills and misty peaks.
                         </Text>
                       </Grid.Col>
                     </Grid>
@@ -494,8 +492,7 @@ export default function Home() {
                           Vagamon Meadows Lake
                         </Title>
                         <Text size={13} color="gray">
-                          Vast and beautiful. we have provided premium resort experience and a comfortable companionship
-                          of nature.
+                        The Vagamon Meadows Lake is filled with water throughout the year, providing a refreshing contrast to the lush greenery. The clear and calm waters of the lake reflect the landscape, creating a stunning and tranquil environment.
                         </Text>
                       </Grid.Col>
                     </Grid>
@@ -583,7 +580,7 @@ export default function Home() {
         <FeaturesGrid
           title={"The Fairmount Experience"}
           description={
-            "Located amidst sprawling tea gardens, the resort offers a serene and peaceful experiance enveloped in the natural beauty of Vagamon, with lush green meadows and a beautiful green forest outside, leaving them free to relax and soak in the beauty of the whole valley, ensures perfect place to rejuvenate, and reconnect with nature, the Fairmount Vagamon offers a one-of-a-kind experience."
+            "Located amidst sprawling tea gardens, the resort offers a serene and peaceful experiance enveloped in the natural beauty of Vagamon, with lush green meadows and a beautiful green forest outside, leaving them free to relax and soak in the beauty of the whole valley, ensures perfect place to rejuvenate and reconnect with nature, the Fairmount Vagamon offers a one-of-a-kind experience."
           }
         />
         <Container
