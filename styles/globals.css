@@ -1,8 +1,12 @@
 /* @import url('https://fonts.googleapis.com/css2?family=Mr+Dafoe&display=swap'); */
 
 *{
-  border: 1px solid red !important;
+  /* box-shadow: 0 0 0 1px red !important; */
 }
+/* *{
+  box-shadow: 0 0 0 1px red !important;
+} */
+
 
 html,
 body {

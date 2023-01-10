@@ -61,8 +61,8 @@ const SelectItem = forwardRef<HTMLDivElement, ProductPropsWithValue>(
     <div ref={ref} {...others}>
       <Group noWrap>
         <Avatar src={images ? images[0].url : ""} />
-        <Grid grow>
-          <Grid.Col span={10} style={{width:"60%"}}>
+        <Grid style={{width:"100%"}}>
+          <Grid.Col span={10}>
             <Text size="sm">{name}</Text>
             <Text size="xs" opacity={0.65}>
               {shortDescription}
@@ -518,11 +518,11 @@ export function BookingCard({ success }: { success: boolean }) {
       </Box>
       <Text color="dimmed">
         {selectedNumberOfOccupants[0]} Adults and {selectedNumberOfOccupants[1]} Children, from{" "}
-        {dayjs(selectedDate[0]).format("DD-MMM-YYYY")}
-        &nbsp;&nbsp;to {dayjs(selectedDate[1]).format("DD-MMM-YYYY")}
+        {dayjs(selectedDate[0]).format("MMM DD")}
+        &nbsp;to {dayjs(selectedDate[1]).format("MMM DD, YYYY")}
       </Text>
       <Text>
-        Reservation to be made in the name of {selectedName} ( {selectedPhone || selectedEmail} )
+        Reservation {success ? null : "to be"} made in the name of {selectedName} ( {selectedPhone || selectedEmail} )
       </Text>
       <Text align="right" color="dimmed">
         Approximate Price{" "}

@@ -2,6 +2,7 @@ import Head from "next/head";
 import Image from "next/image";
 import styles from "../styles/Home.module.css";
 import {
+  Accordion,
   ActionIcon,
   Badge,
   Box,
@@ -19,8 +20,10 @@ import {
   Text,
   TextInput,
   Textarea,
+  ThemeIcon,
   Title,
   useMantineTheme,
+  createStyles,
 } from "@mantine/core";
 import { Carousel } from "@mantine/carousel";
 import Navigation from "../../../components/Navigation";
@@ -30,18 +33,36 @@ import { doc, collection, setDoc, onSnapshot, query, where, deleteDoc, updateDoc
 import { db } from "../../../components/data/firebaseConfig";
 import { CollectionName } from "../../../components/data/constants";
 import {
+  IconArrowAutofitContent,
+  IconArrowBarDown,
+  IconArrowDown,
   IconChevronDown,
   IconChevronUp,
   IconChevronsDown,
   IconChevronsUp,
   IconPencil,
+  IconPlus,
   IconSettings,
   IconTrash,
 } from "@tabler/icons";
 import { AiOutlineDelete } from "react-icons/ai";
 import { FunctionDeclaration } from "typescript";
-import { BookingAddonsSelector, BookingAdultChildrenSelector, BookingDatePicker, BookingProductsSelect } from "../../../components/book";
+import {
+  BookingAddonsSelector,
+  BookingAdultChildrenSelector,
+  BookingDatePicker,
+  BookingProductsSelect,
+} from "../../../components/book";
+
+const useStyles = createStyles((theme, _params, getRef) => {
+  return {
+    item: {
+      overflow: "hidden",
+    },
+  };
+});
 export default function Pages() {
+  const { classes } = useStyles();
   const [opened, setOpened] = useState(false);
   const [addon, setAddon] = useState<BookingData[]>([]);
   const [addonEditId, setAddonEditId] = useState("");
@@ -97,13 +118,16 @@ export default function Pages() {
     setChildren(data.numberOfOccupants[1]);
     setAddonEditId(data.id ? data.id : "");
     setSelectedAddonsState(data.addons);
+    setSelectedProductState(data.productData);
     setOpened(true);
   };
   useEffect(() => {
     form.setFieldValue("numberOfOccupants", [adults, children]);
     form.setFieldValue("addons", selectedAddonsState);
     form.setFieldValue("date", bookingDate);
-  }, [adults, children, selectedAddonsState, bookingDate]);
+    form.setFieldValue("productData", selectedProductState);
+    form.setFieldValue("product", selectedProductState.value);
+  }, [adults, children, selectedAddonsState, bookingDate, selectedProductState]);
   useEffect(() => {
     const unsub1 = onSnapshot(query(collection(db, CollectionName.BOOKINGS)), (collectionSnapshot) => {
       let data: BookingData[] = [];
@@ -129,10 +153,10 @@ export default function Pages() {
           <TextInput label="Email" placeholder="Enter the email" {...form.getInputProps("email")} />
           <TextInput label="Phone" placeholder="Enter the phone" {...form.getInputProps("phone")} />
           <BookingProductsSelect
-              selectedProductState={selectedProductState}
-              setSelectedProductState={setSelectedProductState}
-              label={"Selected service"}
-            />
+            selectedProductState={selectedProductState}
+            setSelectedProductState={setSelectedProductState}
+            label={"Selected service"}
+          />
           <BookingDatePicker value={bookingDate} setValue={setBookingDate} label="Date range" />
           <BookingAdultChildrenSelector
             label={"Occupants"}
@@ -151,6 +175,39 @@ export default function Pages() {
             minRows={3}
             maxRows={10}
           />
+          <Accordion
+            chevronPosition="right"
+            chevronSize={50}
+            my={10}
+            variant="separated"
+            chevron={
+              <ThemeIcon radius="xl" size={24}>
+                <IconArrowDown size={14} stroke={1.5} />
+              </ThemeIcon>
+            }
+          >
+            <Accordion.Item className={classes.item} value="product" mb={5}>
+              <Accordion.Control py={12} my={0}>
+                <Text size="xs">Product data log</Text>
+              </Accordion.Control>
+              <Accordion.Panel>
+                <Text size="xs">Product data during the user created the booking entry :</Text>
+                <Text size="xs" component="pre">
+                  <code>{JSON.stringify(selectedProductState, null, 4)}</code>
+                </Text>
+              </Accordion.Panel>
+            </Accordion.Item>
+            <Accordion.Item className={classes.item} value="booking" mb={6}>
+              <Accordion.Control py={12} my={0}>
+                <Text size="xs">Raw booking data</Text>
+              </Accordion.Control>
+              <Accordion.Panel>
+                <Text size="xs" component="pre">
+                  <code>{JSON.stringify(form.values, null, 4)}</code>
+                </Text>
+              </Accordion.Panel>
+            </Accordion.Item>
+          </Accordion>
           <Switch label="Active" {...form.getInputProps("status", { type: "checkbox" })} />
           <Group position="right" mt="md">
             <Button type="submit">Submit</Button>

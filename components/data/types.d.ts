@@ -67,7 +67,7 @@ interface BookingData {
   notes: string;
   date: BookingDate;
   product: string;
-  productData: ProductProps;
+  productData: ProductPropsWithValue;
   shownPrice: number; //productData.price
   deleted: boolean;
   referenceId: string;
