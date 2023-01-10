@@ -259,9 +259,8 @@ export default function Home() {
                         RESORTS, WAGAMON
                       </Text>
                       <Text weight={100} px={6} mb={10} color="#fff" size={13}>
-                        One of the most popular FairMount Vagamon Resort, offers a perfect blend of all modern luxuries
-                        and a comfortable companionship of nature. we have provided premium resort experience and a
-                        comfortable companionship of nature. we have provided premium resort experience
+                      Escape to the stunning beauty of Vagamon at Fairmount Residency. Relax and rejuvenate in the beautiful surroundings of Vagamon.  
+                      The region is home to vast green meadows, misty hills, and dense pine forests, making it a paradise for nature lovers. Nestled in the Western Ghats mountain range, our resort offers the perfect escape from the stresses of everyday life.
                       </Text>
                       <Box px={6}>
                         <Button variant="white" color="dark" size={"xs"}>
@@ -304,9 +303,8 @@ export default function Home() {
                         RESORTS, WAGAMON
                       </Text>
                       <Text weight={100} px={6} mb={10} color="#fff" size={13}>
-                        One of the most popular FairMount Vagamon Resort, offers a perfect blend of all modern luxuries
-                        and a comfortable companionship of nature. we have provided premium resort experience and a
-                        comfortable companionship of nature. we have provided premium resort experience
+                      Discover the rich culture and history of Kerala at our resort. Savor delicious Keralite, North Indian, and Chinese cuisine at our on-site restaurant.
+                      Vagamon is home to a number of cultural and historical sites, including tea plantations and local temples. Also, take part in a range of activities in the Western Ghats, from trekking and paragliding to rock climbing and more, there is something for every adventure seeker in Vagamon.
                       </Text>
                       <Box px={6}>
                         <Button variant="white" color="dark" size={"xs"}>
