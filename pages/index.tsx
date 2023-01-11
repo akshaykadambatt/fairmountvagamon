@@ -278,9 +278,8 @@ export default function Home() {
                         RESORTS, WAGAMON
                       </Text>
                       <Text weight={100} px={6} mb={10} color="#fff" size={13}>
-                        One of the most popular FairMount Vagamon Resort, offers a perfect blend of all modern luxuries
-                        and a comfortable companionship of nature. we have provided premium resort experience and a
-                        comfortable companionship of nature. we have provided premium resort experience
+                      Escape to the stunning beauty of Vagamon at Fairmount Residency. Relax and rejuvenate in the beautiful surroundings of Vagamon.  
+                      The region is home to vast green meadows, misty hills, and dense pine forests, making it a paradise for nature lovers. Nestled in the Western Ghats mountain range, our resort offers the perfect escape from the stresses of everyday life.
                       </Text>
                       <Box px={6}>
                         <Button variant="white" color="dark" size={"xs"}>
@@ -323,9 +322,8 @@ export default function Home() {
                         RESORTS, WAGAMON
                       </Text>
                       <Text weight={100} px={6} mb={10} color="#fff" size={13}>
-                        One of the most popular FairMount Vagamon Resort, offers a perfect blend of all modern luxuries
-                        and a comfortable companionship of nature. we have provided premium resort experience and a
-                        comfortable companionship of nature. we have provided premium resort experience
+                      Discover the rich culture and history of Kerala at our resort. Savor delicious Keralite, North Indian, and Chinese cuisine at our on-site restaurant.
+                      Vagamon is home to a number of cultural and historical sites, including tea plantations and local temples. Also, take part in a range of activities in the Western Ghats, from trekking and paragliding to rock climbing and more, there is something for every adventure seeker in Vagamon.
                       </Text>
                       <Box px={6}>
                         <Button variant="white" color="dark" size={"xs"}>
@@ -482,8 +480,7 @@ export default function Home() {
                           Thangalpara
                         </Title>
                         <Text size={13} color="gray">
-                          Vast and beautiful. we have provided premium resort experience and a comfortable companionship
-                          of nature.
+                        The Thangalpara hill is considered sacred by the Muslim community, as well as an exciting destination for adventure and enriching experience while enjoying the natural beauty of Vagamon.
                         </Text>
                       </Grid.Col>
                     </Grid>
@@ -500,8 +497,7 @@ export default function Home() {
                           Vagamon Meadows
                         </Title>
                         <Text size={13} color="gray">
-                          Vast and beautiful. we have provided premium resort experience and a comfortable companionship
-                          of nature.
+                        Vagamon Meadows is one of the most iconic and picturesque attractions of the hill station, characterized by vast expanses of lush green grass, dotted with wildflowers, and surrounded by towering hills and misty peaks.
                         </Text>
                       </Grid.Col>
                     </Grid>
@@ -518,8 +514,7 @@ export default function Home() {
                           Vagamon Meadows Lake
                         </Title>
                         <Text size={13} color="gray">
-                          Vast and beautiful. we have provided premium resort experience and a comfortable companionship
-                          of nature.
+                        The Vagamon Meadows Lake is filled with water throughout the year, providing a refreshing contrast to the lush greenery. The clear and calm waters of the lake reflect the landscape, creating a stunning and tranquil environment.
                         </Text>
                       </Grid.Col>
                     </Grid>
@@ -607,7 +602,7 @@ export default function Home() {
         <FeaturesGrid
           title={"The Fairmount Experience"}
           description={
-            "People say it can run at the same speed as lightning striking, Its icy body is so cold, it will not melt even if it is immersed in magma.This dust is actually a powerful poison that will even make a pro wrestler sick, Regice cloaks itself with frigid air of -328 degrees Fahrenheit"
+            "Located amidst sprawling tea gardens, the resort offers a serene and peaceful experiance enveloped in the natural beauty of Vagamon, with lush green meadows and a beautiful green forest outside, leaving them free to relax and soak in the beauty of the whole valley, ensures perfect place to rejuvenate and reconnect with nature, the Fairmount Vagamon offers a one-of-a-kind experience."
           }
         />
         <Container
