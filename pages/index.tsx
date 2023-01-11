@@ -229,7 +229,7 @@ export default function Home() {
                       </Title>
 
                       <Text weight={100} px={6} mb={10} color="#fff">
-                        RESORTS, WAGAMON
+                        RESORTS, VAGAMON
                       </Text>
                       <Text weight={100} px={6} mb={10} color="#fff" size={13}>
                         Enclosed between rolling hills and lush tea gardens, Fairmount Vagamon Resorts is an offbeat
@@ -275,7 +275,7 @@ export default function Home() {
                       </Title>
 
                       <Text weight={100} px={6} mb={10} color="#fff">
-                        RESORTS, WAGAMON
+                        RESORTS, VAGAMON
                       </Text>
                       <Text weight={100} px={6} mb={10} color="#fff" size={13}>
                       Escape to the stunning beauty of Vagamon at Fairmount Residency. Relax and rejuvenate in the beautiful surroundings of Vagamon.  
@@ -319,7 +319,7 @@ export default function Home() {
                       </Title>
 
                       <Text weight={100} px={6} mb={10} color="#fff">
-                        RESORTS, WAGAMON
+                        RESORTS, VAGAMON
                       </Text>
                       <Text weight={100} px={6} mb={10} color="#fff" size={13}>
                       Discover the rich culture and history of Kerala at our resort. Savor delicious Keralite, North Indian, and Chinese cuisine at our on-site restaurant.
