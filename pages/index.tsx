@@ -451,7 +451,7 @@ export default function Home() {
                 One of the key attractions of Vagamon is its temperate climate, which remains pleasant throughout the year. 
                 In the summer months, the temperature ranges from a comfortable 20-25°C, making it the perfect escape from the heat of the plains. 
                 In the winter, the temperature drops to a cool 10-15°C, making it a great destination. 
-                Whether you're lounging on the verdant lawns, taking a leisurely stroll through the tea gardens, or simply soaking up the peaceful atmosphere, Vagamon is the perfect place to unwind and recharge.{" "}
+                Whether you&apos;re lounging on the verdant lawns, taking a leisurely stroll through the tea gardens, or simply soaking up the peaceful atmosphere, Vagamon is the perfect place to unwind and recharge.{" "}
                 </Text>
                 <Text style={{ width: "90%" }} mb={20} size="sm">
                   We look forward to welcoming you to <strong>Fairmount</strong> and helping you create unforgettable memories.
