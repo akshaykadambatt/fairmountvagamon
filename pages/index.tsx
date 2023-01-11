@@ -9,6 +9,7 @@ import {
   Container,
   Grid,
   SimpleGrid,
+  Spoiler,
   Text,
   Title,
   createStyles,
@@ -25,7 +26,17 @@ import resort4 from "../assets/resort4.jpg";
 import { mrDafoe } from "../styles/themes/typography";
 import FeaturesGrid from "../components/features";
 import ClassNames from "embla-carousel-class-names";
-import { JSXElementConstructor, Key, ReactElement, ReactFragment, ReactPortal, useCallback, useEffect, useRef, useState } from "react";
+import {
+  JSXElementConstructor,
+  Key,
+  ReactElement,
+  ReactFragment,
+  ReactPortal,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import Autoplay from "embla-carousel-autoplay";
 import { db } from "../components/data/firebaseConfig";
 import { collection, query, where, getDocs, onSnapshot } from "firebase/firestore";
@@ -76,10 +87,10 @@ export default function Home() {
 `;
   const activeClass = useRef(ClassNames({ selected: "active-carousel-class" }));
   const autoplay = useRef(Autoplay({ delay: 5000 }));
-  const [embla, setEmbla] = useState < Embla | null > (null);
+  const [embla, setEmbla] = useState<Embla | null>(null);
   const theme = useMantineTheme();
-  const [testimonials, setTestimonials] = useState < any > ();
-  const [testimonialSlideActive, setTestimonialSlideActive] = useState < number > (0);
+  const [testimonials, setTestimonials] = useState<any>();
+  const [testimonialSlideActive, setTestimonialSlideActive] = useState<number>(0);
   const { classes } = useStyles();
   useEffect(() => {
     let queryy = query(collection(db, "theme"));
@@ -153,8 +164,14 @@ export default function Home() {
         <link rel="manifest" href="/site.webmanifest" />
         <meta name="msapplication-TileColor" content="#FFFFFF" />
         <meta name="theme-color" content="#FFFFFF" />
-        <meta name="keywords" content="resort, Vagamon, Kerala, hill resort, accommodations, tree house, restaurant, room service, spa, outdoor pool, trekking, paragliding, rock climbing, resort at vagamon, fairmount vagamon, fairmount vagamon resorts, resort offers, experience resort, most popular resort, resort experience, resort nature, Vagamon resorts, Kerala hill resorts ,Western Ghats resorts ,Tea plantation resorts ,Nature resorts ,Adventure resorts ,Luxury resorts ,Relaxation resorts ,Spa resorts ,Romantic getaways ,Family vacations ,Hill station vacations ,Hill station getaways ,Western Ghats tourism ,Kerala tourism ,Tea plantation tours ,Nature tours ,Adventure tours ,Luxury travel ,Relaxation vacations ,Spa vacations ,Romantic holidays ,Family holidays ,Honeymoon destinations" />
-        <meta name="description" content="Escape to the stunning beauty of Vagamon at Fairmount Residency. Our resort offers comfortable accommodations, a range of dining options, and a range of activities and amenities to ensure that our guests have a comfortable and enjoyable stay." />
+        <meta
+          name="keywords"
+          content="resort, Vagamon, Kerala, hill resort, accommodations, tree house, restaurant, room service, spa, outdoor pool, trekking, paragliding, rock climbing, resort at vagamon, fairmount vagamon, fairmount vagamon resorts, resort offers, experience resort, most popular resort, resort experience, resort nature, Vagamon resorts, Kerala hill resorts ,Western Ghats resorts ,Tea plantation resorts ,Nature resorts ,Adventure resorts ,Luxury resorts ,Relaxation resorts ,Spa resorts ,Romantic getaways ,Family vacations ,Hill station vacations ,Hill station getaways ,Western Ghats tourism ,Kerala tourism ,Tea plantation tours ,Nature tours ,Adventure tours ,Luxury travel ,Relaxation vacations ,Spa vacations ,Romantic holidays ,Family holidays ,Honeymoon destinations"
+        />
+        <meta
+          name="description"
+          content="Escape to the stunning beauty of Vagamon at Fairmount Residency. Our resort offers comfortable accommodations, a range of dining options, and a range of activities and amenities to ensure that our guests have a comfortable and enjoyable stay."
+        />
         <meta name="author" content="Fairmount Vagamon" />
       </Head>
       <main>
@@ -172,7 +189,7 @@ export default function Home() {
             s0.parentNode.insertBefore(s1,s0);
             })();
             </script>
-            <!--End of Tawk.to Script-->`
+            <!--End of Tawk.to Script-->`,
           }}
         />
         <Container size="lg" fluid p={0}>
@@ -215,8 +232,10 @@ export default function Home() {
                         RESORTS, WAGAMON
                       </Text>
                       <Text weight={100} px={6} mb={10} color="#fff" size={13}>
-                        Enclosed between rolling hills and lush tea gardens, Fairmount Vagamon Resorts is an offbeat property offering comfortable accommodations and beautiful landmarks to visit nearby.
-                        The rooms offer scenic views of hills. It has a shared dining area and living area to enjoy with your friends and family.
+                        Enclosed between rolling hills and lush tea gardens, Fairmount Vagamon Resorts is an offbeat
+                        property offering comfortable accommodations and beautiful landmarks to visit nearby. The rooms
+                        offer scenic views of hills. It has a shared dining area and living area to enjoy with your
+                        friends and family.
                       </Text>
                       <Box px={6}>
                         <Button variant="white" color="dark" size={"xs"}>
@@ -423,16 +442,19 @@ export default function Home() {
             <Grid gutter={40}>
               <Grid.Col span={12} sm={6}>
                 <Text style={{ width: "90%" }} mb={20} size="sm">
-                Welcome to <strong>Fairmount</strong>, a premier hill resort located in the stunning region of Vagamon, Kerala. 
-                Nestled in the Western Ghats mountain range, our resort offers the perfect escape from the stresses of everyday life with a perfect blend of all modern luxurious amenities, 
-                delicious dining and comfortable companionship of nature.{" "}
+                  Welcome to <strong>Fairmount</strong>, a premier hill resort located in the stunning region of
+                  Vagamon, Kerala. Nestled in the Western Ghats mountain range, our resort offers the perfect escape
+                  from the stresses of everyday life with a perfect blend of all modern luxurious amenities, delicious
+                  dining and comfortable companionship of nature.{" "}
                 </Text>
                 <Text style={{ width: "90%" }} mb={20} size="sm">
-                At Fairmount, we are committed to providing our guests with the highest level of comfort and service. 
-                With its temperate climate and stunning natural surroundings, Vagamon is the perfect destination, offering a range of activities providing a unique and memorable experience.
+                  At Fairmount, we are committed to providing our guests with the highest level of comfort and service.
+                  With its temperate climate and stunning natural surroundings, Vagamon is the perfect destination,
+                  offering a range of activities providing a unique and memorable experience.
                 </Text>
                 <Text style={{ width: "90%" }} mb={20} size="sm">
-                We look forward to welcoming you to Fairmount and helping you create unforgettable memories in the beautiful region of <strong>Vagamon</strong>.
+                  We look forward to welcoming you to Fairmount and helping you create unforgettable memories in the
+                  beautiful region of <strong>Vagamon</strong>.
                 </Text>
                 <Box display={"flex"} style={{ flexDirection: desk ? "row" : "column" }}>
                   <Button mr={15}>Check Availabliltiy</Button>
@@ -672,7 +694,7 @@ export default function Home() {
               mx="auto"
               slideSize="38%"
               slideGap={40}
-              py={50}
+              pt={50}
               loop={true}
               withControls={false}
               getEmblaApi={setEmbla}
@@ -681,7 +703,9 @@ export default function Home() {
               {testimonials.map((testimonial: TestimonialProps, index: number) => (
                 <Carousel.Slide
                   key={testimonial.id}
-                  className={`${classes.testimonialSlide} ${testimonialSlideActive == index && "active-carousel-class"}`}
+                  className={`${classes.testimonialSlide} ${
+                    testimonialSlideActive == index && "active-carousel-class"
+                  }`}
                 >
                   <Box>
                     <Box
@@ -693,9 +717,12 @@ export default function Home() {
                       py={10}
                       px={30}
                       m={20}
-                      mb={49}
                     >
-                      <Blockquote cite={testimonial.name}>{testimonial.content}</Blockquote>
+                      <Blockquote cite={testimonial.name}>
+                        <Spoiler maxHeight={110} showLabel="Show more" hideLabel="Hide">
+                          {testimonial.content}
+                        </Spoiler>
+                      </Blockquote>
                     </Box>
                   </Box>
                 </Carousel.Slide>

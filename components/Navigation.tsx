@@ -13,6 +13,7 @@ import {
   Menu,
   Avatar,
   Modal,
+  Title,
 } from "@mantine/core";
 import {
   IconNotes,
@@ -46,6 +47,7 @@ import { auth } from "../components/data/firebaseConfig";
 import { AuthContext } from "./data/AuthContext";
 import Link from "next/link";
 import Head from "next/head";
+import { mrDafoe } from "../styles/themes/typography";
 
 const useStyles = createStyles((theme) => ({
   navbar: {
@@ -156,7 +158,16 @@ const Navigation: React.FC<Props> = ({ children }) => {
           <Navbar height={"100vh"} width={{ sm: "100%" }} p="md" pb={0} className={classes.navbar}>
             <Navbar.Section className={classes.header}>
               <Group position="apart">
-                <Text>Fairmount Resorts</Text>
+              <Text
+              weight={300}
+              style={{
+                textAlign: "center",
+                fontFamily: mrDafoe.style.fontFamily,
+                fontSize: "20px"
+              }}
+            >
+              Fairmount Vagamon
+            </Text>
                 <Code sx={{ fontWeight: 700 }}>v1.0</Code>
               </Group>
             </Navbar.Section>
