@@ -1,5 +1,5 @@
-import { Box, Button, HoverCard, Image, Text } from "@mantine/core";
-import { IconSquarePlus } from "@tabler/icons";
+import { ActionIcon, Box, Button, HoverCard, Image, Text,SimpleGrid } from "@mantine/core";
+import { IconAdjustments, IconArrowLeft, IconArrowRight, IconSignLeft, IconSquarePlus, IconTrash } from "@tabler/icons";
 import { ref, listAll, uploadBytes, getDownloadURL } from "firebase/storage";
 import Link from "next/link";
 interface ImageBlockProps {
@@ -52,6 +52,17 @@ export default function ImageBlock({ data, active }: ImageBlockProps) {
           >
             {data.url}
           </Text>
+          <Box style={{display:"flex",gap:10}} mt={10}>
+          <ActionIcon color="blue" variant="light">
+            <IconArrowLeft size={18} />
+          </ActionIcon>
+          <ActionIcon color="blue" variant="light">
+            <IconArrowRight size={18} />
+          </ActionIcon>
+          <ActionIcon color="red" variant="light">
+            <IconTrash size={18} />
+          </ActionIcon>
+          </Box>
         </HoverCard.Dropdown>
       </HoverCard>
     </Box>

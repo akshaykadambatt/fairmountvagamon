@@ -13,16 +13,17 @@ interface MediaModalProps {
 export default function MediaModal({ opened, setOpened, selectImage }: MediaModalProps) {
   const [media, setMedia] = useState<MediaProps>();
   useEffect(() => {}, []);
-  const selectModalImage = (e:MediaProps) => {
-    setMedia(e)
-  }
+  const selectModalImage = (e: MediaProps) => {
+    setMedia(e);
+  };
   return (
     <>
-    <Modal size={"lg"} opened={opened} onClose={() => setOpened(false)} title="Media Manager">
-      <MediaComponent selectImage={selectModalImage} />
-      <Button onClick={media?()=>selectImage(media):()=>null}>Select media</Button>
-    </Modal>
-      
+      <Modal size={"80vw"} overflow="inside" opened={opened} onClose={() => setOpened(false)} title="Media Manager">
+        <MediaComponent selectImage={selectModalImage} />
+        <Box style={{ position: "sticky", bottom: 0, background: "white" }} pt={15}>
+          <Button onClick={media ? () => selectImage(media) : () => null}>Select media</Button>
+        </Box>
+      </Modal>
     </>
   );
 }
