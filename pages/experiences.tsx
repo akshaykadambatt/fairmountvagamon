@@ -52,7 +52,7 @@ export default function Contact() {
   return (
     <Container my={30}>
       <Title order={2} weight={100}>
-        Gallery
+        Experiences
       </Title>
       <Container my="md">
         <SimpleGrid cols={4} breakpoints={[{ maxWidth: "xs", cols: 1 }]}>

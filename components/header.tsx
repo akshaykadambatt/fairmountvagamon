@@ -19,6 +19,7 @@ import { AuthContext } from "./data/AuthContext";
 import { IconExternalLink } from "@tabler/icons";
 import navlogo from '../assets/navlogo.svg';
 import Image from "next/image";
+import Head from "next/head";
 
 const HEADER_HEIGHT = 60;
 
@@ -150,6 +151,9 @@ export default function HeaderComponent() {
 
   return (
     <Header height={HEADER_HEIGHT + (user ? 28 : 0)} mb={0} className={classes.root}>
+      <Head>
+        
+      </Head>
       {user && (
         <Box style={{ background: theme.colors.dark[7] }} p={3}>
           <Container size={"lg"}>
