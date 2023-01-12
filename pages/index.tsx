@@ -19,10 +19,10 @@ import { Carousel, Embla } from "@mantine/carousel";
 import HeaderComponent from "../components/header";
 import Cardslider from "../components/cardslider";
 import Book from "../components/book";
-import resort1 from "../assets/resort1.jpg";
-import resort2 from "../assets/resort2.jpg";
-import resort3 from "../assets/resort3.jpg";
-import resort4 from "../assets/resort4.jpg";
+import resort1 from "../assets/resort1.webp";
+import resort2 from "../assets/resort2.webp";
+import resort3 from "../assets/resort3.webp";
+import resort4 from "../assets/resort4.webp";
 import { mrDafoe } from "../styles/themes/typography";
 import FeaturesGrid from "../components/features";
 import ClassNames from "embla-carousel-class-names";
@@ -229,7 +229,7 @@ export default function Home() {
                       </Title>
 
                       <Text weight={100} px={6} mb={10} color="#fff">
-                        RESORTS, WAGAMON
+                        RESORTS, VAGAMON
                       </Text>
                       <Text weight={100} px={6} mb={10} color="#fff" size={13}>
                         Enclosed between rolling hills and lush tea gardens, Fairmount Vagamon Resorts is an offbeat
@@ -275,7 +275,7 @@ export default function Home() {
                       </Title>
 
                       <Text weight={100} px={6} mb={10} color="#fff">
-                        RESORTS, WAGAMON
+                        RESORTS, VAGAMON
                       </Text>
                       <Text weight={100} px={6} mb={10} color="#fff" size={13}>
                       Escape to the stunning beauty of Vagamon at Fairmount Residency. Relax and rejuvenate in the beautiful surroundings of Vagamon.  
@@ -319,7 +319,7 @@ export default function Home() {
                       </Title>
 
                       <Text weight={100} px={6} mb={10} color="#fff">
-                        RESORTS, WAGAMON
+                        RESORTS, VAGAMON
                       </Text>
                       <Text weight={100} px={6} mb={10} color="#fff" size={13}>
                       Discover the rich culture and history of Kerala at our resort. Savor delicious Keralite, North Indian, and Chinese cuisine at our on-site restaurant.
@@ -383,8 +383,10 @@ export default function Home() {
             <Grid.Col span={12} xs={6}>
               <Reveal keyframes={customAnimation} triggerOnce={true} delay={1000} fraction={1} duration={500}>
                 <Text size={13}>
-                  One of the most popular <strong>Fairmount Vagamon Resort</strong>, offers a perfect blend of all
-                  modern luxuries and a comfortable companionship of nature with a premium resort experience.
+                Welcome to <strong>Fairmount</strong>, a premier hill resort located in the stunning region of
+                Vagamon, Kerala. Nestled in the Western Ghats mountain range, our resort offers a perfect blend of all modern luxurious amenities, delicious
+                dining and comfortable companionship of nature. With its temperate climate and stunning natural surroundings, Vagamon is the perfect destination,
+                offering a range of activities providing a unique and memorable experience.
                 </Text>
               </Reveal>
             </Grid.Col>
@@ -440,19 +442,19 @@ export default function Home() {
             <Grid gutter={40}>
               <Grid.Col span={12} sm={6}>
                 <Text style={{ width: "90%" }} mb={20} size="sm">
-                  Welcome to <strong>Fairmount</strong>, a premier hill resort located in the stunning region of
-                  Vagamon, Kerala. Nestled in the Western Ghats mountain range, our resort offers the perfect escape
-                  from the stresses of everyday life with a perfect blend of all modern luxurious amenities, delicious
-                  dining and comfortable companionship of nature.{" "}
+                <strong>Vagamon</strong> is an idyllic hill station located in the Western Ghats of Kerala, India. 
+                Known for its vast green meadows, misty hills, and dense pine forests, it is a paradise for nature lovers. 
+                The perfect weather conditions and ambiance make it an ideal location for a peaceful retreat or an adventurous getaway, such as trekking, paragliding, and rock climbing. 
+                The region is also home to a number of cultural and historical places, including tea plantations, a museum, and several religious sites.{" "}
                 </Text>
                 <Text style={{ width: "90%" }} mb={20} size="sm">
-                  At Fairmount, we are committed to providing our guests with the highest level of comfort and service.
-                  With its temperate climate and stunning natural surroundings, Vagamon is the perfect destination,
-                  offering a range of activities providing a unique and memorable experience.
+                One of the key attractions of Vagamon is its temperate climate, which remains pleasant throughout the year. 
+                In the summer months, the temperature ranges from a comfortable 20-25°C, making it the perfect escape from the heat of the plains. 
+                In the winter, the temperature drops to a cool 10-15°C, making it a great destination. 
+                Whether you&apos;re lounging on the verdant lawns, taking a leisurely stroll through the tea gardens, or simply soaking up the peaceful atmosphere, Vagamon is the perfect place to unwind and recharge.{" "}
                 </Text>
                 <Text style={{ width: "90%" }} mb={20} size="sm">
-                  We look forward to welcoming you to Fairmount and helping you create unforgettable memories in the
-                  beautiful region of <strong>Vagamon</strong>.
+                  We look forward to welcoming you to <strong>Fairmount</strong> and helping you create unforgettable memories.
                 </Text>
                 <Box display={"flex"} style={{ flexDirection: desk ? "row" : "column" }}>
                   <Button mr={15}>Check Availabliltiy</Button>
