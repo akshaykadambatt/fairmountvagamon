@@ -457,7 +457,7 @@ export default function Home() {
                   We look forward to welcoming you to <strong>Fairmount</strong> and helping you create unforgettable memories.
                 </Text>
                 <Box display={"flex"} style={{ flexDirection: desk ? "row" : "column" }}>
-                  <Button mr={15}>Check Availabliltiy</Button>
+                  <Button mr={desk ? 15 : 0} mb={desk ? 0 : 15} >Check Availabliltiy</Button>
                   <Button variant="outline">Contact Us</Button>
                 </Box>
               </Grid.Col>
@@ -649,7 +649,7 @@ export default function Home() {
                   melt even
                 </Text>
                 <Box display={"flex"} style={{ flexDirection: desk ? "row" : "column" }}>
-                  <Button mr={15} variant="white">
+                  <Button mr={desk ? 15 : 0} mb={desk ? 0 : 15} variant="white">
                     Check Availabliltiy
                   </Button>
                   <Button>Contact Us</Button>
@@ -658,7 +658,7 @@ export default function Home() {
             </Grid>
           </Container>
         </Container>
-        <Container mt={30} mb={70} py={40} fluid px={0}>
+        <Container mt={30} py={40} fluid px={0}>
           <Container size="lg">
             <Grid>
               <Grid.Col span={12} md={10}>
