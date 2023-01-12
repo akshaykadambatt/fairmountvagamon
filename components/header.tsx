@@ -110,7 +110,7 @@ export default function HeaderComponent() {
   let links = [
     { link: "/", label: "Home" },
     { link: "/rooms", label: "Rooms and Rates" },
-    { link: "/roomss", label: "Experiences" },
+    { link: "/experiences", label: "Experiences" },
     { link: "/gallery", label: "Gallery" },
     { link: "/contact", label: "Contact Us" },
   ];
