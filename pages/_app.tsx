@@ -42,16 +42,12 @@ export default function App({ Component, pageProps }: AppProps) {
                   title: "About",
                   links: [
                     {
-                      label: "Features",
-                      link: "#",
+                      label: "FAQ",
+                      link: "/faq",
                     },
                     {
-                      label: "Pricing",
-                      link: "#",
-                    },
-                    {
-                      label: "Check Availability",
-                      link: "#",
+                      label: "Contact Us",
+                      link: "/contact",
                     },
                   ],
                 },
@@ -60,15 +56,18 @@ export default function App({ Component, pageProps }: AppProps) {
                   links: [
                     {
                       label: "Follow us on Instagram",
-                      link: "#",
+                      link: "https://www.instagram.com/fairmountresortvagamon/",
+                      blank: true
                     },
                     {
                       label: "Follow us on Facebook",
                       link: "#",
+                      blank: true
                     },
                     {
                       label: "Email us",
-                      link: "#",
+                      link: "mailto:fairmountvagamonresort@gmail.com",
+                      blank: true
                     },
                   ],
                 },

@@ -1,5 +1,6 @@
 import { createStyles, Text, Container, ActionIcon, Group, Box } from "@mantine/core";
 import { IconBrandTwitter, IconBrandYoutube, IconBrandInstagram } from "@tabler/icons";
+import Link from "next/link";
 
 const useStyles = createStyles((theme) => ({
   footer: {
@@ -96,7 +97,7 @@ const useStyles = createStyles((theme) => ({
 interface FooterLinksProps {
   data: {
     title: string;
-    links: { label: string; link: string }[];
+    links: { label: string; link: string; blank? :boolean; }[];
   }[];
 }
 
@@ -105,12 +106,12 @@ export default function FooterLinks({ data }: FooterLinksProps) {
 
   const groups = data.map((group) => {
     const links = group.links.map((link, index) => (
-      <Text<"a">
+      <Text
         key={index}
         className={classes.link}
-        component="a"
+        component={Link}
         href={link.link}
-        onClick={(event) => event.preventDefault()}
+        target={link.blank?"_blank":"_self"}
       >
         {link.label}
       </Text>
