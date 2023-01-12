@@ -717,7 +717,15 @@ export default function Home() {
                       m={20}
                     >
                       <Blockquote cite={testimonial.name}>
-                        <Spoiler maxHeight={110} showLabel="Show more" hideLabel="Hide">
+                        <Spoiler maxHeight={110} showLabel={
+                          <>
+                          <Text size="xs" color="grey">Show more</Text>
+                          </>
+                        } hideLabel={
+                          <>
+                          <Text size="xs" color="grey">Hide</Text>
+                          </>
+                        }>
                           {testimonial.content}
                         </Spoiler>
                       </Blockquote>
