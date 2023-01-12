@@ -47,6 +47,7 @@ import { BsArrowLeft, BsArrowRight } from "react-icons/bs";
 import useViewport from "../components/data/useViewport";
 import { flushSync } from "react-dom";
 import { CollectionName } from "../components/data/constants";
+import Link from "next/link";
 
 const useStyles = createStyles((theme) => ({
   arrows: {
@@ -238,7 +239,7 @@ export default function Home() {
                         friends and family.
                       </Text>
                       <Box px={6}>
-                        <Button variant="white" color="dark" size={"xs"}>
+                        <Button variant="white" color="dark" size={"xs"} component={Link} href="/book">
                           Book now
                         </Button>
                       </Box>
@@ -282,7 +283,7 @@ export default function Home() {
                       The region is home to vast green meadows, misty hills, and dense pine forests, making it a paradise for nature lovers. Nestled in the Western Ghats mountain range, our resort offers the perfect escape from the stresses of everyday life.
                       </Text>
                       <Box px={6}>
-                        <Button variant="white" color="dark" size={"xs"}>
+                        <Button variant="white" color="dark" size={"xs"} component={Link} href="/book">
                           Book now
                         </Button>
                       </Box>
@@ -326,7 +327,7 @@ export default function Home() {
                       Vagamon is home to a number of cultural and historical sites, including tea plantations and local temples. Also, take part in a range of activities in the Western Ghats, from trekking and paragliding to rock climbing and more, there is something for every adventure seeker in Vagamon.
                       </Text>
                       <Box px={6}>
-                        <Button variant="white" color="dark" size={"xs"}>
+                        <Button variant="white" color="dark" size={"xs"} component={Link} href="/book">
                           Book now
                         </Button>
                       </Box>
@@ -457,8 +458,8 @@ export default function Home() {
                   We look forward to welcoming you to <strong>Fairmount</strong> and helping you create unforgettable memories.
                 </Text>
                 <Box display={"flex"} style={{ flexDirection: desk ? "row" : "column" }}>
-                  <Button mr={desk ? 15 : 0} mb={desk ? 0 : 15} >Check Availabliltiy</Button>
-                  <Button variant="outline">Contact Us</Button>
+                  <Button mr={desk ? 15 : 0} mb={desk ? 0 : 15} component={Link} href="/book">Check Availabliltiy</Button>
+                  <Button variant="outline" component={Link} href="/contact">Contact Us</Button>
                 </Box>
               </Grid.Col>
               <Grid.Col span={12} sm={6} pt={15}>
@@ -649,10 +650,10 @@ export default function Home() {
                   melt even
                 </Text>
                 <Box display={"flex"} style={{ flexDirection: desk ? "row" : "column" }}>
-                  <Button mr={desk ? 15 : 0} mb={desk ? 0 : 15} variant="white">
+                  <Button mr={desk ? 15 : 0} mb={desk ? 0 : 15} variant="white" component={Link} href="/book">
                     Check Availabliltiy
                   </Button>
-                  <Button>Contact Us</Button>
+                  <Button component={Link} href="/contact">Contact Us</Button>
                 </Box>
               </Grid.Col>
             </Grid>

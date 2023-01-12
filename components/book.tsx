@@ -121,7 +121,7 @@ export default function Book({ noCheckButton }: { noCheckButton?: boolean }) {
       </Grid.Col>
       {!noCheckButton && (
         <Grid.Col span={12} md={3}>
-          <Button fullWidth size={"md"}>
+          <Button fullWidth size={"md"} component={Link} href="/book">
             Check availability
           </Button>
         </Grid.Col>
