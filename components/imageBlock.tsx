@@ -1,12 +1,40 @@
-import { ActionIcon, Box, Button, HoverCard, Image, Text,SimpleGrid } from "@mantine/core";
+import { ActionIcon, Box, Button, HoverCard, Image, Text, SimpleGrid } from "@mantine/core";
 import { IconAdjustments, IconArrowLeft, IconArrowRight, IconSignLeft, IconSquarePlus, IconTrash } from "@tabler/icons";
 import { ref, listAll, uploadBytes, getDownloadURL } from "firebase/storage";
 import Link from "next/link";
+import { Dispatch, SetStateAction } from "react";
 interface ImageBlockProps {
   data: MediaProps;
   active?: string;
+  controls: boolean;
+  images: MediaProps[];
+  setImages: Dispatch<SetStateAction<MediaProps[]>>;
 }
-export default function ImageBlock({ data, active }: ImageBlockProps) {
+export default function ImageBlock({ data, active, controls, images, setImages }: ImageBlockProps) {
+  function arraymove(arr: MediaProps[], fromIndex: number, toIndex: number) {
+    var element = arr[fromIndex];
+    arr.splice(fromIndex, 1);
+    arr.splice(toIndex, 0, element);
+  }
+  const moveLeft = () => {
+    console.log(images.map(e=>e.name));
+    
+    var element = images[images.findIndex((e) => e === data)];
+    images.splice(images.findIndex((e) => e === data), 1);
+    images.splice(images.findIndex((e) => e === data)-1, 0, element);
+    console.log(images.map(e=>e.name));
+    setImages(images);
+  };
+  const moveRight = () => {
+    var element = images[images.findIndex((e) => e === data)];
+    images.splice(images.findIndex((e) => e === data), 1);
+    images.splice(images.findIndex((e) => e === data)+1, 0, element);
+    setImages(images);
+  };
+  const trashThis = () => {
+    images.shift()
+    setImages(images)
+  };
   return (
     <Box style={{ height: 150, width: 123, overflow: "hidden", display: "inline-block" }} mt={15} p={9}>
       <HoverCard width={280} shadow="md" openDelay={0} transition="pop" withArrow>
@@ -52,17 +80,19 @@ export default function ImageBlock({ data, active }: ImageBlockProps) {
           >
             {data.url}
           </Text>
-          <Box style={{display:"flex",gap:10}} mt={10}>
-          <ActionIcon color="blue" variant="light">
-            <IconArrowLeft size={18} />
-          </ActionIcon>
-          <ActionIcon color="blue" variant="light">
-            <IconArrowRight size={18} />
-          </ActionIcon>
-          <ActionIcon color="red" variant="light">
-            <IconTrash size={18} />
-          </ActionIcon>
-          </Box>
+          {controls && (
+            <Box style={{ display: "flex", gap: 10 }} mt={10}>
+              <ActionIcon color="blue" variant="light" onClick={moveLeft}>
+                <IconArrowLeft size={18} />
+              </ActionIcon>
+              <ActionIcon color="blue" variant="light" onClick={moveRight}>
+                <IconArrowRight size={18} />
+              </ActionIcon>
+              <ActionIcon color="red" variant="light" onClick={trashThis}>
+                <IconTrash size={18} />
+              </ActionIcon>
+            </Box>
+          )}
         </HoverCard.Dropdown>
       </HoverCard>
     </Box>

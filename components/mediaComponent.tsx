@@ -13,6 +13,7 @@ export default function MediaComponent({ selectImage }: MediaComponentProps) {
   const [mediaData, setMediaData] = useState<MediaProps[]>([]);
   const [filteredMediaData, setFilteredMediaData] = useState<MediaProps[]>([]);
   const [filterValue, setFilterValue] = useState("");
+  const [images, setImages] = useState<MediaProps[]>([]);
   const [active, setActive] = useState("");
   useEffect(() => {
     let data = [] as MediaProps[];
@@ -91,7 +92,7 @@ export default function MediaComponent({ selectImage }: MediaComponentProps) {
             style={{display:"inline"}}
             onMouseOver={() => (e.url ? null : loadThumb(e.fullPath))}
           >
-            <ImageBlock data={e} active={active} />
+            <ImageBlock data={e} active={active} controls={false} images={images} setImages={setImages}/>
           </Box>
         ))}
       </Box>

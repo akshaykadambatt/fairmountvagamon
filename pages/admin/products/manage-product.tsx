@@ -51,7 +51,7 @@ import { showNotification } from "@mantine/notifications";
 export default function Pages() {
   const [opened, setOpened] = useState(false);
   const [productsEditId, setProductsEditId] = useState("");
-  const [images, setImages] = useState([""]);
+  const [images, setImages] = useState<MediaProps[]>([]);
   const [videos, setVideos] = useState([""]);
   const router = useRouter();
   const theme = useMantineTheme();
@@ -106,11 +106,16 @@ export default function Pages() {
         const docRef = doc(db, CollectionName.PRODUCTS, router.query.editId as string);
         const docSnap = await getDoc(docRef);
         form.setValues({ ...docSnap.data() });
+        setImages(docSnap.data()?.images)
       }
     };
     run();
   }, [router.query.editId]);
-
+  useEffect(()=>{
+    console.log('changesd');
+    form.setFieldValue('images',images)
+    
+  },[images])
   const selectImage = (e: MediaProps) => {
     console.log("in root", e);
     let newVal: MediaProps[] = form.values["images"];
@@ -236,8 +241,8 @@ export default function Pages() {
             <Grid.Col span={12}>
               <Text>Images</Text>
               <Box>
-                {form.values["images"].map((e) => (
-                  <ImageBlock data={e} key={e.name} />
+                {images.map((e) => (
+                  <ImageBlock data={e} key={e.name} controls images={images} setImages={setImages} />
                 ))}
                 <Box onClick={() => setOpened(true)} style={{ display: "inline-block" }}>
                   <ImageBlockPlaceholder />
