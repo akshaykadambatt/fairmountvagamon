@@ -26,7 +26,7 @@ import {
 } from "@mantine/core";
 import { Carousel } from "@mantine/carousel";
 import Navigation from "../../../components/Navigation";
-import { useEffect, useState } from "react";
+import { SetStateAction, useEffect, useState } from "react";
 import { useForm } from "@mantine/form";
 import { doc, collection, setDoc, onSnapshot, query, where, deleteDoc, updateDoc, getDoc } from "firebase/firestore";
 import { db, storage } from "../../../components/data/firebaseConfig";
@@ -237,7 +237,9 @@ export default function Pages() {
               <Text>Images</Text>
               <Box>
                 {form.values["images"].map((e) => (
-                  <ImageBlock data={e} key={e.name} />
+                  <ImageBlock data={e} key={e.name} controls={false} images={[]} setImages={function (value: SetStateAction<MediaProps[]>): void {
+                    throw new Error("Function not implemented.");
+                  } } />
                 ))}
                 <Box onClick={() => setOpened(true)} style={{ display: "inline-block" }}>
                   <ImageBlockPlaceholder />
