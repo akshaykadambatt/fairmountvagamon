@@ -9,8 +9,10 @@ import { useEffect, useState } from "react";
 import { CollectionName } from "../../components/data/constants";
 import { db } from "../../components/data/firebaseConfig";
 import { CarouselCard } from "../../components/CarouselCard";
+import useViewport from "../../components/data/useViewport";
 
 export default function Rooms() {
+  const { desk, tab, mob } = useViewport();
   const [products, setProducts] = useState<ProductProps[]>();
   useEffect(() => {
     const run = async () => {
@@ -48,7 +50,7 @@ export default function Rooms() {
               <Title weight={100}>Rooms and Rates</Title>
             </Grid.Col>
             <Grid.Col span={12}>
-              <SimpleGrid cols={3} pt={30}>
+              <SimpleGrid cols={desk?3:1} pt={30}>
                 {products?.map((data: ProductProps) => (
                     <CarouselCard key={data.name} data={data}/>
                 ))}
