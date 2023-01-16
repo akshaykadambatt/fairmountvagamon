@@ -90,7 +90,8 @@ export default function Home() {
   const autoplay = useRef(Autoplay({ delay: 5000 }));
   const [embla, setEmbla] = useState<Embla | null>(null);
   const theme = useMantineTheme();
-  const [testimonials, setTestimonials] = useState<any>();
+  const [testimonials, setTestimonials] = useState<TestimonialProps[]>();
+  const [experiences, setExperiences] = useState<ExperienceProps[]>([]);
   const [testimonialSlideActive, setTestimonialSlideActive] = useState<number>(0);
   const { classes } = useStyles();
   useEffect(() => {
@@ -150,6 +151,14 @@ export default function Home() {
         data.push(Object.assign({ ...doc.data() }, { id: doc.id }) as TestimonialProps);
       });
       setTestimonials(data);
+    });
+    getDocs(query(collection(db, CollectionName.EXPERIENCES), where("status", "==", true))).then((querySnapshot) => {
+      let data: ExperienceProps[] = [];
+      querySnapshot.forEach((doc) => {
+        data.push(Object.assign({ ...doc.data() }, { id: doc.id }) as ExperienceProps);
+      });
+      data.sort((a, b) => a.order - b.order);
+      setExperiences(data);
     });
   }, []);
   return (
@@ -279,8 +288,10 @@ export default function Home() {
                         RESORTS, VAGAMON
                       </Text>
                       <Text weight={100} px={6} mb={10} color="#fff" size={13}>
-                      Escape to the stunning beauty of Vagamon at Fairmount Residency. Relax and rejuvenate in the beautiful surroundings of Vagamon.  
-                      The region is home to vast green meadows, misty hills, and dense pine forests, making it a paradise for nature lovers. Nestled in the Western Ghats mountain range, our resort offers the perfect escape from the stresses of everyday life.
+                        Escape to the stunning beauty of Vagamon at Fairmount Residency. Relax and rejuvenate in the
+                        beautiful surroundings of Vagamon. The region is home to vast green meadows, misty hills, and
+                        dense pine forests, making it a paradise for nature lovers. Nestled in the Western Ghats
+                        mountain range, our resort offers the perfect escape from the stresses of everyday life.
                       </Text>
                       <Box px={6}>
                         <Button variant="white" color="dark" size={"xs"} component={Link} href="/book">
@@ -323,8 +334,11 @@ export default function Home() {
                         RESORTS, VAGAMON
                       </Text>
                       <Text weight={100} px={6} mb={10} color="#fff" size={13}>
-                      Discover the rich culture and history of Kerala at our resort. Savor delicious Keralite, North Indian, and Chinese cuisine at our on-site restaurant.
-                      Vagamon is home to a number of cultural and historical sites, including tea plantations and local temples. Also, take part in a range of activities in the Western Ghats, from trekking and paragliding to rock climbing and more, there is something for every adventure seeker in Vagamon.
+                        Discover the rich culture and history of Kerala at our resort. Savor delicious Keralite, North
+                        Indian, and Chinese cuisine at our on-site restaurant. Vagamon is home to a number of cultural
+                        and historical sites, including tea plantations and local temples. Also, take part in a range of
+                        activities in the Western Ghats, from trekking and paragliding to rock climbing and more, there
+                        is something for every adventure seeker in Vagamon.
                       </Text>
                       <Box px={6}>
                         <Button variant="white" color="dark" size={"xs"} component={Link} href="/book">
@@ -384,10 +398,11 @@ export default function Home() {
             <Grid.Col span={12} xs={6}>
               <Reveal keyframes={customAnimation} triggerOnce={true} delay={1000} fraction={1} duration={500}>
                 <Text size={13}>
-                Welcome to <strong>Fairmount</strong>, a premier hill resort located in the stunning region of
-                Vagamon, Kerala. Nestled in the Western Ghats mountain range, our resort offers a perfect blend of all modern luxurious amenities, delicious
-                dining and comfortable companionship of nature. With its temperate climate and stunning natural surroundings, Vagamon is the perfect destination,
-                offering a range of activities providing a unique and memorable experience.
+                  Welcome to <strong>Fairmount</strong>, a premier hill resort located in the stunning region of
+                  Vagamon, Kerala. Nestled in the Western Ghats mountain range, our resort offers a perfect blend of all
+                  modern luxurious amenities, delicious dining and comfortable companionship of nature. With its
+                  temperate climate and stunning natural surroundings, Vagamon is the perfect destination, offering a
+                  range of activities providing a unique and memorable experience.
                 </Text>
               </Reveal>
             </Grid.Col>
@@ -443,23 +458,32 @@ export default function Home() {
             <Grid gutter={40}>
               <Grid.Col span={12} sm={6}>
                 <Text style={{ width: "90%" }} mb={20} size="sm">
-                <strong>Vagamon</strong> is an idyllic hill station located in the Western Ghats of Kerala, India. 
-                Known for its vast green meadows, misty hills, and dense pine forests, it is a paradise for nature lovers. 
-                The perfect weather conditions and ambiance make it an ideal location for a peaceful retreat or an adventurous getaway, such as trekking, paragliding, and rock climbing. 
-                The region is also home to a number of cultural and historical places, including tea plantations, a museum, and several religious sites.{" "}
+                  <strong>Vagamon</strong> is an idyllic hill station located in the Western Ghats of Kerala, India.
+                  Known for its vast green meadows, misty hills, and dense pine forests, it is a paradise for nature
+                  lovers. The perfect weather conditions and ambiance make it an ideal location for a peaceful retreat
+                  or an adventurous getaway, such as trekking, paragliding, and rock climbing. The region is also home
+                  to a number of cultural and historical places, including tea plantations, a museum, and several
+                  religious sites.{" "}
                 </Text>
                 <Text style={{ width: "90%" }} mb={20} size="sm">
-                One of the key attractions of Vagamon is its temperate climate, which remains pleasant throughout the year. 
-                In the summer months, the temperature ranges from a comfortable 20-25°C, making it the perfect escape from the heat of the plains. 
-                In the winter, the temperature drops to a cool 10-15°C, making it a great destination. 
-                Whether you&apos;re lounging on the verdant lawns, taking a leisurely stroll through the tea gardens, or simply soaking up the peaceful atmosphere, Vagamon is the perfect place to unwind and recharge.{" "}
+                  One of the key attractions of Vagamon is its temperate climate, which remains pleasant throughout the
+                  year. In the summer months, the temperature ranges from a comfortable 20-25°C, making it the perfect
+                  escape from the heat of the plains. In the winter, the temperature drops to a cool 10-15°C, making it
+                  a great destination. Whether you&apos;re lounging on the verdant lawns, taking a leisurely stroll
+                  through the tea gardens, or simply soaking up the peaceful atmosphere, Vagamon is the perfect place to
+                  unwind and recharge.{" "}
                 </Text>
                 <Text style={{ width: "90%" }} mb={20} size="sm">
-                  We look forward to welcoming you to <strong>Fairmount</strong> and helping you create unforgettable memories.
+                  We look forward to welcoming you to <strong>Fairmount</strong> and helping you create unforgettable
+                  memories.
                 </Text>
                 <Box display={"flex"} style={{ flexDirection: desk ? "row" : "column" }}>
-                  <Button mr={desk ? 15 : 0} mb={desk ? 0 : 15} component={Link} href="/book">Check Availabliltiy</Button>
-                  <Button variant="outline" component={Link} href="/contact">Contact Us</Button>
+                  <Button mr={desk ? 15 : 0} mb={desk ? 0 : 15} component={Link} href="/book">
+                    Check Availabliltiy
+                  </Button>
+                  <Button variant="outline" component={Link} href="/contact">
+                    Contact Us
+                  </Button>
                 </Box>
               </Grid.Col>
               <Grid.Col span={12} sm={6} pt={15}>
@@ -471,57 +495,31 @@ export default function Home() {
                   cascade
                   damping={0.2}
                 >
-                  <Box pb={15} mb={15} style={{ borderBottom: "1px solid #00000050" }}>
-                    <Grid>
-                      <Grid.Col span={2}>
-                        <Text mb={10} color="grey">
-                          01 / 03
-                        </Text>
-                      </Grid.Col>
-                      <Grid.Col span={10}>
-                        <Title order={6} mb={10}>
-                          Thangalpara
-                        </Title>
-                        <Text size={13} color="gray">
-                        The Thangalpara hill is considered sacred by the Muslim community, as well as an exciting destination for adventure and enriching experience while enjoying the natural beauty of Vagamon.
-                        </Text>
-                      </Grid.Col>
-                    </Grid>
-                  </Box>
-                  <Box pb={15} mb={15} style={{ borderBottom: "1px solid #00000050" }}>
-                    <Grid>
-                      <Grid.Col span={2}>
-                        <Text mb={10} color="grey">
-                          02 / 03
-                        </Text>
-                      </Grid.Col>
-                      <Grid.Col span={10}>
-                        <Title order={6} mb={10}>
-                          Vagamon Meadows
-                        </Title>
-                        <Text size={13} color="gray">
-                        Vagamon Meadows is one of the most iconic and picturesque attractions of the hill station, characterized by vast expanses of lush green grass, dotted with wildflowers, and surrounded by towering hills and misty peaks.
-                        </Text>
-                      </Grid.Col>
-                    </Grid>
-                  </Box>
-                  <Box pb={15} mb={15}>
-                    <Grid>
-                      <Grid.Col span={2}>
-                        <Text mb={10} color="grey">
-                          03 / 03
-                        </Text>
-                      </Grid.Col>
-                      <Grid.Col span={10}>
-                        <Title order={6} mb={10}>
-                          Vagamon Meadows Lake
-                        </Title>
-                        <Text size={13} color="gray">
-                        The Vagamon Meadows Lake is filled with water throughout the year, providing a refreshing contrast to the lush greenery. The clear and calm waters of the lake reflect the landscape, creating a stunning and tranquil environment.
-                        </Text>
-                      </Grid.Col>
-                    </Grid>
-                  </Box>
+                  {experiences.map((data, index) => (
+                    <Box
+                      pb={15}
+                      mb={15}
+                      style={{ borderBottom: index + 1 == experiences.length ? "none" : "1px solid #00000050" }}
+                      key={data.id}
+                    >
+                      <Grid>
+                        <Grid.Col span={2}>
+                          <Text mb={10} color="grey">
+                            {" "}
+                            0{index + 1} / 0{experiences.length}
+                          </Text>
+                        </Grid.Col>
+                        <Grid.Col span={10}>
+                          <Title order={6} mb={10}>
+                            {data.name}
+                          </Title>
+                          <Text size={13} color="gray">
+                            {data.content}
+                          </Text>
+                        </Grid.Col>
+                      </Grid>
+                    </Box>
+                  ))}
                 </Reveal>
               </Grid.Col>
             </Grid>
@@ -653,7 +651,9 @@ export default function Home() {
                   <Button mr={desk ? 15 : 0} mb={desk ? 0 : 15} variant="white" component={Link} href="/book">
                     Check Availabliltiy
                   </Button>
-                  <Button component={Link} href="/contact">Contact Us</Button>
+                  <Button component={Link} href="/contact">
+                    Contact Us
+                  </Button>
                 </Box>
               </Grid.Col>
             </Grid>
@@ -717,15 +717,23 @@ export default function Home() {
                       m={20}
                     >
                       <Blockquote cite={testimonial.name}>
-                        <Spoiler maxHeight={110} showLabel={
-                          <>
-                          <Text size="xs" color="grey">Show more</Text>
-                          </>
-                        } hideLabel={
-                          <>
-                          <Text size="xs" color="grey">Hide</Text>
-                          </>
-                        }>
+                        <Spoiler
+                          maxHeight={110}
+                          showLabel={
+                            <>
+                              <Text size="xs" color="grey">
+                                Show more
+                              </Text>
+                            </>
+                          }
+                          hideLabel={
+                            <>
+                              <Text size="xs" color="grey">
+                                Hide
+                              </Text>
+                            </>
+                          }
+                        >
                           {testimonial.content}
                         </Spoiler>
                       </Blockquote>

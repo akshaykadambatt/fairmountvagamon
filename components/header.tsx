@@ -20,6 +20,7 @@ import { IconExternalLink } from "@tabler/icons";
 import navlogo from '../assets/navlogo.svg';
 import Image from "next/image";
 import Head from "next/head";
+import { useRouter } from "next/router";
 
 const HEADER_HEIGHT = 60;
 
@@ -115,17 +116,16 @@ export default function HeaderComponent() {
     { link: "/gallery", label: "Gallery" },
     { link: "/contact", label: "Contact Us" },
   ];
-  const [active, setActive] = useState(links[0].link);
+  const { asPath, pathname } = useRouter();
   const { classes, cx } = useStyles();
   const items = links.map((link) => (
     <Link
       key={link.label}
       href={link.link}
       className={cx(classes.link, {
-        [classes.linkActive]: active === link.link,
+        [classes.linkActive]: link.link=="/"?link.link==pathname:(pathname?.match(link.link)?.length || 0 > 0) ,
       })}
       onClick={(event) => {
-        setActive(link.link);
         close();
       }}
     >
@@ -138,10 +138,9 @@ export default function HeaderComponent() {
       key={link.label}
       href={link.link}
       className={cx(classes.link, {
-        [classes.linkActive]: active === link.link,
+        [classes.linkActive]: link.link=="/"?link.link==pathname:(pathname?.match(link.link)?.length || 0 > 0) ,
       })}
       onClick={(event) => {
-        setActive(link.link);
         close();
       }}
     >

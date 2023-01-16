@@ -80,5 +80,6 @@ interface ExperienceProps {
   content: string;
   images: MediaProps[];
   status: boolean;
+  order: number;
   id?: string;
 }

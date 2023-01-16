@@ -36,3 +36,13 @@ a {
   border-top: 1px solid rgba(0, 168, 0, 0.63);
   border-bottom: 1px solid rgba(0, 168, 0, 0.63);;
 }
+
+.media-image-component{
+  transition: border .2s, box-shadow .3s;
+  border:2px solid #00000030;
+  box-shadow: 0 0 0px 0px rgb(9 255 0 / 72%);
+}
+.media-image-component.active {
+  border:2px solid rgb(9 255 0 / 92%);
+  box-shadow: 0 0 0px 42px rgb(9 255 0 / 12%);
+}

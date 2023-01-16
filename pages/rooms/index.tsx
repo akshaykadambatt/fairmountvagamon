@@ -23,8 +23,6 @@ export default function Rooms() {
         data.push({ ...doc.data() } as ProductProps);
       });
       data.sort((a,b) => a.order - b.order)
-      console.log(data);
-      
       setProducts(data);
     };
     run();

@@ -45,11 +45,11 @@ export default function ImageBlock({ data, active, controls, images, setImages }
               height={100}
               width={100}
               alt={data.name}
+              className={`media-image-component ${active == data.fullPath ? "active":null}`}
               withPlaceholder
               style={{
                 borderRadius: 10,
                 overflow: "hidden",
-                border: active == data.fullPath ? "2px solid red" : "2px solid #00000030",
               }}
             />
             <Text

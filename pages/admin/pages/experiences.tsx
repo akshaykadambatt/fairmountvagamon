@@ -46,9 +46,9 @@ import { showNotification } from "@mantine/notifications";
 export default function Pages() {
   const [opened, setOpened] = useState(false);
   const [mediaModalOpened, setMediaModalOpened] = useState(false);
-  const [addon, setAddon] = useState<ExperienceProps[]>([]);
+  const [experience, setExperience] = useState<ExperienceProps[]>([]);
   const [images, setImages] = useState<MediaProps[]>([]);
-  const [addonEditId, setAddonEditId] = useState("");
+  const [experienceEditId, setExperienceEditId] = useState("");
   const theme = useMantineTheme();
   const form = useForm({
     initialValues: {
@@ -65,14 +65,14 @@ export default function Pages() {
   });
   const handleFormSubmit = async (values: ExperienceProps) => {
     let q;
-    if (addonEditId) {
-      q = doc(db, CollectionName.EXPERIENCES, addonEditId);
+    if (experienceEditId) {
+      q = doc(db, CollectionName.EXPERIENCES, experienceEditId);
     } else {
       q = doc(collection(db, CollectionName.EXPERIENCES));
     }
     await setDoc(q, values);
     setOpened(false);
-    setAddonEditId("");
+    setExperienceEditId("");
   };
   const handleEditAction = (data: ExperienceProps) => {
     console.log(data);
@@ -80,7 +80,9 @@ export default function Pages() {
     form.setFieldValue("content", data.content);
     form.setFieldValue("status", data.status);
     form.setFieldValue("id", data.id);
-    setAddonEditId(data.id ? data.id : "");
+    form.setFieldValue("images", data.images);
+    setImages(data.images)
+    setExperienceEditId(data.id ? data.id : "");
     setOpened(true);
   };
 
@@ -90,11 +92,14 @@ export default function Pages() {
       collectionSnapshot.docs.map((doc) => {
         data.push(Object.assign({ ...doc.data() }, { id: doc.id }) as ExperienceProps);
       });
-      setAddon(data);
+      setExperience(data);
     });
   }, []);
   useEffect(() => {
-    if (!opened) form.reset();
+    if (!opened){
+      form.reset();
+      setImages([])
+    }
   }, [opened]);
   const selectImage = (e: MediaProps) => {
     console.log("in root", e);
@@ -116,19 +121,20 @@ export default function Pages() {
       }),
     });
   };
-  const rows = addon.map((e) => <Row key={e.id} data={e} handleEditAction={handleEditAction} />);
+  const rows = experience.map((e) => <Row key={e.id} data={e} handleEditAction={handleEditAction} />);
   return (
     <Navigation>
       <Modal size={"lg"} opened={opened} onClose={() => setOpened(false)} title="Manage Experience">
         <form
           onSubmit={form.onSubmit((values) => {
-            // handleFormSubmit(values);
+            handleFormSubmit(values);
           })}
         >
           <TextInput withAsterisk label="Name" placeholder="Enter the name" {...form.getInputProps("name")} />
           <Textarea
             placeholder="Experience Description"
             label="Experience Description"
+            description="Keep it short (100 characters)"
             withAsterisk
             {...form.getInputProps("content")}
             autosize
