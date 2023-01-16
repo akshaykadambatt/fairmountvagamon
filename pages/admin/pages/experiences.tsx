@@ -40,16 +40,21 @@ import {
 } from "@tabler/icons";
 import { AiOutlineDelete } from "react-icons/ai";
 import { FunctionDeclaration } from "typescript";
+import ImageBlock, { ImageBlockPlaceholder } from "../../../components/imageBlock";
+import MediaModal from "../../../components/mediaModal";
+import { showNotification } from "@mantine/notifications";
 export default function Pages() {
   const [opened, setOpened] = useState(false);
+  const [mediaModalOpened, setMediaModalOpened] = useState(false);
   const [addon, setAddon] = useState<ExperienceProps[]>([]);
+  const [images, setImages] = useState<MediaProps[]>([]);
   const [addonEditId, setAddonEditId] = useState("");
   const theme = useMantineTheme();
   const form = useForm({
     initialValues: {
       name: "",
       content: "",
-      images:[],
+      images: [],
       status: true,
       order: 0,
     } as ExperienceProps,
@@ -91,8 +96,27 @@ export default function Pages() {
   useEffect(() => {
     if (!opened) form.reset();
   }, [opened]);
-  const rows = addon
-    .map((e) => <Row key={e.id} data={e} handleEditAction={handleEditAction}/>);
+  const selectImage = (e: MediaProps) => {
+    console.log("in root", e);
+    let newVal: MediaProps[] = form.values["images"];
+    newVal.push(e);
+    form.setFieldValue("images", newVal);
+    setImages(form.values['images'])
+    console.log(form.values);
+    showNotification({
+      title: "Media added",
+      message: "Close the popup or select more",
+      styles: (theme) => ({
+        title: {
+          fontSize: 14,
+        },
+        description: {
+          fontSize: 10,
+        },
+      }),
+    });
+  };
+  const rows = addon.map((e) => <Row key={e.id} data={e} handleEditAction={handleEditAction} />);
   return (
     <Navigation>
       <Modal size={"lg"} opened={opened} onClose={() => setOpened(false)} title="Manage Experience">
@@ -111,6 +135,15 @@ export default function Pages() {
             minRows={5}
             maxRows={10}
           />
+          <Text>Images</Text>
+          <Box>
+            {images.map((e) => (
+              <ImageBlock data={e} key={e.name} controls images={images} setImages={setImages} />
+            ))}
+            <Box onClick={() => setMediaModalOpened(true)} style={{ display: "inline-block" }}>
+              <ImageBlockPlaceholder />
+            </Box>
+          </Box>
           <Switch label="Active" {...form.getInputProps("status", { type: "checkbox" })} />
           <Group position="right" mt="md">
             <Button type="submit">Submit</Button>
@@ -152,10 +185,11 @@ export default function Pages() {
           <tbody>{rows}</tbody>
         </Table>
       </Container>
+      <MediaModal opened={mediaModalOpened} setOpened={setMediaModalOpened} selectImage={selectImage} />
     </Navigation>
   );
 }
-interface RowProps { 
+interface RowProps {
   data: ExperienceProps;
   handleEditAction: (data: ExperienceProps) => void;
 }
