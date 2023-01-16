@@ -61,7 +61,7 @@ export default function Gallery() {
         />
         <meta
           name="description"
-          content="Escape to the stunning beauty of Vagamon at Fairmount Residency. Our resort offers comfortable accommodations, a range of dining options, and a range of activities and amenities to ensure that our guests have a comfortable and enjoyable stay."
+          content="Explore the idyllic views of Vagamon at Fairmount Resorts. Our photo gallery captures the natural beauty of the region, from lush hills to tranquil lakes. Book your stay now and experience the enchanting beauty of Vagamon for yourself."
         />
         <meta name="author" content="Fairmount Vagamon" />
       </Head>
