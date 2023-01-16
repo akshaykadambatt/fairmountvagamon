@@ -99,8 +99,7 @@ const Navigation: React.FC<Props> = ({ children }) => {
       icon: IconNotes,
       initiallyOpened: pathname?.match("admin/pages")?.length || 0 > 0 ? true : false,
       links: [
-        { label: "Pages", link: "/admin/pages" },
-        { label: "Add New Page", link: "/admin/pages/manage-page" },
+        { label: "Experiences", link: "/admin/pages/experiences" },
         { label: "Gallery", link: "/admin/pages/gallery" },
         { label: "Contacts", link: "/admin/pages/contacts" },
       ],

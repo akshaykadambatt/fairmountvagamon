@@ -5,6 +5,7 @@ interface TestimonialProps {
   order: number;
   id?: string;
 }
+
 interface AddonProps {
   name: string;
   content: string;
@@ -72,4 +73,12 @@ interface BookingData {
   deleted: boolean;
   referenceId: string;
   state: number; //default: BookingState.PENDING (2)
+}
+
+interface ExperienceProps {
+  name: string;
+  content: string;
+  images: MediaProps[];
+  status: boolean;
+  id?: string;
 }
