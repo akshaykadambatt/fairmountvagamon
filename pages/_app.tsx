@@ -32,7 +32,7 @@ export default function App({ Component, pageProps }: AppProps) {
     <Provider store={configureStore}>
     <AuthProvider>
         <MantineProvider withGlobalStyles withNormalizeCSS theme={googleFontTheme}>
-        <NotificationsProvider>
+        <NotificationsProvider position="top-right">
           {pathname?.match("admin")?.length || 0 > 0 ? null : <HeaderComponent />}
           <Component {...pageProps} />
           {pathname?.match("admin")?.length || 0 > 0 ? null : (

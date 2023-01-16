@@ -11,29 +11,29 @@ interface ImageBlockProps {
   setImages: Dispatch<SetStateAction<MediaProps[]>>;
 }
 export default function ImageBlock({ data, active, controls, images, setImages }: ImageBlockProps) {
-  function arraymove(arr: MediaProps[], fromIndex: number, toIndex: number) {
-    var element = arr[fromIndex];
-    arr.splice(fromIndex, 1);
-    arr.splice(toIndex, 0, element);
-  }
-  const moveLeft = () => {
-    console.log(images.map(e=>e.name));
-    
-    var element = images[images.findIndex((e) => e === data)];
-    images.splice(images.findIndex((e) => e === data), 1);
-    images.splice(images.findIndex((e) => e === data)-1, 0, element);
-    console.log(images.map(e=>e.name));
-    setImages(images);
-  };
-  const moveRight = () => {
-    var element = images[images.findIndex((e) => e === data)];
-    images.splice(images.findIndex((e) => e === data), 1);
-    images.splice(images.findIndex((e) => e === data)+1, 0, element);
-    setImages(images);
-  };
+  // function arraymove(arr: MediaProps[], fromIndex: number, toIndex: number) {
+  //   var element = arr[fromIndex];
+  //   arr.splice(fromIndex, 1);
+  //   arr.splice(toIndex, 0, element);
+  //   return arr
+  // }
+  // const moveLeft = () => {
+  //   console.log(images.map(e=>e.name));
+  //   let temp = arraymove(images,images.findIndex((e) => e === data),images.findIndex((e) => e === data)-1 )
+  //   setImages(temp);
+  // };
+  // const moveRight = () => {
+  //   let temp = arraymove(images,images.findIndex((e) => e === data),images.findIndex((e) => e === data)+1 )
+  //   setImages(temp);
+  // };
   const trashThis = () => {
-    images.shift()
-    setImages(images)
+    images.splice(images.findIndex((e) => e === data),1)
+    console.log(images,images.findIndex((e) => e === data),images.findIndex((e) => e === data)+1);
+    
+    let temp = [...images]
+    console.log([...images]);
+    
+    setImages(temp)
   };
   return (
     <Box style={{ height: 150, width: 123, overflow: "hidden", display: "inline-block" }} mt={15} p={9}>
@@ -82,12 +82,12 @@ export default function ImageBlock({ data, active, controls, images, setImages }
           </Text>
           {controls && (
             <Box style={{ display: "flex", gap: 10 }} mt={10}>
-              <ActionIcon color="blue" variant="light" onClick={moveLeft}>
+              {/* <ActionIcon color="blue" variant="light" onClick={moveLeft}>
                 <IconArrowLeft size={18} />
               </ActionIcon>
               <ActionIcon color="blue" variant="light" onClick={moveRight}>
                 <IconArrowRight size={18} />
-              </ActionIcon>
+              </ActionIcon> */}
               <ActionIcon color="red" variant="light" onClick={trashThis}>
                 <IconTrash size={18} />
               </ActionIcon>

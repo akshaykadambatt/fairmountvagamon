@@ -115,7 +115,7 @@ export default function Pages() {
     console.log('changesd');
     form.setFieldValue('images',images)
     
-  },[images])
+  },[images.length])
   const selectImage = (e: MediaProps) => {
     console.log("in root", e);
     let newVal: MediaProps[] = form.values["images"];
