@@ -22,6 +22,7 @@ import { db } from "../components/data/firebaseConfig";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../components/data/configureStore";
 import { setSelectedId } from "../components/data/actions";
+import Head from "next/head";
 
 export default function Contact() {
   const [active, setActive] = useState(0);
@@ -81,6 +82,28 @@ export default function Contact() {
   };
 
   return (
+    <>
+    <Head>
+        <meta charSet="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Fairmount Resorts - Book your Stay to Experience the Enchanting Beauty of Vagamon</title>
+        <link rel="icon" type="image/png" href="/favicon.ico" />
+        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+        <link rel="manifest" href="/site.webmanifest" />
+        <meta name="msapplication-TileColor" content="#FFFFFF" />
+        <meta name="theme-color" content="#FFFFFF" />
+        <meta
+          name="keywords"
+          content="resort, Vagamon, Kerala, hill resort, accommodations, tree house, restaurant, room service, spa, outdoor pool, trekking, paragliding, rock climbing, resort at vagamon, fairmount vagamon, fairmount vagamon resorts, resort offers, experience resort, most popular resort, resort experience, resort nature, Vagamon resorts, Kerala hill resorts ,Western Ghats resorts ,Tea plantation resorts ,Nature resorts ,Adventure resorts ,Luxury resorts ,Relaxation resorts ,Spa resorts ,Romantic getaways ,Family vacations ,Hill station vacations ,Hill station getaways ,Western Ghats tourism ,Kerala tourism ,Tea plantation tours ,Nature tours ,Adventure tours ,Luxury travel ,Relaxation vacations ,Spa vacations ,Romantic holidays ,Family holidays ,Honeymoon destinations"
+        />
+        <meta
+          name="description"
+          content="Escape to the stunning beauty of Vagamon at Fairmount Residency. Our resort offers comfortable accommodations, a range of dining options, and a range of activities and amenities to ensure that our guests have a comfortable and enjoyable stay."
+        />
+        <meta name="author" content="Fairmount Vagamon" />
+      </Head>
     <Container my={30}>
       {/* <Button onClick={handleSubmit}>send mail</Button> */}
       <Stepper active={active} onStepClick={selectedId ? () => {} : setActive} breakpoint="sm">
@@ -135,5 +158,6 @@ export default function Contact() {
           ))}
       </Group>
     </Container>
+    </>
   );
 }
