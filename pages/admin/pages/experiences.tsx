@@ -155,7 +155,7 @@ export default function Pages() {
     </Navigation>
   );
 }
-interface RowProps {
+interface RowProps { 
   data: ExperienceProps;
   handleEditAction: (data: ExperienceProps) => void;
 }
