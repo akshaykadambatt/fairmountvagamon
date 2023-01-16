@@ -158,14 +158,8 @@ const Navigation: React.FC<Props> = ({ children }) => {
             <Navbar.Section className={classes.header}>
               <Group position="apart">
               <Text
-              weight={300}
-              style={{
-                textAlign: "center",
-                fontFamily: mrDafoe.style.fontFamily,
-                fontSize: "20px"
-              }}
             >
-              Fairmount Vagamon
+              Fairmount Vagam..
             </Text>
                 <Code sx={{ fontWeight: 700 }}>v1.0</Code>
               </Group>
