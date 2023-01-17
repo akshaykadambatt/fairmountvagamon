@@ -134,6 +134,7 @@ export default function FooterLinks({ data }: FooterLinksProps) {
             <Text size="xs" color="dimmed">Fairmount Vagamon</Text>
             <Text size="xs" color="dimmed">Kannamkulam, Vagamon</Text>
             <Text size="xs" color="dimmed">Kerala - 685503</Text>
+            <Text size="xs" color="dimmed">Contact: +91 88488 86990</Text>
           </Box>
         </div>
         <div className={classes.groups}>{groups}</div>
