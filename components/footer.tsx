@@ -1,5 +1,17 @@
-import { createStyles, Text, Container, ActionIcon, Group, Box } from "@mantine/core";
-import { IconBrandTwitter, IconBrandYoutube, IconBrandInstagram } from "@tabler/icons";
+import {
+  createStyles,
+  Text,
+  Container,
+  ActionIcon,
+  Group,
+  Box,
+} from "@mantine/core";
+import {
+  IconBrandYoutube,
+  IconBrandInstagram,
+  IconBrandWhatsapp,
+  IconBrandFacebook,
+} from "@tabler/icons";
 import Link from "next/link";
 
 const useStyles = createStyles((theme) => ({
@@ -7,8 +19,13 @@ const useStyles = createStyles((theme) => ({
     marginTop: 20,
     paddingTop: theme.spacing.xl * 2,
     paddingBottom: theme.spacing.xl * 2,
-    backgroundColor: theme.colorScheme === "dark" ? theme.colors.dark[6] : theme.colors.gray[0],
-    borderTop: `1px solid ${theme.colorScheme === "dark" ? theme.colors.dark[5] : theme.colors.gray[2]}`,
+    backgroundColor:
+      theme.colorScheme === "dark"
+        ? theme.colors.dark[6]
+        : theme.colors.gray[0],
+    borderTop: `1px solid ${
+      theme.colorScheme === "dark" ? theme.colors.dark[5] : theme.colors.gray[2]
+    }`,
   },
 
   logo: {
@@ -55,7 +72,10 @@ const useStyles = createStyles((theme) => ({
 
   link: {
     display: "block",
-    color: theme.colorScheme === "dark" ? theme.colors.dark[1] : theme.colors.gray[6],
+    color:
+      theme.colorScheme === "dark"
+        ? theme.colors.dark[1]
+        : theme.colors.gray[6],
     fontSize: theme.fontSizes.sm,
     paddingTop: 3,
     paddingBottom: 3,
@@ -80,7 +100,9 @@ const useStyles = createStyles((theme) => ({
     marginTop: theme.spacing.xl,
     paddingTop: theme.spacing.xl,
     paddingBottom: theme.spacing.xl,
-    borderTop: `1px solid ${theme.colorScheme === "dark" ? theme.colors.dark[4] : theme.colors.gray[2]}`,
+    borderTop: `1px solid ${
+      theme.colorScheme === "dark" ? theme.colors.dark[4] : theme.colors.gray[2]
+    }`,
 
     [theme.fn.smallerThan("sm")]: {
       flexDirection: "column",
@@ -97,7 +119,7 @@ const useStyles = createStyles((theme) => ({
 interface FooterLinksProps {
   data: {
     title: string;
-    links: { label: string; link: string; blank? :boolean; }[];
+    links: { label: string; link: string; blank?: boolean }[];
   }[];
 }
 
@@ -111,7 +133,7 @@ export default function FooterLinks({ data }: FooterLinksProps) {
         className={classes.link}
         component={Link}
         href={link.link}
-        target={link.blank?"_blank":"_self"}
+        target={link.blank ? "_blank" : "_self"}
       >
         {link.label}
       </Text>
@@ -131,28 +153,39 @@ export default function FooterLinks({ data }: FooterLinksProps) {
         <div className={classes.logo}>
           Fairmount Resorts
           <Box className={classes.description}>
-            <Text size="xs" color="dimmed">Fairmount Vagamon</Text>
-            <Text size="xs" color="dimmed">Kannamkulam, Vagamon</Text>
-            <Text size="xs" color="dimmed">Kerala - 685503</Text>
-            <Text size="xs" color="dimmed">Contact: +91 88488 86990</Text>
+            <Text size="xs" color="dimmed">
+              Fairmount Vagamon
+            </Text>
+            <Text size="xs" color="dimmed">
+              Kannamkulam, Vagamon
+            </Text>
+            <Text size="xs" color="dimmed">
+              Kerala - 685503
+            </Text>
+            <Text size="xs" color="dimmed">
+              Contact: +91 88488 86990
+            </Text>
           </Box>
         </div>
         <div className={classes.groups}>{groups}</div>
       </Container>
       <Container className={classes.afterFooter}>
         <Text color="dimmed" size="sm">
-          © 2023 fairmount.com All rights reserved.
+          © 2023 fairmountvagamon.com | All rights reserved.
         </Text>
 
         <Group spacing={0} className={classes.social} position="right" noWrap>
           <ActionIcon size="lg">
-            <IconBrandTwitter size={18} stroke={1.5} />
-          </ActionIcon>
-          <ActionIcon size="lg">
-            <IconBrandYoutube size={18} stroke={1.5} />
+            <IconBrandWhatsapp size={18} stroke={1.5} />
           </ActionIcon>
           <ActionIcon size="lg">
             <IconBrandInstagram size={18} stroke={1.5} />
+          </ActionIcon>
+          <ActionIcon size="lg">
+            <IconBrandFacebook size={18} stroke={1.5} />
+          </ActionIcon>
+          <ActionIcon size="lg">
+            <IconBrandYoutube size={18} stroke={1.5} />
           </ActionIcon>
         </Group>
       </Container>
