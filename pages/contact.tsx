@@ -189,14 +189,14 @@ export default function Contact() {
             />
             <TextInput
               label="Name"
-              placeholder="John Doe"
+              placeholder="Your name"
               mt="md"
               classNames={{ input: classes.input, label: classes.inputLabel }}
             />
             <Textarea
               required
-              label="Your message"
-              placeholder="I want to order your goods"
+              label="Message"
+              placeholder="Your message"
               minRows={4}
               mt="md"
               classNames={{ input: classes.input, label: classes.inputLabel }}

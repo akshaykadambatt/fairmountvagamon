@@ -180,7 +180,11 @@ export default function Home() {
         />
         <meta
           name="description"
-          content="Escape to the stunning beauty of Vagamon at Fairmount Resorts. Our resort offers comfortable accommodations, a range of dining options, and a range of activities and amenities to ensure that our guests have a comfortable and enjoyable stay."
+          content="Escape to the stunning beauty of Vagamon at Fairmount Resorts. Our resort offers comfortable accommodations, a range of dining options, and a range of activities and amenities to ensure that our guests have a comfortable and enjoyable stay.
+            Address: Fairmount Vagamon
+                     Kannamkulam, Vagamon
+                     Kerala - 685503
+            Contact: +91 88488 86990"
         />
         <meta name="author" content="Fairmount Vagamon" />
       </Head>
