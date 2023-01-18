@@ -147,8 +147,10 @@ const Navigation: React.FC<Props> = ({ children }) => {
   return (
     <>
       <Head>
+        <meta charSet="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Fairmount Restorts: Admin</title>
-        <meta name="description" content="Fairmount Restorts website" />
+        <meta name="description" content="Fairmount Restorts Website" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
