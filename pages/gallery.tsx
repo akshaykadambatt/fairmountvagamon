@@ -77,7 +77,7 @@ export default function Gallery() {
         <Container my="md">
           <LightGallery onInit={onInit} speed={500} plugins={[lgZoom,lgPager]}>
             {images.map((image) => (
-              <a href={image.image}>
+              <a href={image.image} key={image.image}>
               <img src={image.image} />
             </a>
             ))}
