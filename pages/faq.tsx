@@ -79,7 +79,7 @@ export default function Contact() {
       <Head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Welcome to Fairmount - Discover the Idyllic Beauty of Vagamon at Fairmount </title>
+        <title>Fairmount Resorts - FAQ </title>
         <link rel="icon" type="image/png" href="/favicon.ico" />
         <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
@@ -93,7 +93,7 @@ export default function Contact() {
         />
         <meta
           name="description"
-          content="Escape to the stunning beauty of Vagamon at Fairmount Residency. Our resort offers comfortable accommodations, a range of dining options, and a range of activities and amenities to ensure that our guests have a comfortable and enjoyable stay."
+          content="Fairmount Resorts - Frequently Asked Questions"
         />
         <meta name="author" content="Fairmount Vagamon" />
       </Head>

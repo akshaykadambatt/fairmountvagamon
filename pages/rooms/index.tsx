@@ -41,7 +41,7 @@ export default function Rooms() {
         <meta name="msapplication-TileColor" content="#FFFFFF" />
         <meta name="theme-color" content="#FFFFFF" />
         <meta name="keywords" content="resort, Vagamon, Kerala, hill resort, accommodations, tree house, restaurant, room service, spa, outdoor pool, trekking, paragliding, rock climbing, resort at vagamon, fairmount vagamon, fairmount vagamon resorts, resort offers, experience resort, most popular resort, resort experience, resort nature, Vagamon resorts, Kerala hill resorts ,Western Ghats resorts ,Tea plantation resorts ,Nature resorts ,Adventure resorts ,Luxury resorts ,Relaxation resorts ,Spa resorts ,Romantic getaways ,Family vacations ,Hill station vacations ,Hill station getaways ,Western Ghats tourism ,Kerala tourism ,Tea plantation tours ,Nature tours ,Adventure tours ,Luxury travel ,Relaxation vacations ,Spa vacations ,Romantic holidays ,Family holidays ,Honeymoon destinations" />
-        <meta name="description" content="Escape to the stunning beauty of Vagamon at Fairmount Residency. Our resort offers comfortable accommodations, a range of dining options, and a range of activities and amenities to ensure that our guests have a comfortable and enjoyable stay." />
+        <meta name="description" content="Discover the true essence of Vagamon at Fairmount Resorts. Our exquisite rooms offer the perfect blend of modern amenities and traditional charm, making it the ideal base for exploring the natural beauty and cultural treasures of Vagamon. Book your stay now to experience the best of Vagamon." />
         <meta name="author" content="Fairmount Vagamon" />
       </Head>
       <main>

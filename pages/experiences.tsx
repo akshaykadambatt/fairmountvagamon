@@ -69,7 +69,7 @@ export default function Contact() {
     />
     <meta
       name="description"
-      content="Escape to the stunning beauty of Vagamon at Fairmount Residency. Our resort offers comfortable accommodations, a range of dining options, and a range of activities and amenities to ensure that our guests have a comfortable and enjoyable stay."
+      content="Experience the beauty and rich cultural heritage of Vagamon at Fairmount Resorts. Explore the natural landscapes and cultural treasures of this picturesque destination, with exquisite accommodation and blissful experiences. Book your stay now and discover the magic of Vagamon."
     />
     <meta name="author" content="Fairmount Vagamon" />
     </Head>
