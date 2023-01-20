@@ -1,35 +1,36 @@
-import {
-  Title,
-  SimpleGrid,
-  Container,
-  Skeleton,
-  Stack,
-  useMantineTheme,
-} from "@mantine/core";
+import { Title, SimpleGrid, Container, Skeleton, Stack, useMantineTheme, Box } from "@mantine/core";
 import { doc, getDoc } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { CollectionName } from "../components/data/constants";
 import { db } from "../components/data/firebaseConfig";
 import Head from "next/head";
+import LightGallery from "lightgallery/react";
+import "lightgallery/css/lightgallery.css";
+import "lightgallery/css/lg-zoom.css";
+import "lightgallery/css/lg-thumbnail.css";
+import lgPager from "lightgallery/plugins/pager";
+import lgZoom from "lightgallery/plugins/zoom";
 
-const getChild = (height: number) => <Skeleton height={height} radius="md" />;
+const getChild = (image: string, height: number) => (
+  <Box style={{ background: "url(" + image + ")", height: height }} />
+);
 const BASE_HEIGHT = 360;
 const getSubHeight = (children: number, spacing: number) =>
   BASE_HEIGHT / children - spacing * ((children - 1) / children);
-  const images = [
-    {
-      image:
-        'https://images.unsplash.com/photo-1508193638397-1c4234db14d8?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&q=80',
-      width:"100px",
-      height:"100px",
-    },
-    {
-      image:
-        'https://images.unsplash.com/photo-1559494007-9f5847c49d94?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&q=80',
-      width:"100px",
-      height:"100px",
-    },
-  ];
+const images = [
+  {
+    image:
+      "https://images.unsplash.com/photo-1508193638397-1c4234db14d8?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&q=80",
+    width: "100px",
+    height: "100px",
+  },
+  {
+    image:
+      "https://images.unsplash.com/photo-1559494007-9f5847c49d94?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&q=80",
+    width: "100px",
+    height: "100px",
+  },
+];
 export default function Gallery() {
   const [values, setValues] = useState<ContactData>();
   const theme = useMantineTheme();
@@ -41,13 +42,17 @@ export default function Gallery() {
     };
     run();
   }, []);
-
+  const onInit = () => {
+    console.log("lightGallery has been initialized");
+  };
   return (
     <>
-    <Head>
+      <Head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Fairmount Resorts - A Picture is worth a Thousand Words, See the Beauty of Vagamon through our Gallery</title>
+        <title>
+          Fairmount Resorts - A Picture is worth a Thousand Words, See the Beauty of Vagamon through our Gallery
+        </title>
         <link rel="icon" type="image/png" href="/favicon.ico" />
         <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
@@ -65,26 +70,21 @@ export default function Gallery() {
         />
         <meta name="author" content="Fairmount Vagamon" />
       </Head>
-    <Container my={30}>
-      <Title order={2} weight={100}>
-        Gallery
-      </Title>
-      <Container my="md">
-        <SimpleGrid cols={4} breakpoints={[{ maxWidth: "xs", cols: 1 }]}>
-          {getChild(BASE_HEIGHT)}
-          <Stack>
-            {getChild(getSubHeight(2, theme.spacing.md))}
-            {getChild(getSubHeight(2, theme.spacing.md))}
-          </Stack>
-          <Stack>
-            {getChild(getSubHeight(3, theme.spacing.md))}
-            {getChild(getSubHeight(3, theme.spacing.md))}
-            {getChild(getSubHeight(3, theme.spacing.md))}
-          </Stack>
-          {getChild(BASE_HEIGHT)}
-        </SimpleGrid>
+      <Container my={30}>
+        <Title order={2} weight={100}>
+          Gallery
+        </Title>
+        <Container my="md">
+          <LightGallery onInit={onInit} speed={500} plugins={[lgZoom,lgPager]}>
+            {images.map((image) => (
+              <a href={image.image}>
+              <img src={image.image} />
+            </a>
+            ))}
+          </LightGallery>
+          
+        </Container>
       </Container>
-    </Container>
     </>
   );
 }
