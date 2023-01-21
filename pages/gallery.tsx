@@ -1,15 +1,9 @@
 import { Title, SimpleGrid, Container, Skeleton, Stack, useMantineTheme, Box } from "@mantine/core";
 import { doc, getDoc } from "firebase/firestore";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { CollectionName } from "../components/data/constants";
 import { db } from "../components/data/firebaseConfig";
 import Head from "next/head";
-import LightGallery from "lightgallery/react";
-import "lightgallery/css/lightgallery.css";
-import "lightgallery/css/lg-zoom.css";
-import "lightgallery/css/lg-thumbnail.css";
-import lgPager from "lightgallery/plugins/pager";
-import lgZoom from "lightgallery/plugins/zoom";
 
 const getChild = (image: string, height: number) => (
   <Box style={{ background: "url(" + image + ")", height: height }} />
@@ -19,16 +13,22 @@ const getSubHeight = (children: number, spacing: number) =>
   BASE_HEIGHT / children - spacing * ((children - 1) / children);
 const images = [
   {
-    image:
-      "https://images.unsplash.com/photo-1508193638397-1c4234db14d8?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&q=80",
-    width: "100px",
-    height: "100px",
+    src: "https://images.unsplash.com/photo-1508193638397-1c4234db14d8?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&q=80",
+    width: 100,
+    height: 100,
+    srcSet: "",
+    sizes: "",
+    alt: "",
+    key: "",
   },
   {
-    image:
-      "https://images.unsplash.com/photo-1559494007-9f5847c49d94?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&q=80",
-    width: "100px",
-    height: "100px",
+    src: "https://images.unsplash.com/photo-1559494007-9f5847c49d94?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&q=80",
+    width: 100,
+    height: 100,
+    srcSet: "",
+    sizes: "",
+    alt: "",
+    key: "",
   },
 ];
 export default function Gallery() {
@@ -42,9 +42,7 @@ export default function Gallery() {
     };
     run();
   }, []);
-  const onInit = () => {
-    console.log("lightGallery has been initialized");
-  };
+
   return (
     <>
       <Head>
@@ -75,14 +73,8 @@ export default function Gallery() {
           Gallery
         </Title>
         <Container my="md">
-          <LightGallery onInit={onInit} speed={500} plugins={[lgZoom,lgPager]}>
-            {images.map((image) => (
-              <a href={image.image} key={image.image}>
-              <img src={image.image} />
-            </a>
-            ))}
-          </LightGallery>
           
+        
         </Container>
       </Container>
     </>
