@@ -33,17 +33,17 @@ const images = [
   },
 ];
 export default function Gallery() {
-  const [values, setValues] = useState<ContactData>();
+  const [images, setImages] = useState<MediaProps[]>();
   const theme = useMantineTheme();
-  useEffect(() => {
+useEffect(() => {
     const run = async () => {
-      const docRef = doc(db, CollectionName.PAGES, "contacts");
-      const docSnap = await getDoc(docRef);
-      setValues({ ...docSnap.data() } as ContactData);
+        const docRef = doc(db, CollectionName.PAGES, "gallery");
+        const docSnap = await getDoc(docRef);
+        console.log({ ...docSnap.data() });
+        setImages(docSnap.data()?.images)
     };
     run();
   }, []);
-
   return (
     <>
       <Head>
@@ -74,19 +74,19 @@ export default function Gallery() {
           Gallery
         </Title>
         <Container my="md">
-          {images.map((e) => (
-            <SimpleGrid cols={4} breakpoints={[{ maxWidth: "xs", cols: 1 }]} key={e.src} mt={15}>
-              {getChild(images[0].src, BASE_HEIGHT)}
+          {images?.map((e) => (
+            <SimpleGrid cols={4} breakpoints={[{ maxWidth: "xs", cols: 1 }]} key={e.url} mt={15}>
+              {getChild(e.url, BASE_HEIGHT)}
               <Stack>
-                {getChild(images[0].src, getSubHeight(2, theme.spacing.md))}
-                {getChild(images[0].src, getSubHeight(2, theme.spacing.md))}
+                {getChild(e.url, getSubHeight(2, theme.spacing.md))}
+                {getChild(e.url, getSubHeight(2, theme.spacing.md))}
               </Stack>
               <Stack>
-                {getChild(images[0].src, getSubHeight(3, theme.spacing.md))}
-                {getChild(images[0].src, getSubHeight(3, theme.spacing.md))}
-                {getChild(images[0].src, getSubHeight(3, theme.spacing.md))}
+                {getChild(e.url, getSubHeight(3, theme.spacing.md))}
+                {getChild(e.url, getSubHeight(3, theme.spacing.md))}
+                {getChild(e.url, getSubHeight(3, theme.spacing.md))}
               </Stack>
-              {getChild(images[0].src, BASE_HEIGHT)}
+              {getChild(e.url, BASE_HEIGHT)}
             </SimpleGrid>
           ))}
 

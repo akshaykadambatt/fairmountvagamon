@@ -46,11 +46,11 @@ export default function Pages() {
     validate: {
     },
   });
-  const handleFormSubmit = async (values: ContactData) => {
-    let q = doc(db, CollectionName.PAGES, "contacts");
-    await setDoc(q, values);
+  const handleFormSubmit = async (values: MediaProps[]) => {
+    let q = doc(db, CollectionName.PAGES, "gallery");
+    await setDoc((q), {images:values});
     showNotification({
-      title: "Contacts saved",
+      title: "Gallery saved",
       styles: () => ({
         title: {
           fontSize: 14,
@@ -67,7 +67,9 @@ export default function Pages() {
     const run = async () => {
         const docRef = doc(db, CollectionName.PAGES, "gallery");
         const docSnap = await getDoc(docRef);
-        form.setValues({ ...docSnap.data() });
+        console.log({ ...docSnap.data() });
+        form.setFieldValue('images', docSnap.data()?.images)
+        setImages(docSnap.data()?.images)
     };
     run();
   }, []);
@@ -108,7 +110,7 @@ export default function Pages() {
         </Box>
         <form
           onSubmit={form.onSubmit((values) => {
-            // handleFormSubmit(values);
+            handleFormSubmit(values.images);
           })}
         >
           <Grid>
