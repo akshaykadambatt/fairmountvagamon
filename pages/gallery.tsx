@@ -50,7 +50,7 @@ export default function Gallery() {
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>
-          Fairmount Resorts - A Picture is worth a Thousand Words, See the Beauty of Vagamon through our Gallery
+          Fairmount Gallery - A Picture is worth a Thousand Words, See the Beauty of Vagamon through our Gallery
         </title>
         <link rel="icon" type="image/png" href="/favicon.ico" />
         <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />

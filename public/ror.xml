@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:ror="http://rorweb.com/0.1/">
+    <channel>
+        <title>ROR Sitemap for https://www.fairmountvagamon.com/</title>
+        <link>https://www.fairmountvagamon.com/</link>
+
+        <item>
+            <link>https://fairmountvagamon.com/</link>
+            <title>Welcome to Fairmount - Discover the Idyllic Beauty of Vagamon at Fairmount</title>
+            <description>Escape to the stunning beauty of Vagamon at Fairmount Resorts. Our resort
+                offers comfortable accommodations, a range of dining options, and a range of
+                activities and amenities to ensure that our guests have a comfortable and enjoyable
+                stay. Address: Fairmount Vagamon Kannamkulam, Vagamon Kerala - 685503 Contact: +91
+                88488 86990</description>
+            <ror:type>Main</ror:type>
+            <ror:image>https://www.fairmountvagamon.com/logo.png</ror:image>
+            <ror:updatePeriod>day</ror:updatePeriod>
+            <ror:sortOrder>0</ror:sortOrder>
+        </item>
+        <item>
+            <link>https://fairmountvagamon.com/rooms</link>
+            <title>Fairmount Resorts - Experience the Best of Vagamon in Our Exquisite Rooms</title>
+            <description>Discover the true essence of Vagamon at Fairmount Resorts. Our exquisite
+                rooms offer the perfect blend of modern amenities and traditional charm, making it
+                the ideal base for exploring the natural beauty and cultural treasures of Vagamon.
+                Book your stay now to experience the best of Vagamon.</description>
+            <ror:type>Rooms</ror:type>
+            <ror:sortOrder>1</ror:sortOrder>
+        </item>
+        <item>
+            <link>https://fairmountvagamon.com/experiences</link>
+            <title>Fairmount Experiences - Explore the Natural Beauty and Cultural Treasures of
+                Vagamon</title>
+            <description>Experience the beauty and rich cultural heritage of Vagamon at Fairmount
+                Resorts. Explore the natural landscapes and cultural treasures of this picturesque
+                destination, with exquisite accommodation and blissful experiences. Book your stay
+                now and discover the magic of Vagamon.</description>
+            <ror:type>Experiences</ror:type>
+            <ror:sortOrder>1</ror:sortOrder>
+        </item>
+        <item>
+            <link>https://fairmountvagamon.com/gallery</link>
+            <title>Fairmount Gallery - A Picture is worth a Thousand Words, See the Beauty of
+                Vagamon through our Gallery</title>
+            <description>Explore the idyllic views of Vagamon at Fairmount Resorts. Our photo
+                gallery captures the natural beauty of the region, from lush hills to tranquil
+                lakes. Book your stay now and experience the enchanting beauty of Vagamon for
+                yourself.</description>
+            <ror:type>Gallery</ror:type>
+            <ror:sortOrder>1</ror:sortOrder>
+        </item>
+        <item>
+            <link>https://fairmountvagamon.com/contact</link>
+            <title>Fairmount Resorts</title>
+            <description>Escape to the stunning beauty of Vagamon at Fairmount Residency. Our resort
+                offers comfortable accommodations, a range of dining options, and a range of
+                activities and amenities to ensure that our guests have a comfortable and enjoyable
+                stay.</description>
+            <ror:type>Contact</ror:type>
+            <ror:sortOrder>1</ror:sortOrder>
+        </item>
+        <item>
+            <link>https://fairmountvagamon.com/book</link>
+            <title>Fairmount Resorts - Book your Stay to Experience the Enchanting Beauty of Vagamon</title>
+            <description>Discover the natural splendor of Vagamon at Fairmount Resorts. Our
+                well-appointed rooms and unparalleled experiences will make your stay unforgettable.
+                Book now to experience the enchanting beauty of Vagamon.</description>
+            <ror:type>Book</ror:type>
+            <ror:sortOrder>1</ror:sortOrder>
+        </item>
+        <item>
+            <link>https://fairmountvagamon.com/faq</link>
+            <title>Fairmount Resorts - FAQ </title>
+            <description>Fairmount Resorts - Frequently Asked Questions</description>
+            <ror:type>FAQ</ror:type>
+            <ror:sortOrder>1</ror:sortOrder>
+        </item>
+        <item>
+            <title>Sitemap</title>
+            <ror:type>Sitemap</ror:type>
+            <ror:seeAlso>https://fairmountvagamon.com/sitemap.xml</ror:seeAlso>
+        </item>
+    </channel>
+</rss>
+  
