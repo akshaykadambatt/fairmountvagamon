@@ -77,7 +77,7 @@ export default function Room() {
     <Box>
       <Container size="lg" mt={40}>
         <Title weight={100}>{product ? product?.name : <Skeleton height={100} />}</Title>
-        <Text>{product ? product?.shortDescription : <Skeleton height={300} mt={30} />}</Text>
+        <Text mt={20}>{product ? product?.shortDescription : <Skeleton height={300} mt={40} />}</Text>
       </Container>
       <Carousel
         withIndicators
