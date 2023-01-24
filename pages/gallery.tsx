@@ -35,12 +35,12 @@ const images = [
 export default function Gallery() {
   const [images, setImages] = useState<MediaProps[]>();
   const theme = useMantineTheme();
-useEffect(() => {
+  useEffect(() => {
     const run = async () => {
-        const docRef = doc(db, CollectionName.PAGES, "gallery");
-        const docSnap = await getDoc(docRef);
-        console.log({ ...docSnap.data() });
-        setImages(docSnap.data()?.images)
+      const docRef = doc(db, CollectionName.PAGES, "gallery");
+      const docSnap = await getDoc(docRef);
+      console.log({ ...docSnap.data() });
+      setImages(docSnap.data()?.images);
     };
     run();
   }, []);
@@ -74,7 +74,16 @@ useEffect(() => {
           Gallery
         </Title>
         <Container my="md">
-          {images?.map((e) => (
+          <SimpleGrid cols={3} spacing="xl" verticalSpacing="xl">
+            {images?.map((e) => (
+              <a href={e.url} target={"_blank"}>
+                <Box
+                  style={{ background: `url(${e.url})`, backgroundSize: "cover", height: 180, borderRadius: 5 }}
+                ></Box>
+              </a>
+            ))}
+          </SimpleGrid>
+          {/* {images?.map((e) => (
             <SimpleGrid cols={4} breakpoints={[{ maxWidth: "xs", cols: 1 }]} key={e.url} mt={15}>
               {getChild(e.url, BASE_HEIGHT)}
               <Stack>
@@ -102,7 +111,7 @@ useEffect(() => {
               {getChildSkeleton(getSubHeight(3, theme.spacing.md))}
             </Stack>
             {getChildSkeleton(BASE_HEIGHT)}
-          </SimpleGrid>
+          </SimpleGrid> */}
         </Container>
       </Container>
     </>
