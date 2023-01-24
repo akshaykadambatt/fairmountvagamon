@@ -41,7 +41,6 @@ import Autoplay from "embla-carousel-autoplay";
 import { db } from "../components/data/firebaseConfig";
 import { collection, query, where, getDocs, onSnapshot } from "firebase/firestore";
 import { keyframes } from "@emotion/react";
-import { Reveal } from "react-awesome-reveal";
 import { IoLocationOutline } from "react-icons/io5";
 import { BsArrowLeft, BsArrowRight } from "react-icons/bs";
 import useViewport from "../components/data/useViewport";
