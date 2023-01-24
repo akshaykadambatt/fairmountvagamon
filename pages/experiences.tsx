@@ -41,7 +41,7 @@ const getSubHeight = (children: number, spacing: number) =>
   BASE_HEIGHT / children - spacing * ((children - 1) / children);
 
 export default function Contact() {
-  const [values, setValues] = useState<any[]>();
+  const [values, setValues] = useState<ExperienceProps[]>();
   const theme = useMantineTheme();
   useEffect(() => {
     const run = async () => {

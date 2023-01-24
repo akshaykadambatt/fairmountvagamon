@@ -57,6 +57,10 @@ export default function Pages() {
       images: [],
       status: true,
       order: 0,
+      show_in_carousel: false,
+      show_in_carousel_caption: "",
+      show_in_about: false,
+      show_in_about_order: 0,
     } as ExperienceProps,
 
     validate: {
@@ -81,7 +85,11 @@ export default function Pages() {
     form.setFieldValue("status", data.status);
     form.setFieldValue("id", data.id);
     form.setFieldValue("images", data.images);
-    setImages(data.images)
+    form.setFieldValue("show_in_about", data.show_in_about);
+    form.setFieldValue("show_in_about_order", data.show_in_about_order);
+    form.setFieldValue("show_in_carousel", data.show_in_carousel);
+    form.setFieldValue("show_in_carousel_caption", data.show_in_carousel_caption);
+    setImages(data.images);
     setExperienceEditId(data.id ? data.id : "");
     setOpened(true);
   };
@@ -96,9 +104,9 @@ export default function Pages() {
     });
   }, []);
   useEffect(() => {
-    if (!opened){
+    if (!opened) {
       form.reset();
-      setImages([])
+      setImages([]);
     }
   }, [opened]);
   const selectImage = (e: MediaProps) => {
@@ -106,7 +114,7 @@ export default function Pages() {
     let newVal: MediaProps[] = form.values["images"];
     newVal.push(e);
     form.setFieldValue("images", newVal);
-    setImages(form.values['images'])
+    setImages(form.values["images"]);
     console.log(form.values);
     showNotification({
       title: "Media added",
@@ -150,6 +158,22 @@ export default function Pages() {
               <ImageBlockPlaceholder />
             </Box>
           </Box>
+          <Checkbox mb={6} checked={form.values['show_in_carousel']} label="Show in Experiences carousel" {...form.getInputProps("show_in_carousel")} />
+          {form.values["show_in_carousel"] && (
+            <TextInput mb={16}
+              label="Slide caption"
+              placeholder="Enter the caption"
+              {...form.getInputProps("show_in_carousel_caption")}
+            />
+          )}
+          <Checkbox mb={6} label="Show in About Vagamon section" checked={form.values['show_in_about']} {...form.getInputProps("show_in_about")} />
+          {form.values["show_in_about"] && (
+            <NumberInput mb={16}
+              label="Display order"
+              placeholder="Enter the order priority"
+              {...form.getInputProps("show_in_about_order")}
+            />
+          )}
           <Switch label="Active" {...form.getInputProps("status", { type: "checkbox" })} />
           <Group position="right" mt="md">
             <Button type="submit">Submit</Button>

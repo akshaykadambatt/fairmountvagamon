@@ -155,9 +155,9 @@ export default function Home() {
     getDocs(query(collection(db, CollectionName.EXPERIENCES), where("status", "==", true))).then((querySnapshot) => {
       let data: ExperienceProps[] = [];
       querySnapshot.forEach((doc) => {
-        data.push(Object.assign({ ...doc.data() }, { id: doc.id }) as ExperienceProps);
+        if(doc.data().show_in_about) data.push(Object.assign({ ...doc.data() }, { id: doc.id }) as ExperienceProps);
       });
-      data.sort((a, b) => a.order - b.order);
+      data.sort((a, b) => a.show_in_about_order - b.show_in_about_order);
       setExperiences(data);
     });
   }, []);

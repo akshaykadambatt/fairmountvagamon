@@ -81,5 +81,9 @@ interface ExperienceProps {
   images: MediaProps[];
   status: boolean;
   order: number;
+  show_in_carousel: boolean;
+  show_in_carousel_caption: string;
+  show_in_about: boolean;
+  show_in_about_order: number;
   id?: string;
 }
