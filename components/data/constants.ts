@@ -6,6 +6,7 @@ export enum CollectionName {
     PAGES = "pages",
     ADDONS = "addons",
     EXPERIENCES = "experiences",
+    GALLERY = "gallery",
 }
 
 export enum CollectionStatus {

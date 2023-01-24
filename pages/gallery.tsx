@@ -6,8 +6,9 @@ import { db } from "../components/data/firebaseConfig";
 import Head from "next/head";
 
 const getChild = (image: string, height: number) => (
-  <Box style={{ background: "url(" + image + ")", height: height }} />
+  <Box style={{ background: "url(" + image + ")", height: height, borderRadius: 5 }} />
 );
+const getChildSkeleton = (height: number) => <Skeleton style={{ height: height, borderRadius: 5 }} />;
 const BASE_HEIGHT = 360;
 const getSubHeight = (children: number, spacing: number) =>
   BASE_HEIGHT / children - spacing * ((children - 1) / children);
@@ -73,8 +74,35 @@ export default function Gallery() {
           Gallery
         </Title>
         <Container my="md">
-          
-        
+          {images.map((e) => (
+            <SimpleGrid cols={4} breakpoints={[{ maxWidth: "xs", cols: 1 }]} key={e.src} mt={15}>
+              {getChild(images[0].src, BASE_HEIGHT)}
+              <Stack>
+                {getChild(images[0].src, getSubHeight(2, theme.spacing.md))}
+                {getChild(images[0].src, getSubHeight(2, theme.spacing.md))}
+              </Stack>
+              <Stack>
+                {getChild(images[0].src, getSubHeight(3, theme.spacing.md))}
+                {getChild(images[0].src, getSubHeight(3, theme.spacing.md))}
+                {getChild(images[0].src, getSubHeight(3, theme.spacing.md))}
+              </Stack>
+              {getChild(images[0].src, BASE_HEIGHT)}
+            </SimpleGrid>
+          ))}
+
+          <SimpleGrid cols={4} breakpoints={[{ maxWidth: "xs", cols: 1 }]} mt={20}>
+            {getChildSkeleton(BASE_HEIGHT)}
+            <Stack>
+              {getChildSkeleton(getSubHeight(2, theme.spacing.md))}
+              {getChildSkeleton(getSubHeight(2, theme.spacing.md))}
+            </Stack>
+            <Stack>
+              {getChildSkeleton(getSubHeight(3, theme.spacing.md))}
+              {getChildSkeleton(getSubHeight(3, theme.spacing.md))}
+              {getChildSkeleton(getSubHeight(3, theme.spacing.md))}
+            </Stack>
+            {getChildSkeleton(BASE_HEIGHT)}
+          </SimpleGrid>
         </Container>
       </Container>
     </>

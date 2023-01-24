@@ -30,17 +30,20 @@ import { db, storage } from "../../../components/data/firebaseConfig";
 import { AmenitiesIds, CollectionName } from "../../../components/data/constants";
 import { useRouter } from "next/router";
 import { showNotification } from "@mantine/notifications";
+import ImageBlock, { ImageBlockPlaceholder } from "../../../components/imageBlock";
+import MediaModal from "../../../components/mediaModal";
 export default function Pages() {
   const router = useRouter();
+  const [opened, setOpened] = useState(false);
   const theme = useMantineTheme();
+  const [images, setImages] = useState<MediaProps[]>([]);
   const form = useForm({
     initialValues: {
-      email: "",
+      images: [] as MediaProps[],
       status: true,
     },
 
     validate: {
-      email: (value) => (value != "" ? null : "Enter email"),
     },
   });
   const handleFormSubmit = async (values: ContactData) => {
@@ -62,13 +65,32 @@ export default function Pages() {
 
   useEffect(() => {
     const run = async () => {
-        const docRef = doc(db, CollectionName.PAGES, "contacts");
+        const docRef = doc(db, CollectionName.PAGES, "gallery");
         const docSnap = await getDoc(docRef);
         form.setValues({ ...docSnap.data() });
     };
     run();
   }, []);
-
+  const selectImage = (e: MediaProps) => {
+    console.log("in root", e);
+    let newVal: MediaProps[] = form.values["images"];
+    newVal.push(e);
+    form.setFieldValue("images", newVal);
+    setImages(newVal)
+    console.log(form.values);
+    showNotification({
+      title: 'Media added',
+      message: 'Close the popup or select more',
+      styles: (theme) => ({
+        title: {
+          fontSize:14,
+        },
+        description: {
+          fontSize:10,
+        }
+      }),
+    })
+  };
   return (
     <Navigation>
       <Container size="lg" py={20} px={50}>
@@ -90,8 +112,16 @@ export default function Pages() {
           })}
         >
           <Grid>
-            <Grid.Col span={6}>
-              <TextInput withAsterisk label="Email" placeholder="Enter the email" {...form.getInputProps("email")} />
+            <Grid.Col span={12}>
+            <Text>Images</Text>
+              <Box>
+                {images.map((e) => (
+                  <ImageBlock data={e} key={e.name} controls images={images} setImages={setImages} />
+                ))}
+                <Box onClick={() => setOpened(true)} style={{ display: "inline-block" }}>
+                  <ImageBlockPlaceholder />
+                </Box>
+              </Box>
             </Grid.Col>
             <Grid.Col span={12}>
               <Group position="right" mt="md">
@@ -100,6 +130,7 @@ export default function Pages() {
             </Grid.Col>
           </Grid>
         </form>
+      <MediaModal opened={opened} setOpened={setOpened} selectImage={selectImage} />
       </Container>
     </Navigation>
   );
