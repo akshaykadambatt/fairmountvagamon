@@ -76,7 +76,7 @@ export default function Gallery() {
         <Container my="md">
           <SimpleGrid cols={3} spacing="xl" verticalSpacing="xl">
             {images?.map((e) => (
-              <a href={e.url} target={"_blank"}>
+              <a key={e.url} href={e.url} target="_blank" rel="noreferrer">
                 <Box
                   style={{ background: `url(${e.url})`, backgroundSize: "cover", height: 180, borderRadius: 5 }}
                 ></Box>
