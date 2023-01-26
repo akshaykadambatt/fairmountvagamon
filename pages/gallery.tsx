@@ -50,7 +50,7 @@ export default function Gallery() {
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>
-          Fairmount Resorts - A Picture is worth a Thousand Words, See the Beauty of Vagamon through our Gallery
+          Fairmount Gallery - A Picture is worth a Thousand Words, See the Beauty of Vagamon through our Gallery
         </title>
         <link rel="icon" type="image/png" href="/favicon.ico" />
         <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
@@ -76,7 +76,7 @@ export default function Gallery() {
         <Container my="md">
           <SimpleGrid cols={3} spacing="xl" verticalSpacing="xl">
             {images?.map((e) => (
-              <a href={e.url} target={"_blank"}>
+              <a key={e.url} href={e.url} target="_blank" rel="noreferrer">
                 <Box
                   style={{ background: `url(${e.url})`, backgroundSize: "cover", height: 180, borderRadius: 5 }}
                 ></Box>
