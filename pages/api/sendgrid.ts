@@ -7,33 +7,20 @@ type Data = {
 export default async function handler(req: NextApiRequest, res: NextApiResponse<Data>) {
   if (req.method === "POST") {
     const { name, email, message }: { name: string; email: string; message: string } = req.body;
-    const msg = `Name: ${name}\r\n Email: ${email}\r\n Message: ${message}`;
+    const datas = JSON.parse(req.body)
+    const msg = `Name: ${datas.name}\r\n 
+    Email: ${datas.email}\r\n 
+    Phone: ${datas.phone}\r\n 
+    Message: ${datas.message}`;
     const data = {
-      to: "akshayakn6@gmail.com",
-      from: "fairmountvagamonresort@gmail.com",
-      subject: `hry sent you a message from Contact Form`,
-      text: `Email => yoooo`,
+      to: datas.email,
+      from: "mail@fairmountvagamon.com",
+      subject: `${datas.name} sent you a message from Contact Form`,
       html: msg.replace(/\r\n/g, "<br>"),
     };
-    const msgs = {
-      to: "hellooo@mailinator.com", // Change to your recipient
-      from: "fairmountvagamonresort@gmail.com", // Change to your verified sender
-      subject: "Sending with SendGrid is Fun",
-      text: "and easy to do anywhere, even with Node.js",
-      html: "<strong>and easy to do anywhere, even with Node.js</strong>",
-    };
-    sgMail
-      .send(msgs)
-      .then(() => {
-        console.log("Email sent");
-      })
-      .catch((error: any) => {
-        console.error(error);
-        console.error(error.response.body);
-      });
     try {
       await sgMail.send(data);
-      console.log(process.env.NEXT_PUBLIC_SENDGRID_KEY);
+      console.log(req.body);
 
       res.status(200).json({ message: "Your message was sent successfully." });
     } catch (err) {

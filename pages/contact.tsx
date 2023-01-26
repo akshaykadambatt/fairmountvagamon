@@ -17,6 +17,7 @@ import { useEffect, useState } from "react";
 import { CollectionName } from "../components/data/constants";
 import { db } from "../components/data/firebaseConfig";
 import Link from "next/link";
+import { useForm } from "@mantine/form";
 
 const useStyles = createStyles((theme) => ({
   wrapper: {
@@ -117,6 +118,18 @@ function SideIcon({ name, data, Icon }: { name: string; data: string; Icon: Tabl
 export default function Contact() {
   const { classes } = useStyles();
   const [values, setValues] = useState<ContactData>();
+  const form = useForm({
+    initialValues: {
+      name: "",
+      email: "",
+      phone: "",
+      message: "",
+    },
+
+    validate: {
+      email: (value) => (value != "" ? null : "Enter email"),
+    },
+  });
   useEffect(() => {
     const run = async () => {
       const docRef = doc(db, CollectionName.PAGES, "contacts");
@@ -125,7 +138,19 @@ export default function Contact() {
     };
     run();
   }, []);
-
+  const handleSubmit = async (values: { name: string; email: string; phone: string; message: string; }) => {
+    let formD = new FormData();
+    formD.append("name", values.name);
+    formD.append("email", values.email);
+    formD.append("phone", values.phone);
+    formD.append("message", values.message);
+    fetch("/api/sendgrid", {
+      method: "POST",
+      body: JSON.stringify(values),
+    })
+      .then((e) => e.json())
+      .then((r) => console.log(r));
+  };
   return (
     <Container my={30}>
       <div className={classes.wrapper}>
@@ -180,34 +205,46 @@ export default function Contact() {
               </ActionIcon>
             </Group>
           </div>
+          <form
+          onSubmit={form.onSubmit((values) => {
+            handleSubmit(values);
+          })}
+        >
           <div className={classes.form}>
-            <TextInput
-              label="Email"
-              placeholder="your@email.com"
-              required
-              classNames={{ input: classes.input, label: classes.inputLabel }}
-            />
             <TextInput
               label="Name"
               placeholder="Your name"
-              mt="md"
+              mt="md" {...form.getInputProps("name")}
+              classNames={{ input: classes.input, label: classes.inputLabel }}
+            />
+            <TextInput
+              label="Email"
+              placeholder="your@email.com"
+              required {...form.getInputProps("email")}
+              classNames={{ input: classes.input, label: classes.inputLabel }}
+            />
+            <TextInput
+              label="Phone"
+              placeholder="2345234524"
+              required {...form.getInputProps("phone")}
               classNames={{ input: classes.input, label: classes.inputLabel }}
             />
             <Textarea
               required
               label="Message"
               placeholder="Your message"
-              minRows={4}
+              minRows={4} {...form.getInputProps("message")}
               mt="md"
               classNames={{ input: classes.input, label: classes.inputLabel }}
             />
 
             <Group position="right" mt="md">
-              <Button className={classes.control}>Send message</Button>
+              <Button className={classes.control} type="submit">Send message</Button>
             </Group>
-          </div>
+          </div></form>
         </SimpleGrid>
       </div>
+      
       <Box my={40} style={{ borderRadius: 20, overflow: "hidden" }}>
         <div
           dangerouslySetInnerHTML={{

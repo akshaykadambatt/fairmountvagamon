@@ -105,7 +105,7 @@ export default function Contact() {
         <meta name="author" content="Fairmount Vagamon" />
       </Head>
     <Container my={30}>
-      {/* <Button onClick={handleSubmit}>send mail</Button> */}
+      <Button onClick={handleSubmit}>send mail</Button>
       <Stepper active={active} onStepClick={selectedId ? () => {} : setActive} breakpoint="sm">
         <Stepper.Step label="Select dates" description="Dates and service">
           <Book noCheckButton={true} />
