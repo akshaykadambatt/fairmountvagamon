@@ -11,21 +11,33 @@ import {
   Container,
   Box,
 } from "@mantine/core";
-import { IconBrandTwitter, IconBrandYoutube, IconBrandInstagram, TablerIcon, IconAt, IconPhone, IconLockOpen, IconLocation, IconBrandFacebook, IconBrandWhatsapp } from "@tabler/icons";
+import {
+  IconBrandTwitter,
+  IconBrandYoutube,
+  IconBrandInstagram,
+  TablerIcon,
+  IconAt,
+  IconPhone,
+  IconLockOpen,
+  IconLocation,
+  IconBrandFacebook,
+  IconBrandWhatsapp,
+} from "@tabler/icons";
 import { doc, getDoc } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { CollectionName } from "../components/data/constants";
 import { db } from "../components/data/firebaseConfig";
 import Link from "next/link";
 import { useForm } from "@mantine/form";
+import Head from "next/head";
 
 const useStyles = createStyles((theme) => ({
   wrapper: {
     minHeight: 400,
     boxSizing: "border-box",
-    backgroundImage: `linear-gradient(-60deg, ${theme.colors[theme.primaryColor][4]} 0%, ${
-      theme.colors[theme.primaryColor][7]
-    } 100%)`,
+    backgroundImage: `linear-gradient(-60deg, ${
+      theme.colors[theme.primaryColor][4]
+    } 0%, ${theme.colors[theme.primaryColor][7]} 100%)`,
     borderRadius: theme.radius.md,
     padding: theme.spacing.xl * 2.5,
 
@@ -103,9 +115,20 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
-function SideIcon({ name, data, Icon }: { name: string; data: string; Icon: TablerIcon }) {
+function SideIcon({
+  name,
+  data,
+  Icon,
+}: {
+  name: string;
+  data: string;
+  Icon: TablerIcon;
+}) {
   return (
-    <Box style={{ display: "flex", alignItems: "center", color: "white" }} my={17}>
+    <Box
+      style={{ display: "flex", alignItems: "center", color: "white" }}
+      my={17}
+    >
       <Icon size={28} />
       <Box pl={15}>
         <Text size="xs">{name}</Text>
@@ -138,7 +161,12 @@ export default function Contact() {
     };
     run();
   }, []);
-  const handleSubmit = async (values: { name: string; email: string; phone: string; message: string; }) => {
+  const handleSubmit = async (values: {
+    name: string;
+    email: string;
+    phone: string;
+    message: string;
+  }) => {
     let formD = new FormData();
     formD.append("name", values.name);
     formD.append("email", values.email);
@@ -152,106 +180,164 @@ export default function Contact() {
       .then((r) => console.log(r));
   };
   return (
-    <Container my={30}>
-      <div className={classes.wrapper}>
-        <SimpleGrid cols={2} spacing={50} breakpoints={[{ maxWidth: "sm", cols: 1 }]}>
-          <div>
-            <Title className={classes.title}>Contact us</Title>
-            <Text className={classes.description} mt="sm" mb={30}>
-              Leave your email and we will get back to you within 24 hours
-            </Text>
+    <>
+      <Head>
+      <meta charSet="utf-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <title>Fairmount Resorts - Contact Us</title>
+      <link rel="icon" type="image/png" href="/favicon.ico" />
+      <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+      <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+      <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+      <link rel="manifest" href="/site.webmanifest" />
+      <meta name="msapplication-TileColor" content="#FFFFFF" />
+      <meta name="theme-color" content="#FFFFFF" />
+      <meta
+        name="keywords"
+        content="resort, Vagamon, Kerala, hill resort, accommodations, tree house, restaurant, room service, spa, outdoor pool, trekking, paragliding, rock climbing, resort at vagamon, fairmount vagamon, fairmount vagamon resorts, resort offers, experience resort, most popular resort, resort experience, resort nature, Vagamon resorts, Kerala hill resorts ,Western Ghats resorts ,Tea plantation resorts ,Nature resorts ,Adventure resorts ,Luxury resorts ,Relaxation resorts ,Spa resorts ,Romantic getaways ,Family vacations ,Hill station vacations ,Hill station getaways ,Western Ghats tourism ,Kerala tourism ,Tea plantation tours ,Nature tours ,Adventure tours ,Luxury travel ,Relaxation vacations ,Spa vacations ,Romantic holidays ,Family holidays ,Honeymoon destinations"
+      />
+      <meta
+        name="description"
+        content="Address: Fairmount Resorts Vagamon, Kannamkulam, Vagamon, Kerala - 685503 <br></br> Contact: +91 88488 86990"
+      />
+      <meta name="author" content="Fairmount Vagamon" />
+      </Head>
+      <Container my={30}>
+        <div className={classes.wrapper}>
+          <SimpleGrid
+            cols={2}
+            spacing={50}
+            breakpoints={[{ maxWidth: "sm", cols: 1 }]}
+          >
+            <div>
+              <Title className={classes.title}>Contact us</Title>
+              <Text className={classes.description} mt="sm" mb={30}>
+                Leave your email and we will get back to you within 24 hours
+              </Text>
 
-            <SideIcon name="Email" data={values?.email || ""} Icon={IconAt} />
-            <SideIcon name="Phone" data={values?.phone || ""} Icon={IconPhone} />
-            <SideIcon name="Hours" data={values?.hours || ""} Icon={IconLockOpen} />
-            <SideIcon name="Instagram" data={values?.address || ""} Icon={IconLocation} />
+              <SideIcon name="Email" data={values?.email || ""} Icon={IconAt} />
+              <SideIcon
+                name="Phone"
+                data={values?.phone || ""}
+                Icon={IconPhone}
+              />
+              <SideIcon
+                name="Hours"
+                data={values?.hours || ""}
+                Icon={IconLockOpen}
+              />
+              <SideIcon
+                name="Instagram"
+                data={values?.address || ""}
+                Icon={IconLocation}
+              />
 
-            <Group mt="xl">
-              <ActionIcon
-                component={Link}
-                href={values?.twitter || ""}
-                size={28}
-                className={classes.social}
-                variant="transparent"
-              >
-                <IconBrandTwitter size={22} stroke={1.5} />
-              </ActionIcon>
-              <ActionIcon
-                component={Link}
-                href={values?.instagram || ""}
-                size={28}
-                className={classes.social}
-                variant="transparent"
-              >
-                <IconBrandInstagram size={22} stroke={1.5} />
-              </ActionIcon>
-              <ActionIcon
-                component={Link}
-                href={values?.facebook || ""}
-                size={28}
-                className={classes.social}
-                variant="transparent"
-              >
-                <IconBrandFacebook size={22} stroke={1.5} />
-              </ActionIcon>
-              <ActionIcon
-                component={Link}
-                href={values?.whatsapp || ""}
-                size={28}
-                className={classes.social}
-                variant="transparent"
-              >
-                <IconBrandWhatsapp size={22} stroke={1.5} />
-              </ActionIcon>
-            </Group>
-          </div>
-          <form
-          onSubmit={form.onSubmit((values) => {
-            handleSubmit(values);
-          })}
-        >
-          <div className={classes.form}>
-            <TextInput
-              label="Name"
-              placeholder="Your name"
-              mt="md" {...form.getInputProps("name")}
-              classNames={{ input: classes.input, label: classes.inputLabel }}
-            />
-            <TextInput
-              label="Email"
-              placeholder="your@email.com"
-              required {...form.getInputProps("email")}
-              classNames={{ input: classes.input, label: classes.inputLabel }}
-            />
-            <TextInput
-              label="Phone"
-              placeholder="2345234524"
-              required {...form.getInputProps("phone")}
-              classNames={{ input: classes.input, label: classes.inputLabel }}
-            />
-            <Textarea
-              required
-              label="Message"
-              placeholder="Your message"
-              minRows={4} {...form.getInputProps("message")}
-              mt="md"
-              classNames={{ input: classes.input, label: classes.inputLabel }}
-            />
+              <Group mt="xl">
+                <ActionIcon
+                  component={Link}
+                  href={values?.twitter || ""}
+                  size={28}
+                  className={classes.social}
+                  variant="transparent"
+                >
+                  <IconBrandTwitter size={22} stroke={1.5} />
+                </ActionIcon>
+                <ActionIcon
+                  component={Link}
+                  href={values?.instagram || ""}
+                  size={28}
+                  className={classes.social}
+                  variant="transparent"
+                >
+                  <IconBrandInstagram size={22} stroke={1.5} />
+                </ActionIcon>
+                <ActionIcon
+                  component={Link}
+                  href={values?.facebook || ""}
+                  size={28}
+                  className={classes.social}
+                  variant="transparent"
+                >
+                  <IconBrandFacebook size={22} stroke={1.5} />
+                </ActionIcon>
+                <ActionIcon
+                  component={Link}
+                  href={values?.whatsapp || ""}
+                  size={28}
+                  className={classes.social}
+                  variant="transparent"
+                >
+                  <IconBrandWhatsapp size={22} stroke={1.5} />
+                </ActionIcon>
+              </Group>
+            </div>
+            <form
+              onSubmit={form.onSubmit((values) => {
+                handleSubmit(values);
+              })}
+            >
+              <div className={classes.form}>
+                <TextInput
+                  label="Name"
+                  placeholder="Your name"
+                  mt="md"
+                  {...form.getInputProps("name")}
+                  classNames={{
+                    input: classes.input,
+                    label: classes.inputLabel,
+                  }}
+                />
+                <TextInput
+                  label="Email"
+                  placeholder="your@email.com"
+                  required
+                  {...form.getInputProps("email")}
+                  classNames={{
+                    input: classes.input,
+                    label: classes.inputLabel,
+                  }}
+                />
+                <TextInput
+                  label="Phone"
+                  placeholder="2345234524"
+                  required
+                  {...form.getInputProps("phone")}
+                  classNames={{
+                    input: classes.input,
+                    label: classes.inputLabel,
+                  }}
+                />
+                <Textarea
+                  required
+                  label="Message"
+                  placeholder="Your message"
+                  minRows={4}
+                  {...form.getInputProps("message")}
+                  mt="md"
+                  classNames={{
+                    input: classes.input,
+                    label: classes.inputLabel,
+                  }}
+                />
 
-            <Group position="right" mt="md">
-              <Button className={classes.control} type="submit">Send message</Button>
-            </Group>
-          </div></form>
-        </SimpleGrid>
-      </div>
-      
-      <Box my={40} style={{ borderRadius: 20, overflow: "hidden" }}>
-        <div
-          dangerouslySetInnerHTML={{
-            __html: values?.map||""
-          }}
-        />
-      </Box>
-    </Container>
+                <Group position="right" mt="md">
+                  <Button className={classes.control} type="submit">
+                    Send message
+                  </Button>
+                </Group>
+              </div>
+            </form>
+          </SimpleGrid>
+        </div>
+
+        <Box my={40} style={{ borderRadius: 20, overflow: "hidden" }}>
+          <div
+            dangerouslySetInnerHTML={{
+              __html: values?.map || "",
+            }}
+          />
+        </Box>
+      </Container>
+    </>
   );
 }
