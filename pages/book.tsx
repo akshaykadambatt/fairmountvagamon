@@ -67,19 +67,7 @@ export default function Contact() {
     setLoading(false);
     nextStep();
   };
-  const handleSubmit = async (e: any) => {
-    e.preventDefault();
-    let formD = new FormData();
-    formD.append("name", "my name");
-    formD.append("email", "my name");
-    formD.append("message", "my name");
-    fetch("/api/sendgrid", {
-      method: "POST",
-      body: formD,
-    })
-      .then((e) => e.json())
-      .then((r) => console.log(r));
-  };
+  
 
   return (
     <>
@@ -105,7 +93,6 @@ export default function Contact() {
         <meta name="author" content="Fairmount Vagamon" />
       </Head>
     <Container my={30}>
-      <Button onClick={handleSubmit}>send mail</Button>
       <Stepper active={active} onStepClick={selectedId ? () => {} : setActive} breakpoint="sm">
         <Stepper.Step label="Select dates" description="Dates and service">
           <Book noCheckButton={true} />
