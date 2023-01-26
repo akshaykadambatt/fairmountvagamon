@@ -167,6 +167,7 @@ export default function Home() {
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Welcome to Fairmount Resorts Vagamon, Kerala - Discover the Idyllic Beauty of Vagamon at Fairmount</title>
+        
         <link rel="icon" type="image/png" href="/favicon.ico" />
         <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
@@ -176,18 +177,38 @@ export default function Home() {
         <link rel="alternate" type="application/rss+xml" title="ROR" href="/ror.xml" />
         <meta name="msapplication-TileColor" content="#FFFFFF" />
         <meta name="theme-color" content="#FFFFFF" />
+        
         <meta
           name="keywords"
           content="resort, Vagamon, Kerala, hill resort, accommodations, tree house, restaurant, room service, spa, outdoor pool, trekking, paragliding, rock climbing, resort at vagamon, fairmount vagamon, fairmount vagamon resorts, resort offers, experience resort, most popular resort, resort experience, resort nature, Vagamon resorts, Kerala hill resorts ,Western Ghats resorts ,Tea plantation resorts ,Nature resorts ,Adventure resorts ,Luxury resorts ,Relaxation resorts ,Spa resorts ,Romantic getaways ,Family vacations ,Hill station vacations ,Hill station getaways ,Western Ghats tourism ,Kerala tourism ,Tea plantation tours ,Nature tours ,Adventure tours ,Luxury travel ,Relaxation vacations ,Spa vacations ,Romantic holidays ,Family holidays ,Honeymoon destinations"
         />
         <meta
           name="description"
-          content="Escape to the stunning beauty of Vagamon at Fairmount Resorts. Our resort offers comfortable accommodations, a range of dining options, and a range of activities and amenities to ensure that our guests have a comfortable and enjoyable stay.
+          content="Indulge in the stunning beauty of Vagamon at Fairmount Resorts. Our resort offers comfortable accommodations, a range of dining options, and a range of activities and amenities to ensure that our guests have a comfortable and enjoyable stay.
             Address: Fairmount Vagamon
                      Kannamkulam, Vagamon
                      Kerala - 685503
             Contact: +91 88488 86990"
         />
+
+        {/*<!-- Open Graph / Facebook -->*/}
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://fairmountvagamon.com/" />
+        <meta property="og:title" content="Welcome to Fairmount Resorts Vagamon, Kerala - Discover the Idyllic Beauty of Vagamon at Fairmount" />
+        <meta property="og:description" content="Indulge in the stunning beauty of Vagamon at Fairmount Resorts. Our resort offers comfortable accommodations, a range of dining options, and a range of activities and amenities to ensure that our guests have a comfortable and enjoyable stay. 
+        Address: Fairmount Vagamon Kannamkulam, Vagamon Kerala - 685503 
+        Contact: +91 88488 86990" />
+        <meta property="og:image" content="https://fairmountvagamon.com/og-image.jpg" />
+
+        {/*<!-- Twitter -->*/}
+        <meta property="twitter:card" content="summary_large_image" />
+        <meta property="twitter:url" content="https://fairmountvagamon.com/" />
+        <meta property="twitter:title" content="Welcome to Fairmount Resorts Vagamon, Kerala - Discover the Idyllic Beauty of Vagamon at Fairmount" />
+        <meta property="twitter:description" content="Indulge in the stunning beauty of Vagamon at Fairmount Resorts. Our resort offers comfortable accommodations, a range of dining options, and a range of activities and amenities to ensure that our guests have a comfortable and enjoyable stay. 
+        Address: Fairmount Vagamon Kannamkulam, Vagamon Kerala - 685503 
+        Contact: +91 88488 86990" />
+        <meta property="twitter:image" content="https://fairmountvagamon.com/og-image.jpg" />
+        
         <meta name="author" content="Fairmount Vagamon" />
       </Head>
       <main>
