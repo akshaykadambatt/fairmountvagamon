@@ -210,7 +210,7 @@ export default function Home() {
         <meta property="twitter:image" content="https://fairmountvagamon.com/og-image.jpg" />
         
         <meta name="author" content="Fairmount Vagamon" />
-        <link rel="preload" href="https://fairmountvagamon.com/fonts/MrDafoe-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous" />
+        <link rel="preload" href="https://fairmountvagamon.com/fonts/MrDafoe-Regular.woff2" as="font" type="font/woff2" />
       </Head>
       <main>
         <div
