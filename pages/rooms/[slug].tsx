@@ -1,5 +1,5 @@
-import { Box, Text, Title, Container, Skeleton, createStyles, SimpleGrid, useMantineTheme } from "@mantine/core";
-import { collection, doc, getDoc, getDocs, query, where } from "firebase/firestore";
+import { Box, Text, Title, Container, Skeleton, createStyles, useMantineTheme } from "@mantine/core";
+import { collection, getDocs, query, where } from "firebase/firestore";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { AmenitiesIds, CollectionName } from "../../components/data/constants";
@@ -10,7 +10,6 @@ import {
   IconCampfire,
   IconDogBowl,
   IconFish,
-  IconIceCream,
   IconMeat,
   IconParking,
   IconToolsKitchen2,

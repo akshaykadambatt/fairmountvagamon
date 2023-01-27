@@ -1,6 +1,6 @@
-import { Title, SimpleGrid, Container, Skeleton, Stack, useMantineTheme, Box } from "@mantine/core";
+import { Title, SimpleGrid, Container, Skeleton, useMantineTheme, Box } from "@mantine/core";
 import { doc, getDoc } from "firebase/firestore";
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { CollectionName } from "../components/data/constants";
 import { db } from "../components/data/firebaseConfig";
 import Head from "next/head";
@@ -52,6 +52,10 @@ export default function Gallery() {
         <title>
           Fairmount Gallery - A Picture is worth a Thousand Words, See the Beauty of Vagamon through our Gallery
         </title>
+        <meta
+          name="description"
+          content="Explore the idyllic views of Vagamon at Fairmount Resorts. Our photo gallery captures the natural beauty of the region, from lush hills to tranquil lakes. Book your stay now and experience the enchanting beauty of Vagamon for yourself."
+        />
         <link rel="icon" type="image/png" href="/favicon.ico" />
         <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
@@ -63,11 +67,7 @@ export default function Gallery() {
           name="keywords"
           content="resort, Vagamon, Kerala, hill resort, accommodations, tree house, restaurant, room service, spa, outdoor pool, trekking, paragliding, rock climbing, resort at vagamon, fairmount vagamon, fairmount vagamon resorts, resort offers, experience resort, most popular resort, resort experience, resort nature, Vagamon resorts, Kerala hill resorts ,Western Ghats resorts ,Tea plantation resorts ,Nature resorts ,Adventure resorts ,Luxury resorts ,Relaxation resorts ,Spa resorts ,Romantic getaways ,Family vacations ,Hill station vacations ,Hill station getaways ,Western Ghats tourism ,Kerala tourism ,Tea plantation tours ,Nature tours ,Adventure tours ,Luxury travel ,Relaxation vacations ,Spa vacations ,Romantic holidays ,Family holidays ,Honeymoon destinations"
         />
-        <meta
-          name="description"
-          content="Explore the idyllic views of Vagamon at Fairmount Resorts. Our photo gallery captures the natural beauty of the region, from lush hills to tranquil lakes. Book your stay now and experience the enchanting beauty of Vagamon for yourself."
-        />
-
+        
         {/*<!-- Open Graph / Facebook -->*/}
         <meta property="og:type" content="website" />
         <meta property="og:title" content="Fairmount Gallery - A Picture is worth a Thousand Words, See the Beauty of Vagamon through our Gallery" />

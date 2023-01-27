@@ -1,9 +1,5 @@
 import Head from "next/head";
-import Image from "next/image";
-import styles from "../styles/Home.module.css";
-import { Box, Container, Grid, SimpleGrid, Skeleton, Text, Title } from "@mantine/core";
-import { Carousel } from "@mantine/carousel";
-import HeaderComponent from "../../components/header";
+import { Container, Grid, SimpleGrid, Skeleton, Title } from "@mantine/core";
 import { query, collection, where, getDocs } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { CollectionName } from "../../components/data/constants";
@@ -33,6 +29,7 @@ export default function Rooms() {
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Fairmount Resorts - Experience the Best of Vagamon in Our Exquisite Rooms</title>
+        <meta name="description" content="Taste the true essence of Vagamon at Fairmount Resorts. Our exquisite rooms offer the perfect blend of modern amenities and traditional charm, making it the ideal base for exploring the natural beauty and cultural treasures of Vagamon. Book your stay now to savor the best of Vagamon." />
         <link rel="icon" type="image/png" href="/favicon.ico" />
         <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
@@ -41,7 +38,6 @@ export default function Rooms() {
         <meta name="msapplication-TileColor" content="#FFFFFF" />
         <meta name="theme-color" content="#FFFFFF" />
         <meta name="keywords" content="resort, Vagamon, Kerala, hill resort, accommodations, tree house, restaurant, room service, spa, outdoor pool, trekking, paragliding, rock climbing, resort at vagamon, fairmount vagamon, fairmount vagamon resorts, resort offers, experience resort, most popular resort, resort experience, resort nature, Vagamon resorts, Kerala hill resorts ,Western Ghats resorts ,Tea plantation resorts ,Nature resorts ,Adventure resorts ,Luxury resorts ,Relaxation resorts ,Spa resorts ,Romantic getaways ,Family vacations ,Hill station vacations ,Hill station getaways ,Western Ghats tourism ,Kerala tourism ,Tea plantation tours ,Nature tours ,Adventure tours ,Luxury travel ,Relaxation vacations ,Spa vacations ,Romantic holidays ,Family holidays ,Honeymoon destinations" />
-        <meta name="description" content="Taste the true essence of Vagamon at Fairmount Resorts. Our exquisite rooms offer the perfect blend of modern amenities and traditional charm, making it the ideal base for exploring the natural beauty and cultural treasures of Vagamon. Book your stay now to savor the best of Vagamon." />
         
         {/*<!-- Open Graph / Facebook -->*/}
         <meta property="og:type" content="website" />

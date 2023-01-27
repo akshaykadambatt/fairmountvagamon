@@ -1,16 +1,13 @@
 import "../styles/globals.css";
 import type { AppProps } from "next/app";
-import { Box, DefaultMantineColor, Global, MantineProvider } from "@mantine/core";
+import { MantineProvider } from "@mantine/core";
 import HeaderComponent from "../components/header";
 import { Noto_Sans } from "@next/font/google";
 import { Mrs_Saint_Delafield } from "@next/font/google";
 import googleFontTheme from "../styles/themes/";
 import FooterLinks from "../components/footer";
-import { auth } from "../components/data/firebaseConfig";
 import { useRouter } from "next/router";
 import { AuthProvider } from "../components/data/AuthProvider";
-import { useContext } from "react";
-import { AuthContext } from "../components/data/AuthContext";
 import { NotificationsProvider } from "@mantine/notifications";
 import { Provider } from "react-redux";
 import configureStore from "../components/data/configureStore";

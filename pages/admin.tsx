@@ -1,11 +1,6 @@
 import Head from "next/head";
-import Image from "next/image";
-import styles from "../styles/Home.module.css";
-import { Button, Container, Grid, Text, Title } from "@mantine/core";
-import { Carousel } from "@mantine/carousel";
-import HeaderComponent from "../components/header";
-import { AuthContext } from "../components/data/AuthContext";
-import { useContext, useEffect, useRef } from "react";
+import { Button, Container, Title } from "@mantine/core";
+import { useEffect, useRef } from "react";
 import { auth } from "../components/data/firebaseConfig";
 import { GoogleAuthProvider } from "firebase/auth";
 import router from "next/router";
