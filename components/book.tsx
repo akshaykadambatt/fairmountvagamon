@@ -1,7 +1,4 @@
-import Head from "next/head";
-import Image from "next/image";
 import Link from "next/link";
-import styles from "../styles/Home.module.css";
 import {
   Avatar,
   Badge,
@@ -9,10 +6,8 @@ import {
   Button,
   Checkbox,
   Chip,
-  Container,
   Grid,
   Group,
-  NumberInput,
   Popover,
   Select,
   SimpleGrid,
@@ -24,9 +19,6 @@ import {
   createStyles,
   useMantineTheme,
 } from "@mantine/core";
-import { Carousel } from "@mantine/carousel";
-import HeaderComponent from "../components/header";
-import { DateRangePicker } from "@mantine/dates";
 import { query, collection, getDocs, where } from "firebase/firestore";
 import { Dispatch, SetStateAction, forwardRef, useEffect, useState } from "react";
 import { db } from "./data/firebaseConfig";
@@ -37,7 +29,6 @@ import { useClickOutside } from "@mantine/hooks";
 import dayjs from "dayjs";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  setNotification,
   setSelectedAddons,
   setSelectedDate,
   setSelectedEmail,

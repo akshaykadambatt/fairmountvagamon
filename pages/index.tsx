@@ -165,6 +165,7 @@ export default function Home() {
     <div>
       <Head>
         <meta charSet="utf-8" />
+
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Welcome to Fairmount Resorts Vagamon, Kerala - Discover the Idyllic Beauty of Vagamon at Fairmount</title>
         <meta name="description" content="Indulge in the stunning beauty of Vagamon at Fairmount Resorts. Our resort offers comfortable accommodations, a range of dining options, and a range of activities and amenities to ensure that our guests have a comfortable and enjoyable stay.
@@ -209,6 +210,7 @@ export default function Home() {
         <meta property="twitter:image" content="https://fairmountvagamon.com/og-image.jpg" />
         
         <meta name="author" content="Fairmount Vagamon" />
+        <link rel="preload" href="https://fairmountvagamon.com/fonts/MrDafoe-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous" />
       </Head>
       <main>
         <div

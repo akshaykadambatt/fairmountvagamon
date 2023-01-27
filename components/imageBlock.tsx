@@ -1,6 +1,5 @@
-import { ActionIcon, Box, Button, HoverCard, Image, Text, SimpleGrid } from "@mantine/core";
-import { IconAdjustments, IconArrowLeft, IconArrowRight, IconSignLeft, IconSquarePlus, IconTrash } from "@tabler/icons";
-import { ref, listAll, uploadBytes, getDownloadURL } from "firebase/storage";
+import { ActionIcon, Box, HoverCard, Image, Text } from "@mantine/core";
+import { IconSquarePlus, IconTrash } from "@tabler/icons";
 import Link from "next/link";
 import { Dispatch, SetStateAction } from "react";
 interface ImageBlockProps {

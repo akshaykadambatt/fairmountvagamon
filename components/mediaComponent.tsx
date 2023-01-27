@@ -1,8 +1,7 @@
 import { ref, listAll, uploadBytes, getDownloadURL } from "firebase/storage";
-import Head from "next/head";
 import { useEffect, useRef, useState } from "react";
 import { storage } from "./data/firebaseConfig";
-import { Box, Group, Button, SimpleGrid, Image, Text, TextInput } from "@mantine/core";
+import { Box, Group, Button, Text, TextInput } from "@mantine/core";
 import { Dropzone } from "@mantine/dropzone";
 import ImageBlock from "./imageBlock";
 interface MediaComponentProps {

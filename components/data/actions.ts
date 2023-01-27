@@ -1,6 +1,4 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { addDoc, collection, deleteDoc, doc, updateDoc, writeBatch } from "firebase/firestore";
-import { db } from "./firebaseConfig";
+import { createSlice } from "@reduxjs/toolkit";
 
 export const actionSlice = createSlice({
   name: "actions",

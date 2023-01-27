@@ -5,49 +5,30 @@ import {
   Box,
   ScrollArea,
   createStyles,
-  Button,
   Grid,
   Text,
-  Popover,
-  TextInput,
   Menu,
-  Avatar,
   Modal,
-  Title,
 } from "@mantine/core";
 import {
   IconNotes,
-  IconCalendarStats,
   IconGauge,
-  IconPresentationAnalytics,
-  IconFileAnalytics,
-  IconAdjustments,
-  IconLock,
-  IconArrowsLeftRight,
-  IconMessageCircle,
-  IconPhoto,
-  IconSearch,
-  IconSettings,
-  IconTrash,
   IconArrowUpRight,
   IconLogout,
   IconBuildingStore,
   IconCalendarPlus,
-  IconUserX,
   IconUsers,
-  IconGif,
   IconGitBranch,
   IconFile,
 } from "@tabler/icons";
 import { UserButton } from "./UserButton";
 import { LinksGroup } from "./NavbarLinksGroup";
-import { ReactChildren, useEffect, useContext, useState } from "react";
+import { useEffect, useContext, useState } from "react";
 import router, { useRouter } from "next/router";
 import { auth } from "../components/data/firebaseConfig";
 import { AuthContext } from "./data/AuthContext";
 import Link from "next/link";
 import Head from "next/head";
-import { mrDafoe } from "../styles/themes/typography";
 
 const useStyles = createStyles((theme) => ({
   navbar: {

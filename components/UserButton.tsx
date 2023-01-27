@@ -6,7 +6,6 @@ import {
   Text,
   createStyles,
 } from '@mantine/core';
-import { IconChevronRight } from '@tabler/icons';
 
 const useStyles = createStyles((theme) => ({
   user: {

@@ -25,9 +25,6 @@ import {
   IconToolsKitchen2,
   IconWifi,
 } from "@tabler/icons";
-import Link from "next/link";
-import { setSourceMapRange } from "typescript";
-import { useSetState } from "@mantine/hooks";
 import { useState } from "react";
 import Book from "./book";
 import { AmenitiesIds } from "./data/constants";

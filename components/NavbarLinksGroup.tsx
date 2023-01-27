@@ -4,7 +4,6 @@ import {
   Box,
   Collapse,
   ThemeIcon,
-  Text,
   UnstyledButton,
   createStyles,
 } from "@mantine/core";

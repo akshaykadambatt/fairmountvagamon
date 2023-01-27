@@ -1,6 +1,6 @@
 import { Carousel } from "@mantine/carousel";
 import { useMediaQuery } from "@mantine/hooks";
-import { createStyles, Paper, Text, Title, Button, useMantineTheme, Box } from "@mantine/core";
+import { createStyles, Paper, Text, Title, useMantineTheme } from "@mantine/core";
 import { collection, getDocs } from "firebase/firestore";
 import { useState, useEffect } from "react";
 import { CollectionName } from "./data/constants";
