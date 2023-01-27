@@ -152,8 +152,8 @@ export default function HeaderComponent() {
     <Header height={HEADER_HEIGHT + (user ? 28 : 0)} mb={0} className={classes.root}>
       <Head>
       <meta charSet="utf-8" />
-      <meta http-equiv="Content-Type" content="text/html" lang="en" />
-      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+      <meta httpEquiv="Content-Type" content="text/html" lang="en" />
+      <meta httpEquiv="X-UA-Compatible" content="IE=edge,chrome=1" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="icon" type="image/png" href="/favicon.ico" />
       <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
