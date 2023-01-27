@@ -90,6 +90,19 @@ export default function Contact() {
           name="description"
           content="Discover the natural splendor of Vagamon at Fairmount Resorts. Our well-appointed rooms and unparalleled experiences will make your stay unforgettable. Book now to experience the enchanting beauty of Vagamon."
         />
+
+        {/*<!-- Open Graph / Facebook -->*/}
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content="Fairmount Resorts - Book your Stay to Experience the Enchanting Beauty of Vagamon" />
+        <meta property="og:description" content="Discover the natural splendor of Vagamon at Fairmount Resorts. Our well-appointed rooms and unparalleled experiences will make your stay unforgettable. Book now to experience the enchanting beauty of Vagamon." />
+        <meta property="og:image" content="https://fairmountvagamon.com/og-image.jpg" />
+
+        {/*<!-- Twitter -->*/}
+        <meta property="twitter:card" content="summary_large_image" />
+        <meta property="twitter:title" content="Fairmount Resorts - Book your Stay to Experience the Enchanting Beauty of Vagamon" />
+        <meta property="twitter:description" content="Discover the natural splendor of Vagamon at Fairmount Resorts. Our well-appointed rooms and unparalleled experiences will make your stay unforgettable. Book now to experience the enchanting beauty of Vagamon." />
+        <meta property="twitter:image" content="https://fairmountvagamon.com/og-image.jpg" />
+
         <meta name="author" content="Fairmount Vagamon" />
       </Head>
     <Container my={30}>

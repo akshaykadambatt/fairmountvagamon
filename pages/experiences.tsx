@@ -78,6 +78,19 @@ export default function Contact() {
           name="description"
           content="Experience the beauty and rich cultural heritage of Vagamon at Fairmount Resorts. Explore the natural landscapes and cultural treasures of this picturesque destination, with exquisite accommodation and blissful experiences. Book your stay now and discover the magic of Vagamon."
         />
+
+        {/*<!-- Open Graph / Facebook -->*/}
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content="Fairmount Experiences - Explore the Natural Beauty and Cultural Treasures of Vagamon" />
+        <meta property="og:description" content="Experience the beauty and rich cultural heritage of Vagamon at Fairmount Resorts. Explore the natural landscapes and cultural treasures of this picturesque destination, with exquisite accommodation and blissful experiences. Book your stay now and discover the magic of Vagamon." />
+        <meta property="og:image" content="https://fairmountvagamon.com/og-image.jpg" />
+
+        {/*<!-- Twitter -->*/}
+        <meta property="twitter:card" content="summary_large_image" />
+        <meta property="twitter:title" content="Fairmount Experiences - Explore the Natural Beauty and Cultural Treasures of Vagamon" />
+        <meta property="twitter:description" content="Experience the beauty and rich cultural heritage of Vagamon at Fairmount Resorts. Explore the natural landscapes and cultural treasures of this picturesque destination, with exquisite accommodation and blissful experiences. Book your stay now and discover the magic of Vagamon." />
+        <meta property="twitter:image" content="https://fairmountvagamon.com/og-image.jpg" />
+
         <meta name="author" content="Fairmount Vagamon" />
       </Head>
       <Container my={30}>

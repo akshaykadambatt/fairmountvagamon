@@ -200,6 +200,19 @@ export default function Contact() {
         name="description"
         content="Address: Fairmount Resorts Vagamon, Kannamkulam, Vagamon, Kerala - 685503 <br></br> Contact: +91 88488 86990"
       />
+
+      {/*<!-- Open Graph / Facebook -->*/}
+      <meta property="og:type" content="website" />
+      <meta property="og:title" content="Fairmount Resorts - Contact Us" />
+      <meta property="og:description" content="Address: Fairmount Resorts Vagamon, Kannamkulam, Vagamon, Kerala - 685503 <br></br> Contact: +91 88488 86990" />
+      <meta property="og:image" content="https://fairmountvagamon.com/og-image.jpg" />
+
+      {/*<!-- Twitter -->*/}
+      <meta property="twitter:card" content="summary_large_image" />
+      <meta property="twitter:title" content="Fairmount Resorts - Contact Us" />
+      <meta property="twitter:description" content="Address: Fairmount Resorts Vagamon, Kannamkulam, Vagamon, Kerala - 685503 <br></br> Contact: +91 88488 86990" />
+      <meta property="twitter:image" content="https://fairmountvagamon.com/og-image.jpg" />
+
       <meta name="author" content="Fairmount Vagamon" />
       </Head>
       <Container my={30}>

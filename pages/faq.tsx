@@ -79,7 +79,7 @@ export default function Contact() {
       <Head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Fairmount Resorts - FAQ </title>
+        <title>Fairmount Resorts - FAQ</title>
         <link rel="icon" type="image/png" href="/favicon.ico" />
         <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
@@ -95,6 +95,19 @@ export default function Contact() {
           name="description"
           content="Fairmount Resorts - Frequently Asked Questions"
         />
+
+        {/*<!-- Open Graph / Facebook -->*/}
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content="Fairmount Resorts - FAQ" />
+        <meta property="og:description" content="Fairmount Resorts - Frequently Asked Questions" />
+        <meta property="og:image" content="https://fairmountvagamon.com/og-image.jpg" />
+
+        {/*<!-- Twitter -->*/}
+        <meta property="twitter:card" content="summary_large_image" />
+        <meta property="twitter:title" content="Fairmount Resorts - FAQ" />
+        <meta property="twitter:description" content="Fairmount Resorts - Frequently Asked Questions" />
+        <meta property="twitter:image" content="https://fairmountvagamon.com/og-image.jpg" />
+
         <meta name="author" content="Fairmount Vagamon" />
       </Head>
       <Container my={30}>

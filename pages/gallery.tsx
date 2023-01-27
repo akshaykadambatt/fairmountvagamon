@@ -67,6 +67,19 @@ export default function Gallery() {
           name="description"
           content="Explore the idyllic views of Vagamon at Fairmount Resorts. Our photo gallery captures the natural beauty of the region, from lush hills to tranquil lakes. Book your stay now and experience the enchanting beauty of Vagamon for yourself."
         />
+
+        {/*<!-- Open Graph / Facebook -->*/}
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content="Fairmount Gallery - A Picture is worth a Thousand Words, See the Beauty of Vagamon through our Gallery" />
+        <meta property="og:description" content="Explore the idyllic views of Vagamon at Fairmount Resorts. Our photo gallery captures the natural beauty of the region, from lush hills to tranquil lakes. Book your stay now and experience the enchanting beauty of Vagamon for yourself." />
+        <meta property="og:image" content="https://fairmountvagamon.com/og-image.jpg" />
+
+        {/*<!-- Twitter -->*/}
+        <meta property="twitter:card" content="summary_large_image" />
+        <meta property="twitter:title" content="Fairmount Gallery - A Picture is worth a Thousand Words, See the Beauty of Vagamon through our Gallery" />
+        <meta property="twitter:description" content="Explore the idyllic views of Vagamon at Fairmount Resorts. Our photo gallery captures the natural beauty of the region, from lush hills to tranquil lakes. Book your stay now and experience the enchanting beauty of Vagamon for yourself." />
+        <meta property="twitter:image" content="https://fairmountvagamon.com/og-image.jpg" />
+
         <meta name="author" content="Fairmount Vagamon" />
       </Head>
       <Container my={30}>
