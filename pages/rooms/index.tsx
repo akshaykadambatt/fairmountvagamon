@@ -57,7 +57,7 @@ export default function Rooms() {
         <Container my={20} py={40} size="lg">
           <Grid>
             <Grid.Col span={12}>
-              <Title weight={100}>Rooms and Rates</Title>
+              <Title order={2} weight={100}>Rooms and Rates</Title>
             </Grid.Col>
             <Grid.Col span={12}>
               <SimpleGrid cols={desk?3:1} pt={30}>
