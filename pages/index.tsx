@@ -566,7 +566,7 @@ export default function Home() {
             }}
           >
             <video
-              src={"/resort-video.mp4"}
+              src={"/resort-video.webm"}
               autoPlay
               loop
               muted
