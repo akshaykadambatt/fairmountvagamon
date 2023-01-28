@@ -1,6 +1,5 @@
 import Head from "next/head";
 import Image from "next/image";
-import styles from "../styles/Home.module.css";
 import {
   Badge,
   Blockquote,
@@ -16,36 +15,28 @@ import {
   useMantineTheme,
 } from "@mantine/core";
 import { Carousel, Embla } from "@mantine/carousel";
-import HeaderComponent from "../components/header";
 import Cardslider from "../components/cardslider";
 import Book from "../components/book";
-import resort1 from "../assets/resort1.jpg";
-import resort2 from "../assets/resort2.jpg";
-import resort3 from "../assets/resort3.jpg";
-import resort4 from "../assets/resort4.jpg";
+import resort1 from "../assets/resort1.webp";
+import resort2 from "../assets/resort2.webp";
+import resort3 from "../assets/resort3.webp";
+import resort4 from "../assets/resort4.webp";
 import { mrDafoe } from "../styles/themes/typography";
 import FeaturesGrid from "../components/features";
 import ClassNames from "embla-carousel-class-names";
 import {
-  JSXElementConstructor,
-  Key,
-  ReactElement,
-  ReactFragment,
-  ReactPortal,
-  useCallback,
   useEffect,
   useRef,
   useState,
 } from "react";
 import Autoplay from "embla-carousel-autoplay";
 import { db } from "../components/data/firebaseConfig";
-import { collection, query, where, getDocs, onSnapshot } from "firebase/firestore";
+import { collection, query, where, getDocs } from "firebase/firestore";
 import { keyframes } from "@emotion/react";
 import { Reveal } from "react-awesome-reveal";
 import { IoLocationOutline } from "react-icons/io5";
 import { BsArrowLeft, BsArrowRight } from "react-icons/bs";
 import useViewport from "../components/data/useViewport";
-import { flushSync } from "react-dom";
 import { CollectionName } from "../components/data/constants";
 import Link from "next/link";
 
