@@ -14,7 +14,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
     Message: ${datas.message}`;
     const data = {
       to: "admin@fairmountvagamon.com",
-      from: "noreply@fairmountvagamon.com",
+      from: "system@fairmountvagamon.com",
       subject: `${datas.name} sent you a message from Contact Form`,
       html: msg.replace(/\r\n/g, "<br>"),
     };
