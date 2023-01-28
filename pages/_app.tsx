@@ -11,6 +11,10 @@ import { AuthProvider } from "../components/data/AuthProvider";
 import { NotificationsProvider } from "@mantine/notifications";
 import { Provider } from "react-redux";
 import configureStore from "../components/data/configureStore";
+import { doc, getDoc } from "firebase/firestore";
+import { useEffect, useState } from "react";
+import { CollectionName } from "../components/data/constants";
+import { db } from "../components/data/firebaseConfig";
 
 const natoSans = Noto_Sans({
   weight: ["100", "300", "400", "500", "700", "800", "900"],
@@ -24,7 +28,15 @@ const mrsSaintDelafield = Mrs_Saint_Delafield({
 });
 export default function App({ Component, pageProps }: AppProps) {
   const { asPath, pathname } = useRouter();
-  
+  const [values, setValues] = useState<ContactData>();
+  useEffect(() => {
+    const run = async () => {
+      const docRef = doc(db, CollectionName.PAGES, "contacts");
+      const docSnap = await getDoc(docRef);
+      setValues({ ...docSnap.data() } as ContactData);
+    };
+    run();
+  }, []);
   return (
     <Provider store={configureStore}>
     <AuthProvider>
@@ -53,17 +65,17 @@ export default function App({ Component, pageProps }: AppProps) {
                   links: [
                     {
                       label: "Follow us on Instagram",
-                      link: "https://www.instagram.com/fairmountresortvagamon/",
+                      link: values?.instagram || "",
                       blank: true
                     },
                     {
                       label: "Follow us on Facebook",
-                      link: "#",
+                      link: values?.facebook || "",
                       blank: true
                     },
                     {
                       label: "Email us",
-                      link: "mailto:fairmountvagamonresort@gmail.com",
+                      link: `mailto:${values?.email}`,
                       blank: true
                     },
                   ],
