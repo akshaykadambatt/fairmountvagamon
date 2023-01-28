@@ -29,6 +29,7 @@ import { db } from "../components/data/firebaseConfig";
 import Link from "next/link";
 import { useForm } from "@mantine/form";
 import Head from "next/head";
+import { showNotification } from "@mantine/notifications";
 
 const useStyles = createStyles((theme) => ({
   wrapper: {
@@ -176,7 +177,21 @@ export default function Contact() {
       body: JSON.stringify(values),
     })
       .then((e) => e.json())
-      .then((r) => console.log(r));
+      .then((r) => {
+        form.reset();
+        showNotification({
+          title: 'We have recieved your enquiry',
+          message: 'We are working on it and will contact you within 2-3 business days.',
+          styles: (theme) => ({
+            title: {
+              fontSize:14,
+            },
+            description: {
+              fontSize:10,
+            }
+          }),
+        })
+      });
   };
   return (
     <>
