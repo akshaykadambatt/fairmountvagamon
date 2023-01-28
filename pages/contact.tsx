@@ -237,7 +237,7 @@ export default function Contact() {
             breakpoints={[{ maxWidth: "sm", cols: 1 }]}
           >
             <div>
-              <Title className={classes.title}>Contact Us</Title>
+              <Title className={classes.title} weight={100}>Contact Us</Title>
               <Text className={classes.description} mt="sm" mb={30}>
                 Leave your email and we will get back to you within 24 hours
               </Text>
@@ -317,6 +317,7 @@ export default function Contact() {
                 <TextInput
                   label="Email"
                   placeholder="your@email.com"
+                  mt="md"
                   required
                   {...form.getInputProps("email")}
                   classNames={{
@@ -327,6 +328,7 @@ export default function Contact() {
                 <TextInput
                   label="Phone"
                   placeholder="2345234524"
+                  mt="md"
                   required
                   {...form.getInputProps("phone")}
                   classNames={{
