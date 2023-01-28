@@ -681,7 +681,7 @@ export function BookingAddonsSelector({
     >
       {addons?.map((e) => (
         <Chip value={e.id} size="xs" key={e.id}>
-          {e.name}
+          {e.name} {e.price&& `- ₹${e.price}`}
         </Chip>
       ))}
       {!addons &&

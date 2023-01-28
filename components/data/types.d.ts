@@ -10,6 +10,7 @@ interface AddonProps {
   name: string;
   content: string;
   status: boolean;
+  price: number;
   id?: string;
 }
 
