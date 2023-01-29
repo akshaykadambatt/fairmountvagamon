@@ -15,6 +15,8 @@ export const actionSlice = createSlice({
     selectedPhone: "",
     selectedName: "",
     selectedId: "",
+    calculatedPrice: 0,
+    addonsData: [] as AddonProps[],
   },
   reducers: {
     setUserId: (state, action) => {
@@ -59,10 +61,27 @@ export const actionSlice = createSlice({
       // state.selectedNotes = ""
       // state.selectedNumberOfOccupants = []
     },
+    setCalculatedPrice: (state) => {
+      console.log('calculating price', state.selectedAddons,state.addonsData);
+      state.selectedAddons.map(e=>{
+        console.log(state.addonsData.find(l=>l.id==e));
+        
+        return state.addonsData.find(l=>l.id==e)
+      })
+      console.log(state.selectedAddons);
+      
+      state.calculatedPrice =
+        state.selectedProduct.price * state.selectedNumberOfOccupants[0] +
+        state.selectedProduct.price * (state.selectedNumberOfOccupants[1] / 2);
+    },
+    setAddonsData: (state, action) => {
+      state.addonsData = action.payload;
+    },
   },
 });
 
 export const {
+  setAddonsData,
   setSelectedId,
   setSelectedName,
   setSelectedEmail,
@@ -74,7 +93,7 @@ export const {
   setNotification,
   setSelectedProduct,
   setSelectedDate,
-  setSelectedNumberOfOccupants,
+  setSelectedNumberOfOccupants,setCalculatedPrice
 } = actionSlice.actions;
 
 export default actionSlice.reducer;

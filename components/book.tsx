@@ -29,6 +29,8 @@ import { useClickOutside } from "@mantine/hooks";
 import dayjs from "dayjs";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  setAddonsData,
+  setCalculatedPrice,
   setSelectedAddons,
   setSelectedDate,
   setSelectedEmail,
@@ -486,9 +488,13 @@ export function BookingCard({ success }: { success: boolean }) {
     selectedAddons,
     selectedNotes,
     selectedTerms,
-    selectedId,
+    selectedId, calculatedPrice
   } = useSelector((state: RootState) => state.actions);
+  const dispatch = useDispatch();
   const theme = useMantineTheme();
+  useEffect(()=>{
+    dispatch(setCalculatedPrice())
+  },[])
   return (
     <Box
       style={{
@@ -517,9 +523,10 @@ export function BookingCard({ success }: { success: boolean }) {
       </Text>
       <Text align="right" color="dimmed">
         Approximate Price{" "}
+        {selectedProduct.price}
       </Text>
       <Title align="right" order={5} weight={100}>
-        ₹{selectedProduct.price}
+        ₹{calculatedPrice}
       </Title>
       <Text align="right" color="dimmed">
         + addons
@@ -655,6 +662,7 @@ export function BookingAddonsSelector({
 }) {
   const { selectedTerms } = useSelector((state: RootState) => state.actions);
   const [addons, setAddons] = useState<AddonProps[]>();
+  const dispatch = useDispatch();
   const theme = useMantineTheme();
   const { classes, cx } = useStyles();
   useEffect(() => {
@@ -666,6 +674,7 @@ export function BookingAddonsSelector({
         (addon) => Object.assign({ ...addon.data() }, { id: addon.id }) as unknown as AddonProps
       );
       setAddons(queryData);
+      dispatch(setAddonsData(queryData))
     });
   }, []);
   return (
