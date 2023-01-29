@@ -75,7 +75,7 @@ export default function Pages() {
     form.setFieldValue("name", data.name);
     form.setFieldValue("content", data.content);
     form.setFieldValue("status", data.status);
-    form.setFieldValue("price", data.price);
+    form.setFieldValue("price", data.price || 0);
     form.setFieldValue("id", data.id);
     setAddonEditId(data.id ? data.id : "");
     setOpened(true);
@@ -175,7 +175,7 @@ const Row = ({ data, handleEditAction }: RowProps) => {
       <tr key={data.id}>
         <td>{data.name}</td>
         <td>{data.content}</td>
-        <td>₹{data.price}</td>
+        <td>{data.price? `₹${data.price}`:"Free"}</td>
         <td>{data.status ? <Badge color="green">Active</Badge> : <Badge color="gray">Inactive</Badge>}</td>
         <td>
           <Button.Group>
