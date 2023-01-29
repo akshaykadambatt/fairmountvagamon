@@ -17,10 +17,10 @@ import {
 import { Carousel, Embla } from "@mantine/carousel";
 import Cardslider from "../components/cardslider";
 import Book from "../components/book";
-import resort1 from "../assets/resort1.webp";
-import resort2 from "../assets/resort2.webp";
-import resort3 from "../assets/resort3.webp";
-import resort4 from "../assets/resort4.webp";
+import resort1 from "../assets/resort1.jpg";
+import resort2 from "../assets/resort2.jpg";
+import resort3 from "../assets/resort3.jpg";
+import resort4 from "../assets/resort4.jpg";
 import { mrDafoe } from "../styles/themes/typography";
 import FeaturesGrid from "../components/features";
 import ClassNames from "embla-carousel-class-names";
