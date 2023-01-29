@@ -638,7 +638,7 @@ export default function Home() {
             <Grid gutter={40}>
               <Grid.Col span={12} sm={12} md={3}>
                 <Text style={{ letterSpacing: 5 }} color="white">
-                  VAGAMON MEADOWS
+                  FAIRMOUNT VAGAMON
                 </Text>
                 <Title weight={100} order={2} mb={50} mt={10} size={50} color="white">
                   Book your rooms now.
