@@ -504,6 +504,7 @@ export function BookingCard({ success }: { success: boolean }) {
         background: success ? theme.fn.rgba(theme.colors.green[1], 0.3) : theme.fn.rgba(theme.colors.dark[1], 0.1),
       }}
       py={30}
+      className={`${success&&"booking-confirmed-card"} booking-card`}
       px={40}
       my={20}
     >
@@ -519,18 +520,17 @@ export function BookingCard({ success }: { success: boolean }) {
         &nbsp;to {dayjs(selectedDate[1]).format("MMM DD, YYYY")}
       </Text>
       <Text>
-        Reservation {success ? null : "to be"} made in the name of {selectedName} ( {selectedPhone || selectedEmail} )
+        Reservation {success ? null : "to be"} made in the name of {selectedName} ({selectedPhone || selectedEmail})
+      </Text>
+      <Text align="right" color="dimmed" mt="md">
+        Product and Service Price{" "}
       </Text>
       <Text align="right" color="dimmed">
-        Approximate Price{" "}
-        {selectedProduct.price}
+        + addons added
       </Text>
       <Title align="right" order={5} weight={100}>
         ₹{calculatedPrice}
       </Title>
-      <Text align="right" color="dimmed">
-        + addons
-      </Text>
     </Box>
   );
 }
@@ -673,8 +673,8 @@ export function BookingAddonsSelector({
       let queryData = addonsSnapshot.docs.map(
         (addon) => Object.assign({ ...addon.data() }, { id: addon.id }) as unknown as AddonProps
       );
-      setAddons(queryData);
-      dispatch(setAddonsData(queryData))
+      setAddons(queryData); //set addons for component
+      dispatch(setAddonsData(queryData)) //set addons for redux price calculation
     });
   }, []);
   return (

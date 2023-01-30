@@ -55,24 +55,20 @@ export const actionSlice = createSlice({
     },
     setSelectedId: (state, action) => {
       state.selectedId = action.payload;
-      // state.selectedDate= [null,null]
-      // state.selectedAddons = []
-      // state.selectedId = ""
-      // state.selectedNotes = ""
-      // state.selectedNumberOfOccupants = []
     },
     setCalculatedPrice: (state) => {
-      console.log('calculating price', state.selectedAddons,state.addonsData);
-      state.selectedAddons.map(e=>{
-        console.log(state.addonsData.find(l=>l.id==e));
-        
-        return state.addonsData.find(l=>l.id==e)
-      })
-      console.log(state.selectedAddons);
-      
+      window.console.log("calculating price");
+      /**
+       * How price is calculated;
+       * Calculated price = productPrice*adults + productPrice*(children/2) + Σ addonsPrice
+       * Σ addonsPrice = allAddons.filter(selectedAddons).reduce(Σ price)
+       */
       state.calculatedPrice =
         state.selectedProduct.price * state.selectedNumberOfOccupants[0] +
-        state.selectedProduct.price * (state.selectedNumberOfOccupants[1] / 2);
+        state.selectedProduct.price * (state.selectedNumberOfOccupants[1] / 2) +
+        state.addonsData
+          .filter((addon) => state.selectedAddons.find((id) => id == addon.id) && true)
+          .reduce((acc, e) => acc + (e.price || 0), 0);
     },
     setAddonsData: (state, action) => {
       state.addonsData = action.payload;
@@ -93,7 +89,8 @@ export const {
   setNotification,
   setSelectedProduct,
   setSelectedDate,
-  setSelectedNumberOfOccupants,setCalculatedPrice
+  setSelectedNumberOfOccupants,
+  setCalculatedPrice,
 } = actionSlice.actions;
 
 export default actionSlice.reducer;
