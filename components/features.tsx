@@ -22,37 +22,37 @@ export const MOCKDATA = [
     icon: IconGauge,
     title: "Free amenities",
     description:
-      "This dust is actually a powerful poison that will even make a pro wrestler sick, Regice cloaks itself with frigid air of -328 degrees Fahrenheit",
+      "Unwind and enjoy complimentary WiFi, parking, room service, a library, and more at Fairmount for a relaxing and comfortable stay.",
   },
   {
     icon: IconUser,
     title: "Privacy focused",
     description:
-      "People say it can run at the same speed as lightning striking, Its icy body is so cold, it will not melt even if it is immersed in magma",
+      "Experience ultimate privacy with our secluded cottages, private balconies, and serene surroundings at Fairmount.",
   },
   {
     icon: IconCookie,
     title: "Right in nature",
     description:
-      "They’re popular, but they’re rare. Trainers who show them off recklessly may be targeted by thieves",
+      "Indulge in the tranquility of nature right at your doorstep with Fairmount's secluded location amidst lush greenery and picturesque views.",
   },
   {
     icon: IconLock,
     title: "Secure by default",
     description:
-      "Although it still can’t fly, its jumping power is outstanding, in Alola the mushrooms on Paras don’t grow up quite right",
+      "Embrace the serenity of nature at Fairmount, where security is seamlessly integrated for a carefree, idyllic stay.",
   },
   {
     icon: IconMessage2,
     title: "24/7 Security and Support",
     description:
-      "Rapidash usually can be seen casually cantering in the fields and plains, Skitty is known to chase around after its own tail",
+      "Relax and unwind with the peace of mind that comes with round-the-clock security and support at Fairmount.",
   },
   {
     icon: IconLock,
     title: "Pool and other facilities",
     description:
-      "Although it still can’t fly, its jumping power is outstanding, in Alola the mushrooms on Paras don’t grow up quite right",
+      "Where crystal waters gleam, and verdant landscapes beam, Fairmount's pool and facilities allow one to dream.",
   },
 ];
 
