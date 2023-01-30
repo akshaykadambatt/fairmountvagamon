@@ -17,6 +17,7 @@ import { db } from "../components/data/firebaseConfig";
 import { keyframes } from "@emotion/react";
 import { Reveal } from "react-awesome-reveal";
 import Head from "next/head";
+import useViewport from "../components/data/useViewport";
 const getChild = (height: number) => <Skeleton height={height} radius="md" />;
 const BASE_HEIGHT = 360;
 const getSubHeight = (children: number, spacing: number) =>
@@ -35,6 +36,7 @@ const customAnimation = keyframes`
 
 export default function Contact() {
   const [values, setValues] = useState<ExperienceProps[]>();
+  const { desk, tab, mob } = useViewport();
   const theme = useMantineTheme();
   useEffect(() => {
     const run = async () => {
@@ -118,13 +120,13 @@ export default function Contact() {
                     <Title order={3} weight={100} mb={15}>
                       {e.name}
                     </Title>
-                    <Text size={"sm"}>{e.content}</Text>
+                    <Text size={"sm"} pr={desk?20:0}>{e.content}</Text>
                   </Grid.Col>
                   <Grid.Col xs={12} md={4} order={index % 2 == 0 ? 1 : 0}>
                     <Reveal keyframes={customAnimation} cascade duration={1200} damping={0.3} triggerOnce={true}>
                       <div className={`polaroid-item  ${index % 2 == 0 ? "polaroid-right" : "polaroid-left"}`}>
                         <div className="polaroid-wrapper">
-                          <img src={e.images ? e.images[0]?.url : ""} width={"100%"} style={{ minHeight: "199px" }} />
+                          <img src={e.images ? e.images[0]?.url : ""} width={"100%"} style={{ height: "229px" }} />
                           <Text size="xs" align="center" mt="sm">
                             {" "}
                             {e.name}

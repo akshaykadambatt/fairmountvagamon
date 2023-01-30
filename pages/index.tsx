@@ -24,11 +24,7 @@ import resort4 from "../assets/resort4.jpg";
 import { mrDafoe } from "../styles/themes/typography";
 import FeaturesGrid from "../components/features";
 import ClassNames from "embla-carousel-class-names";
-import {
-  useEffect,
-  useRef,
-  useState,
-} from "react";
+import { useEffect, useRef, useState } from "react";
 import Autoplay from "embla-carousel-autoplay";
 import { db } from "../components/data/firebaseConfig";
 import { collection, query, where, getDocs } from "firebase/firestore";
@@ -56,6 +52,21 @@ const useStyles = createStyles((theme) => ({
       background: theme.fn.rgba(theme.colors.dark[6], 0.2),
     },
   },
+  arrowsWhite: {
+    display: "Flex",
+    alignItems: "center",
+    justifyContent: "center",
+    border: "1px solid #fff",
+    color: theme.fn.rgba("#fff", 0.9),
+    borderRadius: "100px",
+    height: "45px",
+    width: "45px",
+    transition: "all .1s",
+    cursor: "pointer",
+    ":hover": {
+      background: theme.fn.rgba("#fff", 0.2),
+    },
+  },
   testimonialSlide: {
     opacity: 0.3,
     transition: "opacity .2s",
@@ -80,6 +91,7 @@ export default function Home() {
   const activeClass = useRef(ClassNames({ selected: "active-carousel-class" }));
   const autoplay = useRef(Autoplay({ delay: 5000 }));
   const [embla, setEmbla] = useState<Embla | null>(null);
+  const [emblaHero, setEmblaHero] = useState<Embla | null>(null);
   const theme = useMantineTheme();
   const [testimonials, setTestimonials] = useState<TestimonialProps[]>();
   const [experiences, setExperiences] = useState<ExperienceProps[]>([]);
@@ -101,6 +113,19 @@ export default function Home() {
         break;
       case "previous":
         embla.scrollPrev();
+        break;
+      default:
+        break;
+    }
+  }
+  function scrollHero(direction: string) {
+    if (!emblaHero) return;
+    switch (direction) {
+      case "next":
+        emblaHero.scrollNext();
+        break;
+      case "previous":
+        emblaHero.scrollPrev();
         break;
       default:
         break;
@@ -146,7 +171,7 @@ export default function Home() {
     getDocs(query(collection(db, CollectionName.EXPERIENCES), where("status", "==", true))).then((querySnapshot) => {
       let data: ExperienceProps[] = [];
       querySnapshot.forEach((doc) => {
-        if(doc.data().show_in_about) data.push(Object.assign({ ...doc.data() }, { id: doc.id }) as ExperienceProps);
+        if (doc.data().show_in_about) data.push(Object.assign({ ...doc.data() }, { id: doc.id }) as ExperienceProps);
       });
       data.sort((a, b) => a.show_in_about_order - b.show_in_about_order);
       setExperiences(data);
@@ -158,15 +183,19 @@ export default function Home() {
         <meta charSet="utf-8" />
 
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Welcome to Fairmount Resorts Vagamon, Kerala - Discover the Idyllic Beauty of Vagamon at Fairmount</title>
-        <meta name="description" content="Indulge in the stunning beauty of Vagamon at Fairmount Resorts. Our resort offers comfortable accommodations, a range of dining options, and a range of activities and amenities to ensure that our guests have a comfortable and enjoyable stay.
+        <title>
+          Welcome to Fairmount Resorts Vagamon, Kerala - Discover the Idyllic Beauty of Vagamon at Fairmount
+        </title>
+        <meta
+          name="description"
+          content="Indulge in the stunning beauty of Vagamon at Fairmount Resorts. Our resort offers comfortable accommodations, a range of dining options, and a range of activities and amenities to ensure that our guests have a comfortable and enjoyable stay.
             Address: Fairmount Vagamon
                      Kannamkulam, Vagamon
                      Kerala - 685503
             Contact: +91 88488 86990"
         />
 
-        <link rel="canonical" href="https://fairmountvagamon.com/"/>
+        <link rel="canonical" href="https://fairmountvagamon.com/" />
         <link rel="icon" type="image/png" href="/favicon.ico" />
         <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
@@ -176,7 +205,7 @@ export default function Home() {
         <link rel="alternate" type="application/rss+xml" title="ROR" href="/ror.xml" />
         <meta name="msapplication-TileColor" content="#FFFFFF" />
         <meta name="theme-color" content="#FFFFFF" />
-        
+
         <meta
           name="keywords"
           content="resort, Vagamon, Kerala, hill resort, accommodations, tree house, restaurant, room service, spa, outdoor pool, trekking, paragliding, rock climbing, resort at vagamon, fairmount vagamon, fairmount vagamon resorts, resort offers, experience resort, most popular resort, resort experience, resort nature, Vagamon resorts, Kerala hill resorts ,Western Ghats resorts ,Tea plantation resorts ,Nature resorts ,Adventure resorts ,Luxury resorts ,Relaxation resorts ,Spa resorts ,Romantic getaways ,Family vacations ,Hill station vacations ,Hill station getaways ,Western Ghats tourism ,Kerala tourism ,Tea plantation tours ,Nature tours ,Adventure tours ,Luxury travel ,Relaxation vacations ,Spa vacations ,Romantic holidays ,Family holidays ,Honeymoon destinations"
@@ -185,23 +214,40 @@ export default function Home() {
         {/*<!-- Open Graph / Facebook -->*/}
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://fairmountvagamon.com/" />
-        <meta property="og:title" content="Welcome to Fairmount Resorts Vagamon, Kerala - Discover the Idyllic Beauty of Vagamon at Fairmount" />
-        <meta property="og:description" content="Indulge in the stunning beauty of Vagamon at Fairmount Resorts. Our resort offers comfortable accommodations, a range of dining options, and a range of activities and amenities to ensure that our guests have a comfortable and enjoyable stay. 
+        <meta
+          property="og:title"
+          content="Welcome to Fairmount Resorts Vagamon, Kerala - Discover the Idyllic Beauty of Vagamon at Fairmount"
+        />
+        <meta
+          property="og:description"
+          content="Indulge in the stunning beauty of Vagamon at Fairmount Resorts. Our resort offers comfortable accommodations, a range of dining options, and a range of activities and amenities to ensure that our guests have a comfortable and enjoyable stay. 
         Address: Fairmount Vagamon Kannamkulam, Vagamon Kerala - 685503 
-        Contact: +91 88488 86990" />
+        Contact: +91 88488 86990"
+        />
         <meta property="og:image" content="https://fairmountvagamon.com/og-image.jpg" />
 
         {/*<!-- Twitter -->*/}
         <meta property="twitter:card" content="summary_large_image" />
         <meta property="twitter:url" content="https://fairmountvagamon.com/" />
-        <meta property="twitter:title" content="Welcome to Fairmount Resorts Vagamon, Kerala - Discover the Idyllic Beauty of Vagamon at Fairmount" />
-        <meta property="twitter:description" content="Indulge in the stunning beauty of Vagamon at Fairmount Resorts. Our resort offers comfortable accommodations, a range of dining options, and a range of activities and amenities to ensure that our guests have a comfortable and enjoyable stay. 
+        <meta
+          property="twitter:title"
+          content="Welcome to Fairmount Resorts Vagamon, Kerala - Discover the Idyllic Beauty of Vagamon at Fairmount"
+        />
+        <meta
+          property="twitter:description"
+          content="Indulge in the stunning beauty of Vagamon at Fairmount Resorts. Our resort offers comfortable accommodations, a range of dining options, and a range of activities and amenities to ensure that our guests have a comfortable and enjoyable stay. 
         Address: Fairmount Vagamon Kannamkulam, Vagamon Kerala - 685503 
-        Contact: +91 88488 86990" />
+        Contact: +91 88488 86990"
+        />
         <meta property="twitter:image" content="https://fairmountvagamon.com/og-image.jpg" />
-        
+
         <meta name="author" content="Fairmount Vagamon" />
-        <link rel="preload" href="https://fairmountvagamon.com/fonts/MrDafoe-Regular.woff2" as="font" type="font/woff2" />
+        <link
+          rel="preload"
+          href="https://fairmountvagamon.com/fonts/MrDafoe-Regular.woff2"
+          as="font"
+          type="font/woff2"
+        />
       </Head>
       <main>
         <div
@@ -228,6 +274,7 @@ export default function Home() {
             withIndicators
             height={"90vh"}
             loop
+            getEmblaApi={setEmblaHero}
             withControls={false}
           >
             <Carousel.Slide
@@ -371,6 +418,29 @@ export default function Home() {
             </Carousel.Slide>
             {/* ...other slides */}
           </Carousel>
+          <Box style={{ display: "flex", justifyContent: "flex-end" }}>
+            <Box style={{ marginRight: desk?"6%":"10%",display: desk?"block":"none",width: "230px" }}>
+              <Box
+                mt={"-100px"}
+                style={{
+                  display:"flex",
+                  height: "100%",
+                  alignItems: "center",
+                  justifyItems: "center",
+                  zIndex: 10,
+                  gap: 46,
+                  position: "relative",
+                }}
+              >
+                <Box className={classes.arrowsWhite} onClick={() => scrollHero("previous")}>
+                  <BsArrowLeft color="white" />
+                </Box>
+                <Box className={classes.arrowsWhite} onClick={() => scrollHero("next")}>
+                  <BsArrowRight color="white" />
+                </Box>
+              </Box>
+            </Box>
+          </Box>
         </Container>
 
         <Container my={100} size="lg">
