@@ -21,7 +21,7 @@ const getChild = (height: number) => <Skeleton height={height} radius="md" />;
 const BASE_HEIGHT = 360;
 const getSubHeight = (children: number, spacing: number) =>
   BASE_HEIGHT / children - spacing * ((children - 1) / children);
-  const customAnimation = keyframes`
+const customAnimation = keyframes`
   from {
     opacity: 0;
     transform: translatey(30px);
@@ -112,30 +112,29 @@ export default function Contact() {
           )}
           {values?.map((e, index) => (
             <>
-                    <Reveal keyframes={customAnimation} cascade duration={500} damping={0.3} triggerOnce={true}>
-              <Grid key={index} style={{ borderRadius: 10 }} p={20}>
-                <Grid.Col xs={12} md={8} order={index % 2 == 0 ? 0 : 1}>
-                  <Title order={3} weight={100} mb={15}>
-                    {e.name}
-                  </Title>
-                  <Text size={"sm"}>{e.content}</Text>
-                </Grid.Col>
-                <Grid.Col xs={12} md={4} order={index % 2 == 0 ? 1 : 0}>
-                <Reveal keyframes={customAnimation} cascade duration={1200} damping={0.3} triggerOnce={true}>
-                  <div className={`polaroid-item  ${index % 2 == 0 ? "polaroid-right" : "polaroid-left"}`}>
-                    <div className="polaroid-wrapper">
-                      <img src={e.images ? e.images[0]?.url : ""} width={"100%"} style={{ minHeight: "199px" }} />
-                      <Text size="xs" align="center" mt="sm">
-                        {" "}
-                        {e.name}
-                      </Text>
-                    </div>
-                  </div>
-                  </Reveal>
-                  {/* <img src={e.images?e.images[0]?.url:""} width={"100%"} style={{ borderRadius:10 }}/> */}
-                </Grid.Col>
-              </Grid>
-              <Divider mt={30} mb={40} />
+              <Reveal keyframes={customAnimation} cascade duration={500} damping={0.3} triggerOnce={true}>
+                <Grid key={index} style={{ borderRadius: 10 }} p={20}>
+                  <Grid.Col xs={12} md={8} order={index % 2 == 0 ? 0 : 1}>
+                    <Title order={3} weight={100} mb={15}>
+                      {e.name}
+                    </Title>
+                    <Text size={"sm"}>{e.content}</Text>
+                  </Grid.Col>
+                  <Grid.Col xs={12} md={4} order={index % 2 == 0 ? 1 : 0}>
+                    <Reveal keyframes={customAnimation} cascade duration={1200} damping={0.3} triggerOnce={true}>
+                      <div className={`polaroid-item  ${index % 2 == 0 ? "polaroid-right" : "polaroid-left"}`}>
+                        <div className="polaroid-wrapper">
+                          <img src={e.images ? e.images[0]?.url : ""} width={"100%"} style={{ minHeight: "199px" }} />
+                          <Text size="xs" align="center" mt="sm">
+                            {" "}
+                            {e.name}
+                          </Text>
+                        </div>
+                      </div>
+                    </Reveal>
+                  </Grid.Col>
+                </Grid>
+                <Divider mt={30} mb={40} />
               </Reveal>
             </>
           ))}
