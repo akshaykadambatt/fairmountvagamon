@@ -28,6 +28,8 @@ import {
 import { useState } from "react";
 import Book from "./book";
 import { AmenitiesIds } from "./data/constants";
+import useViewport from "./data/useViewport";
+import { useRouter } from "next/router";
 
 const useStyles = createStyles((theme, _params, getRef) => ({
   price: {
@@ -77,7 +79,9 @@ interface CarouselCardProps {
   data: ProductProps;
 }
 export function CarouselCard({ data }: CarouselCardProps) {
+  const { desk, tab, mob } = useViewport();
   const { classes } = useStyles();
+  const router = useRouter()
   const theme = useMantineTheme();
   const images = data.images.map((e) => e.url) || [""];
   const [open, setOpen] = useState(false);
@@ -93,7 +97,7 @@ export function CarouselCard({ data }: CarouselCardProps) {
 
   return (
     <>
-      <Modal opened={open} onClose={openProductModal} size={"80%"} withCloseButton={false} className={classes.noPad}>
+      <Modal opened={open} fullScreen={mob} onClose={openProductModal} size={"80%"} withCloseButton={false} className={classes.noPad}>
         <Box mb={50}>
           <Container size="md" mt={30}>
             <Title order={2} weight={100}>{data ? data?.name : <Skeleton height={100} />}</Title>
@@ -252,7 +256,7 @@ export function CarouselCard({ data }: CarouselCardProps) {
           <Button
             radius="md"
             onClick={() => {
-              openProductModal();
+              desk? openProductModal():router.push(`/rooms/${data.slug}`)
             }}
           >
             More Details

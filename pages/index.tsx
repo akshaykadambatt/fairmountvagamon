@@ -95,6 +95,7 @@ export default function Home() {
   const theme = useMantineTheme();
   const [testimonials, setTestimonials] = useState<TestimonialProps[]>();
   const [experiences, setExperiences] = useState<ExperienceProps[]>([]);
+  const [experiences2, setExperiences2] = useState<ExperienceProps[]>([]);
   const [testimonialSlideActive, setTestimonialSlideActive] = useState<number>(0);
   const { classes } = useStyles();
   useEffect(() => {
@@ -170,11 +171,14 @@ export default function Home() {
     });
     getDocs(query(collection(db, CollectionName.EXPERIENCES), where("status", "==", true))).then((querySnapshot) => {
       let data: ExperienceProps[] = [];
+      let data2: ExperienceProps[] = [];
       querySnapshot.forEach((doc) => {
         if (doc.data().show_in_about) data.push(Object.assign({ ...doc.data() }, { id: doc.id }) as ExperienceProps);
+        data2.push(Object.assign({ ...doc.data() }, { id: doc.id }) as ExperienceProps);
       });
       data.sort((a, b) => a.show_in_about_order - b.show_in_about_order);
       setExperiences(data);
+      setExperiences2(data2);
     });
   }, []);
   return (
@@ -419,11 +423,11 @@ export default function Home() {
             {/* ...other slides */}
           </Carousel>
           <Box style={{ display: "flex", justifyContent: "flex-end" }}>
-            <Box style={{ marginRight: desk?"6%":"10%",display: desk?"block":"none",width: "230px" }}>
+            <Box style={{ marginRight: desk ? "6%" : "10%", display: desk ? "block" : "none", width: "230px" }}>
               <Box
                 mt={"-100px"}
                 style={{
-                  display:"flex",
+                  display: "flex",
                   height: "100%",
                   alignItems: "center",
                   justifyItems: "center",
@@ -609,6 +613,78 @@ export default function Home() {
                       </Grid>
                     </Box>
                   ))}
+                </Reveal>
+              </Grid.Col>
+            </Grid>
+          </Reveal>
+        </Container>
+        <Container mt={70} mb={100} size="lg">
+          <Reveal keyframes={customAnimation} triggerOnce={false} delay={100} duration={500}>
+            <Grid gutter={40}>
+              <Grid.Col span={12} sm={6}>
+                <Title mb={30} mt={10} weight={100} order={2} size={50}>
+                  Experience Vagamon like never before
+                </Title>
+                <Text style={{ width: "90%" }} mb={20} size="sm">
+                  <strong>Vagamon</strong> is an idyllic hill station located in the Western Ghats of Kerala, India.
+                  Known for its vast green meadows, misty hills, and dense pine forests, it is a paradise for nature
+                  lovers. The perfect weather conditions and ambiance make it an ideal location for a peaceful retreat
+                  or an adventurous getaway, such as trekking, paragliding, and rock climbing. The region is also home
+                  to a number of cultural and historical places, including tea plantations, a museum, and several
+                  religious sites.{" "}
+                </Text>
+                <Box display={"flex"} style={{ flexDirection: desk ? "row" : "column" }}>
+                  <Button mr={desk ? 15 : 0} mb={desk ? 0 : 15} component={Link} href="/experiences">
+                    Experience Vagamon
+                  </Button>
+                </Box>
+              </Grid.Col>
+              <Grid.Col span={12} sm={6} pt={15}>
+                <Reveal
+                  keyframes={customAnimation}
+                  triggerOnce={false}
+                  delay={300}
+                  duration={500}
+                  cascade
+                  damping={0.2}
+                >
+                  <Box
+                    component={Link}
+                    href="/experiences"
+                    style={{
+                      display: "flex",
+                      position: "relative",
+                      height: "370px",
+                      alignItems: "center",
+                      justifyContent: "center",
+                    }}
+                  >
+                    {experiences2.map((e) => (
+                      <>
+                        {e.images.map((a) => (
+                          <>
+                            <div
+                              className={`polaroid-item  polaroid-right`}
+                              style={{
+                                width: "55%",
+                                position: "absolute",
+                                transform: `scale(0.9, 0.9) rotate(${Math.random() * 20 >= 11 ? "-" : Math.random() * 20 >= 11 ? "-" : ""}${
+                                  Math.random() * 23
+                                }deg)`,
+                              }}
+                            >
+                              <div className="polaroid-wrapper">
+                                <img src={a.url ? a.url : ""} width={"100%"} style={{ height: "229px" }} />
+                                <Text size="xs" align="center" mt="sm">
+                                  {e.name}
+                                </Text>
+                              </div>
+                            </div>
+                          </>
+                        ))}
+                      </>
+                    ))}
+                  </Box>
                 </Reveal>
               </Grid.Col>
             </Grid>
