@@ -338,7 +338,7 @@ export function BookSuccess() {
             Contact Us
           </Link>.
         </Text>
-        <Button component={Link} href="/experiences">
+        <Button rightIcon={<IconArrowRight strokeWidth={1}/>} component={Link} href="/experiences">
           Explore Vagamon
         </Button>
         <Button component={Link} href="/contact" ml={10} variant="outline">

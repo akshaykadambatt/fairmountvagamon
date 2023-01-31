@@ -47,22 +47,22 @@ a {
   box-shadow: 0 0 0px 42px rgb(9 255 0 / 12%);
 }
 .booking-card{
-    box-shadow: 0 0 20px 19px rgba(0 0 0 / 10%);
+    box-shadow: 0 0 20px 14px rgb(159 155 155 / 10%);
 }
 .booking-confirmed-card{
-  box-shadow: 0 0 0px 0px rgba(64 192 87/ 90%);
-  animation: .95s cubic-bezier(0.42, 0, 0, 1.07) 0s 1 alternate shadow-animation;
+  box-shadow: 0 0 20px 14px rgb(159 155 155 / 10%);
+  animation: 1.95s cubic-bezier(0.42, 0, 0, 1.07) 0s 1 alternate shadow-animation;
 }
 
 @keyframes shadow-animation {
   0% {
-    box-shadow: 0 0 20px 19px rgba(0 0 0 / 10%);
+    box-shadow: 0 0 20px 14px rgb(159 155 155 / 10%);
   }
   50% {
-    box-shadow: 0 0 0px 5px rgba(64 192 87/ 50%), 0 0 0px 14px rgba(64 192 87/ 50%);
+    box-shadow: 0 0 0px 6px rgba(64 192 87/ 50%), 0 0 0px 34px rgba(64 192 87/ 30%);
   }
   100% {
-    box-shadow: 0 0 0px 0px rgba(64 192 87/ 90%);
+    box-shadow: 0 0 20px 14px rgb(159 155 155 / 10%);
   }
 }
 /* Polaroids */
