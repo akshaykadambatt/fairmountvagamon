@@ -42,6 +42,7 @@ import {
   setSelectedTerms,
 } from "./data/actions";
 import { RootState } from "./data/configureStore";
+import { IconArrowRight } from "@tabler/icons";
 
 const useStyles = createStyles((theme) => ({
   heading: {
@@ -114,7 +115,7 @@ export default function Book({ noCheckButton }: { noCheckButton?: boolean }) {
       </Grid.Col>
       {!noCheckButton && (
         <Grid.Col span={12} md={3}>
-          <Button fullWidth size={"md"} component={Link} href="/book">
+          <Button rightIcon={<IconArrowRight strokeWidth={1}/>} fullWidth size={"md"} component={Link} href="/book">
             Check availability
           </Button>
         </Grid.Col>
@@ -325,8 +326,8 @@ export function BookSuccess() {
         <Title order={5} className={classes.heading}>
           Reservation Confirmed
         </Title>
-        <Text>
-          Reservation ID: <strong>{selectedId}</strong>
+        <Text color="dimmed">
+          Reservation ID: <strong>{selectedId.toUpperCase()}</strong>
         </Text>
         <BookingCard success={true} />
         <Text mb={15}>
@@ -335,10 +336,7 @@ export function BookSuccess() {
           We are ready to help.{" "}
           <Link href="/contact" style={{ textDecoration: "underline" }}>
             Contact Us
-          </Link>
-          . We have recieved your reservation request and we will process the order as soon as possible. Expect a call
-          from Fairmount within 3-5 business days. For any enquiries contact us on the website/phone/WhatsApp lines. We
-          are ready to help.
+          </Link>.
         </Text>
         <Button component={Link} href="/experiences">
           Explore Vagamon

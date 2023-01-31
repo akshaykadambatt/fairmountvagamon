@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import dayjs from "dayjs";
 
 export const actionSlice = createSlice({
   name: "actions",
@@ -60,15 +61,18 @@ export const actionSlice = createSlice({
       window.console.log("calculating price");
       /**
        * How price is calculated;
-       * Calculated price = productPrice*adults + productPrice*(children/2) + Σ addonsPrice
+       * Calculated price = (productPrice*adults + productPrice*(children/2) + Σ addonsPrice) * #days
        * Σ addonsPrice = allAddons.filter(selectedAddons).reduce(Σ price)
        */
+      let numberOfDays = Math.abs(dayjs(state.selectedDate[0]).diff(state.selectedDate[1], "day", false));
       state.calculatedPrice =
-        state.selectedProduct.price * state.selectedNumberOfOccupants[0] +
-        state.selectedProduct.price * (state.selectedNumberOfOccupants[1] / 2) +
-        state.addonsData
-          .filter((addon) => state.selectedAddons.find((id) => id == addon.id) && true)
-          .reduce((acc, e) => acc + (e.price || 0), 0);
+        (
+          state.selectedProduct.price * state.selectedNumberOfOccupants[0] +
+          state.selectedProduct.price * (state.selectedNumberOfOccupants[1] / 2) +
+          state.addonsData
+            .filter((addon) => state.selectedAddons.find((id) => id == addon.id) && true)
+            .reduce((acc, e) => acc + (e.price || 0), 0)
+        ) * numberOfDays;
     },
     setAddonsData: (state, action) => {
       state.addonsData = action.payload;

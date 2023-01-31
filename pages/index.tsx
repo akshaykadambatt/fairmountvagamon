@@ -35,6 +35,7 @@ import { BsArrowLeft, BsArrowRight } from "react-icons/bs";
 import useViewport from "../components/data/useViewport";
 import { CollectionName } from "../components/data/constants";
 import Link from "next/link";
+import { Icon123, IconArrowRight } from "@tabler/icons";
 
 const useStyles = createStyles((theme) => ({
   arrows: {
@@ -318,7 +319,7 @@ export default function Home() {
                         friends and family.
                       </Text>
                       <Box px={6}>
-                        <Button variant="white" color="dark" size={"xs"} component={Link} href="/book">
+                        <Button rightIcon={<IconArrowRight strokeWidth={1}/>} variant="white" color="dark" size={"xs"} component={Link} href="/book">
                           Book now
                         </Button>
                       </Box>
@@ -364,7 +365,7 @@ export default function Home() {
                         mountain range, our resort offers the perfect escape from the stresses of everyday life.
                       </Text>
                       <Box px={6}>
-                        <Button variant="white" color="dark" size={"xs"} component={Link} href="/book">
+                        <Button rightIcon={<IconArrowRight strokeWidth={1}/>} variant="white" color="dark" size={"xs"} component={Link} href="/book">
                           Book now
                         </Button>
                       </Box>
@@ -411,7 +412,7 @@ export default function Home() {
                         is something for every adventure seeker in Vagamon.
                       </Text>
                       <Box px={6}>
-                        <Button variant="white" color="dark" size={"xs"} component={Link} href="/book">
+                        <Button rightIcon={<IconArrowRight strokeWidth={1}/>} variant="white" color="dark" size={"xs"} component={Link} href="/book">
                           Book now
                         </Button>
                       </Box>
@@ -571,7 +572,7 @@ export default function Home() {
                   memories.
                 </Text>
                 <Box display={"flex"} style={{ flexDirection: desk ? "row" : "column" }}>
-                  <Button mr={desk ? 15 : 0} mb={desk ? 0 : 15} component={Link} href="/book">
+                  <Button rightIcon={<IconArrowRight strokeWidth={1}/>} mr={desk ? 15 : 0} mb={desk ? 0 : 15} component={Link} href="/book">
                     Check Availabliltiy
                   </Button>
                   <Button variant="outline" component={Link} href="/contact">
@@ -634,7 +635,7 @@ export default function Home() {
                   religious sites.{" "}
                 </Text>
                 <Box display={"flex"} style={{ flexDirection: desk ? "row" : "column" }}>
-                  <Button mr={desk ? 15 : 0} mb={desk ? 0 : 15} component={Link} href="/experiences">
+                  <Button rightIcon={<IconArrowRight strokeWidth={1}/>} mr={desk ? 15 : 0} mb={desk ? 0 : 15} component={Link} href="/experiences">
                     Experience Vagamon
                   </Button>
                 </Box>
@@ -708,11 +709,11 @@ export default function Home() {
               loop
               muted
               style={{
-                width: "118%",
-                height: "203%",
+                width: desk?"118%":"178%",
+                height: desk?"203%":"153%",
                 position: "absolute",
-                top: "-52%",
-                left: "-14%",
+                top: desk?"-52%":"-22%",
+                left: desk?"-14%":"-44%",
                 zIndex: -1,
               }}
             />
@@ -724,7 +725,8 @@ export default function Home() {
               style={{
                 background: `transparent`,
                 backgroundSize: "cover",
-                boxShadow: "rgb(0 0 0 / 90%) 870px 0px 430px -220px inset, rgb(0 0 0 / 9%) 0px 13px 20px 20px",
+                boxShadow: desk?"rgb(0 0 0 / 90%) 870px 0px 430px -220px inset, rgb(0 0 0 / 9%) 0px 13px 20px 20px":
+                "rgb(0 0 0 / 50%) 870px 0px 430px -220px inset",
                 borderRadius: desk ? 15 : 0,
               }}
             >
@@ -813,7 +815,7 @@ export default function Home() {
                   melt even
                 </Text>
                 <Box display={"flex"} style={{ flexDirection: desk ? "row" : "column" }}>
-                  <Button mr={desk ? 15 : 0} mb={desk ? 0 : 15} variant="white" component={Link} href="/book">
+                  <Button rightIcon={<IconArrowRight strokeWidth={1}/>} mr={desk ? 15 : 0} mb={desk ? 0 : 15} variant="white" component={Link} href="/book">
                     Check Availabliltiy
                   </Button>
                   <Button component={Link} href="/contact">
