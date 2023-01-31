@@ -1,9 +1,4 @@
-import {
-  Button,
-  Group,
-  Container,
-  Stepper,
-} from "@mantine/core";
+import { Button, Group, Container, Stepper } from "@mantine/core";
 import { useState } from "react";
 import Book, { BookSecondStep, BookSuccess, BookThirdStep } from "../components/book";
 import { doc, collection, setDoc } from "firebase/firestore";
@@ -31,6 +26,7 @@ export default function Contact() {
     selectedNotes,
     selectedTerms,
     selectedId,
+    calculatedPrice,
   } = useSelector((state: RootState) => state.actions);
   const enterBookEntry = async () => {
     setLoading(true);
@@ -47,7 +43,7 @@ export default function Contact() {
       date: selectedDate,
       product: selectedProduct.id || "",
       productData: selectedProduct,
-      shownPrice: selectedProduct.price,
+      shownPrice: calculatedPrice,
       deleted: false,
       referenceId: referenceId,
       state: BookingState.PENDING,
@@ -57,11 +53,10 @@ export default function Contact() {
     setLoading(false);
     nextStep();
   };
-  
 
   return (
     <>
-    <Head>
+      <Head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Fairmount Resorts - Book your Stay to Experience the Enchanting Beauty of Vagamon</title>
@@ -83,71 +78,96 @@ export default function Contact() {
 
         {/*<!-- Open Graph / Facebook -->*/}
         <meta property="og:type" content="website" />
-        <meta property="og:title" content="Fairmount Resorts - Book your Stay to Experience the Enchanting Beauty of Vagamon" />
-        <meta property="og:description" content="Discover the natural splendor of Vagamon at Fairmount Resorts. Our well-appointed rooms and unparalleled experiences will make your stay unforgettable. Book now to experience the enchanting beauty of Vagamon." />
+        <meta
+          property="og:title"
+          content="Fairmount Resorts - Book your Stay to Experience the Enchanting Beauty of Vagamon"
+        />
+        <meta
+          property="og:description"
+          content="Discover the natural splendor of Vagamon at Fairmount Resorts. Our well-appointed rooms and unparalleled experiences will make your stay unforgettable. Book now to experience the enchanting beauty of Vagamon."
+        />
         <meta property="og:image" content="https://fairmountvagamon.com/og-image.jpg" />
 
         {/*<!-- Twitter -->*/}
         <meta property="twitter:card" content="summary_large_image" />
-        <meta property="twitter:title" content="Fairmount Resorts - Book your Stay to Experience the Enchanting Beauty of Vagamon" />
-        <meta property="twitter:description" content="Discover the natural splendor of Vagamon at Fairmount Resorts. Our well-appointed rooms and unparalleled experiences will make your stay unforgettable. Book now to experience the enchanting beauty of Vagamon." />
+        <meta
+          property="twitter:title"
+          content="Fairmount Resorts - Book your Stay to Experience the Enchanting Beauty of Vagamon"
+        />
+        <meta
+          property="twitter:description"
+          content="Discover the natural splendor of Vagamon at Fairmount Resorts. Our well-appointed rooms and unparalleled experiences will make your stay unforgettable. Book now to experience the enchanting beauty of Vagamon."
+        />
         <meta property="twitter:image" content="https://fairmountvagamon.com/og-image.jpg" />
 
         <meta name="author" content="Fairmount Vagamon" />
       </Head>
-    <Container my={30}>
-      <Stepper active={active} onStepClick={selectedId ? () => {} : setActive} breakpoint="sm">
-        <Stepper.Step label="Select dates" description="Dates and service">
-          <Book noCheckButton={true} />
-        </Stepper.Step>
-        <Stepper.Step disabled={(selectedProduct.id ? false : true) || (selectedDate[1] ? false : true)} label="Select occupants" description="Occupants and addons">
-          <BookSecondStep />
-        </Stepper.Step>
-        <Stepper.Step disabled={
-                (selectedNumberOfOccupants[0]>0?false:true)||
-                (selectedEmail||selectedPhone?false:true)||
-                (selectedName?false:true)||
-                (selectedTerms?false:true)
-              } label="Confirm booking" description="View booking summary">
-          <BookThirdStep />
-        </Stepper.Step>
-        <Stepper.Completed>
-          <BookSuccess />
-        </Stepper.Completed>
-      </Stepper>
-      <Group position="right" mt="xl">
-        {active != 0 && active != 3 && (
-          <Button variant="default" onClick={prevStep}>
-            Back
-          </Button>
-        )}
-        {active < 3 &&
-          (active == 2 ? (
-            <Button onClick={enterBookEntry} loading={loading}>
-              Confirm The Reservation
+      <Container my={30}>
+        <Stepper active={active} onStepClick={selectedId ? () => {} : setActive} breakpoint="sm">
+          <Stepper.Step label="Select dates" description="Dates and service">
+            <Book noCheckButton={true} />
+          </Stepper.Step>
+          <Stepper.Step
+            disabled={(selectedProduct.id ? false : true) || (selectedDate[1] ? false : true)}
+            label="Select occupants"
+            description="Occupants and addons"
+          >
+            <BookSecondStep />
+          </Stepper.Step>
+          <Stepper.Step
+            disabled={
+              (selectedNumberOfOccupants[0] > 0 ? false : true) ||
+              (selectedEmail || selectedPhone ? false : true) ||
+              (selectedName ? false : true) ||
+              (selectedTerms ? false : true)
+            }
+            label="Confirm booking"
+            description="View booking summary"
+          >
+            <BookThirdStep />
+          </Stepper.Step>
+          <Stepper.Completed>
+            <BookSuccess />
+          </Stepper.Completed>
+        </Stepper>
+        <Group position="right" mt="xl">
+          {active != 0 && active != 3 && (
+            <Button variant="default" onClick={prevStep}>
+              Back
             </Button>
-          ) : (
-            <>
-              {active == 0 && (
-                <Button
-                  onClick={nextStep}
-                  disabled={(selectedProduct.id ? false : true) || (selectedDate[1] ? false : true)}
-                >
-                  Next step
-                </Button>
-              )}
-              {active == 1 && <Button onClick={nextStep}
-              disabled={
-                (selectedNumberOfOccupants[0]>0?false:true)||
-                (selectedEmail||selectedPhone?false:true)||
-                (selectedName?false:true)||
-                (selectedTerms?false:true)
-              }
-              >Next step</Button>}
-            </>
-          ))}
-      </Group>
-    </Container>
+          )}
+          {active < 3 &&
+            (active == 2 ? (
+              <Button onClick={enterBookEntry} loading={loading}>
+                Confirm The Reservation
+              </Button>
+            ) : (
+              <>
+                {active == 0 && (
+                  <Button
+                    onClick={nextStep}
+                    disabled={(selectedProduct.id ? false : true) || (selectedDate[1] ? false : true)}
+                  >
+                    Next step
+                  </Button>
+                )}
+                {active == 1 && (
+                  <Button
+                    onClick={nextStep}
+                    disabled={
+                      (selectedNumberOfOccupants[0] > 0 ? false : true) ||
+                      (selectedEmail || selectedPhone ? false : true) ||
+                      (selectedName ? false : true) ||
+                      (selectedTerms ? false : true)
+                    }
+                  >
+                    Next step
+                  </Button>
+                )}
+              </>
+            ))}
+        </Group>
+      </Container>
     </>
   );
 }
