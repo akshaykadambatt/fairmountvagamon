@@ -17,7 +17,7 @@ import { useDisclosure } from "@mantine/hooks";
 import Link from "next/link";
 import { AuthContext } from "./data/AuthContext";
 import { IconExternalLink } from "@tabler/icons";
-import navlogo from '../assets/navlogo.svg';
+import navlogo from "../assets/navlogo.svg";
 import Image from "next/image";
 import Head from "next/head";
 import { useRouter } from "next/router";
@@ -76,12 +76,18 @@ const useStyles = createStyles((theme) => ({
     padding: "8px 12px",
     borderRadius: theme.radius.sm,
     textDecoration: "none",
-    color: theme.colorScheme === "dark" ? theme.colors.dark[0] : theme.colors.gray[7],
+    color:
+      theme.colorScheme === "dark"
+        ? theme.colors.dark[0]
+        : theme.colors.gray[7],
     fontSize: theme.fontSizes.sm,
     fontWeight: 500,
 
     "&:hover": {
-      backgroundColor: theme.colorScheme === "dark" ? theme.colors.dark[6] : theme.colors.gray[0],
+      backgroundColor:
+        theme.colorScheme === "dark"
+          ? theme.colors.dark[6]
+          : theme.colors.gray[0],
     },
 
     [theme.fn.smallerThan("sm")]: {
@@ -96,7 +102,8 @@ const useStyles = createStyles((theme) => ({
         variant: "light",
         color: theme.primaryColor,
       }).background,
-      color: theme.fn.variant({ variant: "light", color: theme.primaryColor }).color,
+      color: theme.fn.variant({ variant: "light", color: theme.primaryColor })
+        .color,
     },
   },
 }));
@@ -123,7 +130,10 @@ export default function HeaderComponent() {
       key={link.label}
       href={link.link}
       className={cx(classes.link, {
-        [classes.linkActive]: link.link=="/"?link.link==pathname:(pathname?.match(link.link)?.length || 0 > 0) ,
+        [classes.linkActive]:
+          link.link == "/"
+            ? link.link == pathname
+            : pathname?.match(link.link)?.length || 0 > 0,
       })}
       onClick={(event) => {
         close();
@@ -132,13 +142,16 @@ export default function HeaderComponent() {
       {link.label}
     </Link>
   ));
-  links.push({link:"/book", label:"Check Availability"})
+  links.push({ link: "/book", label: "Check Availability" });
   const mobItems = links.map((link) => (
     <Link
       key={link.label}
       href={link.link}
       className={cx(classes.link, {
-        [classes.linkActive]: link.link=="/"?link.link==pathname:(pathname?.match(link.link)?.length || 0 > 0) ,
+        [classes.linkActive]:
+          link.link == "/"
+            ? link.link == pathname
+            : pathname?.match(link.link)?.length || 0 > 0,
       })}
       onClick={(event) => {
         close();
@@ -149,24 +162,55 @@ export default function HeaderComponent() {
   ));
 
   return (
-    <Header height={HEADER_HEIGHT + (user ? 28 : 0)} mb={0} className={classes.root}>
+    <Header
+      height={HEADER_HEIGHT + (user ? 28 : 0)}
+      mb={0}
+      className={classes.root}
+    >
       <Head>
-      <meta charSet="utf-8" />
-      <meta httpEquiv="Content-Type" content="text/html" lang="en" />
-      <meta httpEquiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <link rel="icon" type="image/png" href="/favicon.ico" />
-      <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-      <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
-      <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
-      <link rel="manifest" href="/site.webmanifest" />
-      <meta name="msapplication-TileColor" content="#FFFFFF" />
-      <meta name="theme-color" content="#FFFFFF" />
-      <meta
-        name="keywords"
-        content="resort, Vagamon, Kerala, hill resort, accommodations, tree house, restaurant, room service, spa, outdoor pool, trekking, paragliding, rock climbing, resort at vagamon, fairmount vagamon, fairmount vagamon resorts, resort offers, experience resort, most popular resort, resort experience, resort nature, Vagamon resorts, Kerala hill resorts ,Western Ghats resorts ,Tea plantation resorts ,Nature resorts ,Adventure resorts ,Luxury resorts ,Relaxation resorts ,Spa resorts ,Romantic getaways ,Family vacations ,Hill station vacations ,Hill station getaways ,Western Ghats tourism ,Kerala tourism ,Tea plantation tours ,Nature tours ,Adventure tours ,Luxury travel ,Relaxation vacations ,Spa vacations ,Romantic holidays ,Family holidays ,Honeymoon destinations"
-      />
-      <meta name="author" content="Fairmount Vagamon" />
+        <meta charSet="utf-8" />
+        <meta httpEquiv="Content-Type" content="text/html" lang="en" />
+        <meta httpEquiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="icon" type="image/png" href="/favicon.ico" />
+        <link
+          rel="apple-touch-icon"
+          sizes="180x180"
+          href="/apple-touch-icon.png"
+        />
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="32x32"
+          href="/favicon-32x32.png"
+        />
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="16x16"
+          href="/favicon-16x16.png"
+        />
+        <link rel="manifest" href="/site.webmanifest" />
+        <meta name="msapplication-TileColor" content="#FFFFFF" />
+        <meta name="theme-color" content="#FFFFFF" />
+        <meta
+          name="keywords"
+          content="resort, Vagamon, Kerala, hill resort, accommodations, tree house, restaurant, room service, spa, outdoor pool, trekking, paragliding, rock climbing, resort at vagamon, fairmount vagamon, fairmount vagamon resorts, resort offers, experience resort, most popular resort, resort experience, resort nature, Vagamon resorts, Kerala hill resorts ,Western Ghats resorts ,Tea plantation resorts ,Nature resorts ,Adventure resorts ,Luxury resorts ,Relaxation resorts ,Spa resorts ,Romantic getaways ,Family vacations ,Hill station vacations ,Hill station getaways ,Western Ghats tourism ,Kerala tourism ,Tea plantation tours ,Nature tours ,Adventure tours ,Luxury travel ,Relaxation vacations ,Spa vacations ,Romantic holidays ,Family holidays ,Honeymoon destinations"
+        />
+        <meta name="author" content="Fairmount Vagamon" />
+        <div
+          dangerouslySetInnerHTML={{
+            __html: `<!-- Google tag (gtag.js) -->
+            <script async src="https://www.googletagmanager.com/gtag/js?id=G-S8TR67J4XK"></script>
+            <script>
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+            
+              gtag('config', 'G-S8TR67J4XK');
+            </script>`,
+          }}
+        />
       </Head>
       {user && (
         <Box style={{ background: theme.colors.dark[7] }} p={3}>
@@ -179,7 +223,14 @@ export default function HeaderComponent() {
               </Grid.Col>
               <Grid.Col span={6}>
                 <Box style={{ display: "flex", justifyContent: "flex-end" }}>
-                  <Text pr={6} size="xs" color="white" align={"right"} component={Link} href={"/admin/dashboard"}>
+                  <Text
+                    pr={6}
+                    size="xs"
+                    color="white"
+                    align={"right"}
+                    component={Link}
+                    href={"/admin/dashboard"}
+                  >
                     Go to admin dashboard
                   </Text>
                   <IconExternalLink color="white" size={15} />
@@ -190,10 +241,14 @@ export default function HeaderComponent() {
         </Box>
       )}
 
-      <Container style={{ height: HEADER_HEIGHT }} className={`${classes.header} `} size="lg">
+      <Container
+        style={{ height: HEADER_HEIGHT }}
+        className={`${classes.header} `}
+        size="lg"
+      >
         {/* <MantineLogo size={28} /> */}
         <Link href="/" className={` ${classes.logo}`}>
-          <Image src={navlogo} alt="Fairmount Logo" height={40}/>
+          <Image src={navlogo} alt="Fairmount Logo" height={40} />
         </Link>
         <Group spacing={5} className={classes.links}>
           {items}
@@ -201,7 +256,12 @@ export default function HeaderComponent() {
             <Button size="xs">Check availability</Button>
           </Link>
         </Group>
-        <Burger opened={opened} onClick={toggle} className={classes.burger} size="sm" />
+        <Burger
+          opened={opened}
+          onClick={toggle}
+          className={classes.burger}
+          size="sm"
+        />
         <Transition transition="pop-top-right" duration={200} mounted={opened}>
           {(styles) => (
             <Paper className={classes.dropdown} withBorder style={styles}>
