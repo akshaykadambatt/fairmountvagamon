@@ -199,24 +199,24 @@ export default function HeaderComponent() {
           content="resort, Vagamon, Kerala, hill resort, accommodations, tree house, restaurant, room service, spa, outdoor pool, trekking, paragliding, rock climbing, resort at vagamon, fairmount vagamon, fairmount vagamon resorts, resort offers, experience resort, most popular resort, resort experience, resort nature, Vagamon resorts, Kerala hill resorts ,Western Ghats resorts ,Tea plantation resorts ,Nature resorts ,Adventure resorts ,Luxury resorts ,Relaxation resorts ,Spa resorts ,Romantic getaways ,Family vacations ,Hill station vacations ,Hill station getaways ,Western Ghats tourism ,Kerala tourism ,Tea plantation tours ,Nature tours ,Adventure tours ,Luxury travel ,Relaxation vacations ,Spa vacations ,Romantic holidays ,Family holidays ,Honeymoon destinations"
         />
         <meta name="author" content="Fairmount Vagamon" />
-        {/* Global Site Tag (gtag.js) - Google Analytics */}
-        <Script
-          async
-          src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}`}
-        />
       </Head>
-      <Script
-      dangerouslySetInnerHTML={{
-        __html: `
-     window.dataLayer = window.dataLayer || [];
-     function gtag(){dataLayer.push(arguments);}
-     gtag('js', new Date());
-     gtag('config', '${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}', {
-       page_path: window.location.pathname,
-     });
-   `,
-      }}
-    />
+              {/* Global Site Tag (gtag.js) - Google Analytics */}
+              <Script
+              async
+              src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}`}
+            />
+            <Script
+              dangerouslySetInnerHTML={{
+                __html: `
+             window.dataLayer = window.dataLayer || [];
+             function gtag(){dataLayer.push(arguments);}
+             gtag('js', new Date());
+             gtag('config', '${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}', {
+               page_path: window.location.pathname,
+             });
+           `,
+              }}
+            />
       {user && (
         <Box style={{ background: theme.colors.dark[7] }} p={3}>
           <Container size={"lg"}>
