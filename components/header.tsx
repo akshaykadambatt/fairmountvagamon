@@ -21,6 +21,7 @@ import navlogo from "../assets/navlogo.svg";
 import Image from "next/image";
 import Head from "next/head";
 import { useRouter } from "next/router";
+import Script from "next/script";
 
 const HEADER_HEIGHT = 60;
 
@@ -199,11 +200,11 @@ export default function HeaderComponent() {
         />
         <meta name="author" content="Fairmount Vagamon" />
         {/* Global Site Tag (gtag.js) - Google Analytics */}
-        <script
+        <Script
           async
           src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}`}
         />
-        <script
+        <Script
           dangerouslySetInnerHTML={{
             __html: `
          window.dataLayer = window.dataLayer || [];
