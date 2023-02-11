@@ -204,19 +204,19 @@ export default function HeaderComponent() {
           async
           src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}`}
         />
-        <Script
-          dangerouslySetInnerHTML={{
-            __html: `
-         window.dataLayer = window.dataLayer || [];
-         function gtag(){dataLayer.push(arguments);}
-         gtag('js', new Date());
-         gtag('config', '${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}', {
-           page_path: window.location.pathname,
-         });
-       `,
-          }}
-        />
       </Head>
+      <Script
+      dangerouslySetInnerHTML={{
+        __html: `
+     window.dataLayer = window.dataLayer || [];
+     function gtag(){dataLayer.push(arguments);}
+     gtag('js', new Date());
+     gtag('config', '${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}', {
+       page_path: window.location.pathname,
+     });
+   `,
+      }}
+    />
       {user && (
         <Box style={{ background: theme.colors.dark[7] }} p={3}>
           <Container size={"lg"}>
