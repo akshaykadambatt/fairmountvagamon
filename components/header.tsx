@@ -201,11 +201,11 @@ export default function HeaderComponent() {
         <meta name="author" content="Fairmount Vagamon" />
       </Head>
               {/* Global Site Tag (gtag.js) - Google Analytics */}
-              <Script
+              <Script id="gtagjs"
               async
               src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}`}
             />
-            <Script
+            <Script id="gtag"
               dangerouslySetInnerHTML={{
                 __html: `
              window.dataLayer = window.dataLayer || [];
