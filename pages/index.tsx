@@ -789,7 +789,7 @@ export default function Home() {
                   Experience Vagamon like never before
                 </Title>
                 <Text style={{ width: "100%" }} mb={20} size="sm">
-                  "Amidst rolling hills that shine, <br />
+                  &quot;Amidst rolling hills that shine, <br />
                   A realm of splendor doth entwine. <br />
                   Where serenity aglow and gardens bloom, <br />
                   And nature&apos;s magic lights the room. <br />
@@ -797,7 +797,7 @@ export default function Home() {
                   In Vagamon, so fair and delight, <br />
                   With charming views that gleam so bright. <br />
                   Take a stroll and bask in its allure, <br />
-                  And savor its magnificent, irresistible lure."{" "}
+                  And savor its magnificent, irresistible lure.&quot;{" "}
                 </Text>
                 <Box
                   display={"flex"}
