@@ -97,7 +97,8 @@ export default function Home() {
   const [testimonials, setTestimonials] = useState<TestimonialProps[]>();
   const [experiences, setExperiences] = useState<ExperienceProps[]>([]);
   const [experiences2, setExperiences2] = useState<ExperienceProps[]>([]);
-  const [testimonialSlideActive, setTestimonialSlideActive] = useState<number>(0);
+  const [testimonialSlideActive, setTestimonialSlideActive] =
+    useState<number>(0);
   const { classes } = useStyles();
   useEffect(() => {
     let queryy = query(collection(db, "theme"));
@@ -134,7 +135,9 @@ export default function Home() {
     }
   }
   const throttle = (fn: Function, wait: number = 300) => {
-    let inThrottle: boolean, lastFn: ReturnType<typeof setTimeout>, lastTime: number;
+    let inThrottle: boolean,
+      lastFn: ReturnType<typeof setTimeout>,
+      lastTime: number;
     return function (this: any) {
       const context = this,
         args = arguments;
@@ -158,24 +161,43 @@ export default function Home() {
     embla.on(
       "scroll",
       throttle(() => {
-        setTestimonialSlideActive(embla.slidesInView()[Math.floor(embla.slidesInView().length / 2)]);
+        setTestimonialSlideActive(
+          embla.slidesInView()[Math.floor(embla.slidesInView().length / 2)]
+        );
       }, 200)
     );
   }, [embla]);
   useEffect(() => {
-    getDocs(query(collection(db, CollectionName.TESTIMONIALS), where("status", "==", true))).then((querySnapshot) => {
+    getDocs(
+      query(
+        collection(db, CollectionName.TESTIMONIALS),
+        where("status", "==", true)
+      )
+    ).then((querySnapshot) => {
       let data: TestimonialProps[] = [];
       querySnapshot.forEach((doc) => {
-        data.push(Object.assign({ ...doc.data() }, { id: doc.id }) as TestimonialProps);
+        data.push(
+          Object.assign({ ...doc.data() }, { id: doc.id }) as TestimonialProps
+        );
       });
       setTestimonials(data);
     });
-    getDocs(query(collection(db, CollectionName.EXPERIENCES), where("status", "==", true))).then((querySnapshot) => {
+    getDocs(
+      query(
+        collection(db, CollectionName.EXPERIENCES),
+        where("status", "==", true)
+      )
+    ).then((querySnapshot) => {
       let data: ExperienceProps[] = [];
       let data2: ExperienceProps[] = [];
       querySnapshot.forEach((doc) => {
-        if (doc.data().show_in_about) data.push(Object.assign({ ...doc.data() }, { id: doc.id }) as ExperienceProps);
-        data2.push(Object.assign({ ...doc.data() }, { id: doc.id }) as ExperienceProps);
+        if (doc.data().show_in_about)
+          data.push(
+            Object.assign({ ...doc.data() }, { id: doc.id }) as ExperienceProps
+          );
+        data2.push(
+          Object.assign({ ...doc.data() }, { id: doc.id }) as ExperienceProps
+        );
       });
       data.sort((a, b) => a.show_in_about_order - b.show_in_about_order);
       setExperiences(data);
@@ -189,7 +211,8 @@ export default function Home() {
 
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>
-          Welcome to Fairmount Resorts Vagamon, Kerala - Discover the Idyllic Beauty of Vagamon at Fairmount
+          Welcome to Fairmount Resorts Vagamon, Kerala - Discover the Idyllic
+          Beauty of Vagamon at Fairmount
         </title>
         <meta
           name="description"
@@ -202,12 +225,36 @@ export default function Home() {
 
         <link rel="canonical" href="https://fairmountvagamon.com/" />
         <link rel="icon" type="image/png" href="/favicon.ico" />
-        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+        <link
+          rel="apple-touch-icon"
+          sizes="180x180"
+          href="/apple-touch-icon.png"
+        />
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="32x32"
+          href="/favicon-32x32.png"
+        />
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="16x16"
+          href="/favicon-16x16.png"
+        />
         <link rel="manifest" href="/site.webmanifest" />
-        <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml" />
-        <link rel="alternate" type="application/rss+xml" title="ROR" href="/ror.xml" />
+        <link
+          rel="sitemap"
+          type="application/xml"
+          title="Sitemap"
+          href="/sitemap.xml"
+        />
+        <link
+          rel="alternate"
+          type="application/rss+xml"
+          title="ROR"
+          href="/ror.xml"
+        />
         <meta name="msapplication-TileColor" content="#FFFFFF" />
         <meta name="theme-color" content="#FFFFFF" />
 
@@ -229,7 +276,10 @@ export default function Home() {
         Address: Fairmount Vagamon Kannamkulam, Vagamon Kerala - 685503 
         Contact: +91 88488 86990"
         />
-        <meta property="og:image" content="https://fairmountvagamon.com/og-image.jpg" />
+        <meta
+          property="og:image"
+          content="https://fairmountvagamon.com/og-image.jpg"
+        />
 
         {/*<!-- Twitter -->*/}
         <meta property="twitter:card" content="summary_large_image" />
@@ -244,7 +294,10 @@ export default function Home() {
         Address: Fairmount Vagamon Kannamkulam, Vagamon Kerala - 685503 
         Contact: +91 88488 86990"
         />
-        <meta property="twitter:image" content="https://fairmountvagamon.com/og-image.jpg" />
+        <meta
+          property="twitter:image"
+          content="https://fairmountvagamon.com/og-image.jpg"
+        />
 
         <meta name="author" content="Fairmount Vagamon" />
         <link
@@ -292,7 +345,12 @@ export default function Home() {
               <Container mt={130} mb={30} size="lg">
                 <Grid>
                   <Grid.Col span={12} xs={8}>
-                    <Reveal keyframes={customAnimation} cascade duration={500} damping={0.3}>
+                    <Reveal
+                      keyframes={customAnimation}
+                      cascade
+                      duration={500}
+                      damping={0.3}
+                    >
                       <Text weight={100} px={6} color="#fff">
                         WELCOME TO
                       </Text>
@@ -313,10 +371,12 @@ export default function Home() {
                         RESORTS, VAGAMON
                       </Text>
                       <Text weight={100} px={6} mb={10} color="#fff" size={13}>
-                        Enclosed between rolling hills and lush tea gardens, Fairmount Vagamon Resorts is an offbeat
-                        property offering comfortable accommodations and beautiful landmarks to visit nearby. The rooms
-                        offer scenic views of hills. It has a shared dining area and living area to enjoy with your
-                        friends and family.
+                        Enclosed between rolling hills and lush tea gardens,
+                        Fairmount Vagamon Resorts is an offbeat property
+                        offering comfortable accommodations and beautiful
+                        landmarks to visit nearby. The rooms offer scenic views
+                        of hills. It has a shared dining area and living area to
+                        enjoy with your friends and family.
                       </Text>
                       <Box px={6}>
                         <Button
@@ -345,7 +405,12 @@ export default function Home() {
               <Container mt={130} mb={30} size="lg">
                 <Grid>
                   <Grid.Col span={12} xs={8}>
-                    <Reveal keyframes={customAnimation} cascade duration={500} damping={0.3}>
+                    <Reveal
+                      keyframes={customAnimation}
+                      cascade
+                      duration={500}
+                      damping={0.3}
+                    >
                       <Text weight={100} px={6} color="#fff">
                         WELCOME TO
                       </Text>
@@ -366,10 +431,13 @@ export default function Home() {
                         RESORTS, VAGAMON
                       </Text>
                       <Text weight={100} px={6} mb={10} color="#fff" size={13}>
-                        Escape to the stunning beauty of Vagamon at Fairmount Residency. Relax and rejuvenate in the
-                        beautiful surroundings of Vagamon. The region is home to vast green meadows, misty hills, and
-                        dense pine forests, making it a paradise for nature lovers. Nestled in the Western Ghats
-                        mountain range, our resort offers the perfect escape from the stresses of everyday life.
+                        Escape to the stunning beauty of Vagamon at Fairmount
+                        Residency. Relax and rejuvenate in the beautiful
+                        surroundings of Vagamon. The region is home to vast
+                        green meadows, misty hills, and dense pine forests,
+                        making it a paradise for nature lovers. Nestled in the
+                        Western Ghats mountain range, our resort offers the
+                        perfect escape from the stresses of everyday life.
                       </Text>
                       <Box px={6}>
                         <Button
@@ -398,7 +466,12 @@ export default function Home() {
               <Container mt={130} mb={30} size="lg">
                 <Grid>
                   <Grid.Col span={12} xs={8}>
-                    <Reveal keyframes={customAnimation} cascade duration={500} damping={0.3}>
+                    <Reveal
+                      keyframes={customAnimation}
+                      cascade
+                      duration={500}
+                      damping={0.3}
+                    >
                       <Text weight={100} px={6} color="#fff">
                         WELCOME TO
                       </Text>
@@ -419,11 +492,15 @@ export default function Home() {
                         RESORTS, VAGAMON
                       </Text>
                       <Text weight={100} px={6} mb={10} color="#fff" size={13}>
-                        Discover the rich culture and history of Kerala at our resort. Savor delicious Keralite, North
-                        Indian, and Chinese cuisine at our on-site restaurant. Vagamon is home to a number of cultural
-                        and historical sites, including tea plantations and local temples. Also, take part in a range of
-                        activities in the Western Ghats, from trekking and paragliding to rock climbing and more, there
-                        is something for every adventure seeker in Vagamon.
+                        Discover the rich culture and history of Kerala at our
+                        resort. Savor delicious Keralite, North Indian, and
+                        Chinese cuisine at our on-site restaurant. Vagamon is
+                        home to a number of cultural and historical sites,
+                        including tea plantations and local temples. Also, take
+                        part in a range of activities in the Western Ghats, from
+                        trekking and paragliding to rock climbing and more,
+                        there is something for every adventure seeker in
+                        Vagamon.
                       </Text>
                       <Box px={6}>
                         <Button
@@ -445,7 +522,13 @@ export default function Home() {
             {/* ...other slides */}
           </Carousel>
           <Box style={{ display: "flex", justifyContent: "flex-end" }}>
-            <Box style={{ marginRight: desk ? "6%" : "10%", display: desk ? "block" : "none", width: "230px" }}>
+            <Box
+              style={{
+                marginRight: desk ? "6%" : "10%",
+                display: desk ? "block" : "none",
+                width: "230px",
+              }}
+            >
               <Box
                 mt={"-100px"}
                 style={{
@@ -458,10 +541,16 @@ export default function Home() {
                   position: "relative",
                 }}
               >
-                <Box className={classes.arrowsWhite} onClick={() => scrollHero("previous")}>
+                <Box
+                  className={classes.arrowsWhite}
+                  onClick={() => scrollHero("previous")}
+                >
                   <BsArrowLeft color="white" />
                 </Box>
-                <Box className={classes.arrowsWhite} onClick={() => scrollHero("next")}>
+                <Box
+                  className={classes.arrowsWhite}
+                  onClick={() => scrollHero("next")}
+                >
                   <BsArrowRight color="white" />
                 </Box>
               </Box>
@@ -504,27 +593,48 @@ export default function Home() {
         <Container mt={30} mb={30} size="lg">
           <Grid align="center">
             <Grid.Col span={12} xs={6}>
-              <Reveal keyframes={customAnimation} delay={600} triggerOnce={true} fraction={1} duration={500}>
+              <Reveal
+                keyframes={customAnimation}
+                delay={600}
+                triggerOnce={true}
+                fraction={1}
+                duration={500}
+              >
                 <Title weight={100} order={2}>
                   Fairmount Resort Vagamon
                 </Title>
               </Reveal>
             </Grid.Col>
             <Grid.Col span={12} xs={6}>
-              <Reveal keyframes={customAnimation} triggerOnce={true} delay={1000} fraction={1} duration={500}>
+              <Reveal
+                keyframes={customAnimation}
+                triggerOnce={true}
+                delay={1000}
+                fraction={1}
+                duration={500}
+              >
                 <Text size={13}>
-                  Welcome to <strong>Fairmount</strong>, a premier hill resort located in the stunning region of
-                  Vagamon, Kerala. Nestled in the Western Ghats mountain range, our resort offers a perfect blend of all
-                  modern luxurious amenities, delicious dining and comfortable companionship of nature. With its
-                  temperate climate and stunning natural surroundings, Vagamon is the perfect destination, offering a
-                  range of activities providing a unique and memorable experience.
+                  Welcome to <strong>Fairmount</strong>, a premier hill resort
+                  located in the stunning region of Vagamon, Kerala. Nestled in
+                  the Western Ghats mountain range, our resort offers a perfect
+                  blend of all modern luxurious amenities, delicious dining and
+                  comfortable companionship of nature. With its temperate
+                  climate and stunning natural surroundings, Vagamon is the
+                  perfect destination, offering a range of activities providing
+                  a unique and memorable experience.
                 </Text>
               </Reveal>
             </Grid.Col>
           </Grid>
         </Container>
         <Container mt={30} mb={70} size="lg">
-          <Reveal keyframes={customAnimation} triggerOnce={true} delay={300} duration={500} fraction={0.3}>
+          <Reveal
+            keyframes={customAnimation}
+            triggerOnce={true}
+            delay={300}
+            duration={500}
+            fraction={0.3}
+          >
             <Image
               style={{
                 borderRadius: 20,
@@ -565,7 +675,12 @@ export default function Home() {
           </Reveal>
         </Container>
         <Container mt={70} mb={100} size="lg">
-          <Reveal keyframes={customAnimation} triggerOnce={false} delay={100} duration={500}>
+          <Reveal
+            keyframes={customAnimation}
+            triggerOnce={false}
+            delay={100}
+            duration={500}
+          >
             <Text style={{ letterSpacing: 5 }}>ABOUT VAGAMON</Text>
             <Title mb={30} mt={10} weight={100} order={2} size={50}>
               The heavenly hills
@@ -573,26 +688,36 @@ export default function Home() {
             <Grid gutter={40}>
               <Grid.Col span={12} sm={6}>
                 <Text style={{ width: "90%" }} mb={20} size="sm">
-                  <strong>Vagamon</strong> is an idyllic hill station located in the Western Ghats of Kerala, India.
-                  Known for its vast green meadows, misty hills, and dense pine forests, it is a paradise for nature
-                  lovers. The perfect weather conditions and ambiance make it an ideal location for a peaceful retreat
-                  or an adventurous getaway, such as trekking, paragliding, and rock climbing. The region is also home
-                  to a number of cultural and historical places, including tea plantations, a museum, and several
-                  religious sites.{" "}
+                  <strong>Vagamon</strong> is an idyllic hill station located in
+                  the Western Ghats of Kerala, India. Known for its vast green
+                  meadows, misty hills, and dense pine forests, it is a paradise
+                  for nature lovers. The perfect weather conditions and ambiance
+                  make it an ideal location for a peaceful retreat or an
+                  adventurous getaway, such as trekking, paragliding, and rock
+                  climbing. The region is also home to a number of cultural and
+                  historical places, including tea plantations, a museum, and
+                  several religious sites.{" "}
                 </Text>
                 <Text style={{ width: "90%" }} mb={20} size="sm">
-                  One of the key attractions of Vagamon is its temperate climate, which remains pleasant throughout the
-                  year. In the summer months, the temperature ranges from a comfortable 20-25°C, making it the perfect
-                  escape from the heat of the plains. In the winter, the temperature drops to a cool 10-15°C, making it
-                  a great destination. Whether you&apos;re lounging on the verdant lawns, taking a leisurely stroll
-                  through the tea gardens, or simply soaking up the peaceful atmosphere, Vagamon is the perfect place to
-                  unwind and recharge.{" "}
+                  One of the key attractions of Vagamon is its temperate
+                  climate, which remains pleasant throughout the year. In the
+                  summer months, the temperature ranges from a comfortable
+                  20-25°C, making it the perfect escape from the heat of the
+                  plains. In the winter, the temperature drops to a cool
+                  10-15°C, making it a great destination. Whether you&apos;re
+                  lounging on the verdant lawns, taking a leisurely stroll
+                  through the tea gardens, or simply soaking up the peaceful
+                  atmosphere, Vagamon is the perfect place to unwind and
+                  recharge.{" "}
                 </Text>
                 <Text style={{ width: "90%" }} mb={20} size="sm">
-                  We look forward to welcoming you to <strong>Fairmount</strong> and helping you create unforgettable
-                  memories.
+                  We look forward to welcoming you to <strong>Fairmount</strong>{" "}
+                  and helping you create unforgettable memories.
                 </Text>
-                <Box display={"flex"} style={{ flexDirection: desk ? "row" : "column" }}>
+                <Box
+                  display={"flex"}
+                  style={{ flexDirection: desk ? "row" : "column" }}
+                >
                   <Button
                     rightIcon={<IconArrowRight strokeWidth={1} />}
                     mr={desk ? 15 : 0}
@@ -620,7 +745,12 @@ export default function Home() {
                     <Box
                       pb={15}
                       mb={15}
-                      style={{ borderBottom: index + 1 == experiences.length ? "none" : "1px solid #00000050" }}
+                      style={{
+                        borderBottom:
+                          index + 1 == experiences.length
+                            ? "none"
+                            : "1px solid #00000050",
+                      }}
                       key={data.id}
                     >
                       <Grid>
@@ -647,21 +777,32 @@ export default function Home() {
           </Reveal>
         </Container>
         <Container mt={70} mb={100} size="lg">
-          <Reveal keyframes={customAnimation} triggerOnce={false} delay={100} duration={500}>
+          <Reveal
+            keyframes={customAnimation}
+            triggerOnce={false}
+            delay={100}
+            duration={500}
+          >
             <Grid gutter={40}>
               <Grid.Col span={12} sm={6}>
                 <Title mb={30} mt={10} weight={100} order={2} size={50}>
                   Experience Vagamon like never before
                 </Title>
-                <Text style={{ width: "90%" }} mb={20} size="sm">
-                  <strong>Vagamon</strong> is an idyllic hill station located in the Western Ghats of Kerala, India.
-                  Known for its vast green meadows, misty hills, and dense pine forests, it is a paradise for nature
-                  lovers. The perfect weather conditions and ambiance make it an ideal location for a peaceful retreat
-                  or an adventurous getaway, such as trekking, paragliding, and rock climbing. The region is also home
-                  to a number of cultural and historical places, including tea plantations, a museum, and several
-                  religious sites.{" "}
+                <Text style={{ width: "100%" }} mb={20} size="sm">
+                "Amidst rolling hills that shine, <br />
+                A realm of splendor doth entwine. <br />
+                Where serenity aglow and gardens bloom, <br />
+                And nature's magic lights the room. <br />
+                <br />
+                In Vagamon, so fair and delight, <br />
+                With charming views that gleam so bright. <br />
+                Take a stroll and bask in its allure, <br />
+                And savor its magnificent, irresistible lure."{" "}
                 </Text>
-                <Box display={"flex"} style={{ flexDirection: desk ? "row" : "column" }}>
+                <Box
+                  display={"flex"}
+                  style={{ flexDirection: desk ? "row" : "column" }}
+                >
                   <Button
                     rightIcon={<IconArrowRight strokeWidth={1} />}
                     mr={desk ? 15 : 0}
@@ -703,12 +844,20 @@ export default function Home() {
                                 width: "55%",
                                 position: "absolute",
                                 transform: `scale(0.9, 0.9) rotate(${
-                                  Math.random() * 20 >= 11 ? "-" : Math.random() * 20 >= 11 ? "-" : ""
+                                  Math.random() * 20 >= 11
+                                    ? "-"
+                                    : Math.random() * 20 >= 11
+                                    ? "-"
+                                    : ""
                                 }${Math.random() * 23}deg)`,
                               }}
                             >
                               <div className="polaroid-wrapper">
-                                <img src={a.url ? a.url : ""} width={"100%"} style={{ height: "229px" }} />
+                                <img
+                                  src={a.url ? a.url : ""}
+                                  width={"100%"}
+                                  style={{ height: "229px" }}
+                                />
                                 <Text size="xs" align="center" mt="sm">
                                   {e.name}
                                 </Text>
@@ -724,7 +873,12 @@ export default function Home() {
             </Grid>
           </Reveal>
         </Container>
-        <Reveal keyframes={customAnimation} triggerOnce={false} delay={100} duration={500}>
+        <Reveal
+          keyframes={customAnimation}
+          triggerOnce={false}
+          delay={100}
+          duration={500}
+        >
           <Container
             mt={30}
             mb={70}
@@ -764,7 +918,14 @@ export default function Home() {
                 borderRadius: desk ? 15 : 0,
               }}
             >
-              <Reveal keyframes={customAnimation} triggerOnce={false} delay={300} duration={500} cascade damping={0.2}>
+              <Reveal
+                keyframes={customAnimation}
+                triggerOnce={false}
+                delay={300}
+                duration={500}
+                cascade
+                damping={0.2}
+              >
                 <Badge
                   sx={{ paddingLeft: 5 }}
                   size="sm"
@@ -780,7 +941,14 @@ export default function Home() {
                   More than
                 </Text>
 
-                <Title color={"white"} weight={100} mb={15} mt={10} order={2} size={60}>
+                <Title
+                  color={"white"}
+                  weight={100}
+                  mb={15}
+                  mt={10}
+                  order={2}
+                  size={60}
+                >
                   <Reveal duration={500} triggerOnce={false} cascade>
                     80,000
                   </Reveal>
@@ -792,7 +960,13 @@ export default function Home() {
             </Container>
           </Container>
         </Reveal>
-        <Container mt={30} mb={30} py={80} fluid style={{ background: "#00000008" }}>
+        <Container
+          mt={30}
+          mb={30}
+          py={80}
+          fluid
+          style={{ background: "#00000008" }}
+        >
           <Container size={"lg"}>
             <Text style={{ letterSpacing: 5 }}>EXPERIENCE</Text>
             <Title weight={100} order={2} mb={50} mt={10} size={50}>
@@ -822,7 +996,14 @@ export default function Home() {
                 <Text style={{ letterSpacing: 5 }} color="white">
                   FAIRMOUNT VAGAMON
                 </Text>
-                <Title weight={100} order={2} mb={50} mt={10} size={50} color="white">
+                <Title
+                  weight={100}
+                  order={2}
+                  mb={50}
+                  mt={10}
+                  size={50}
+                  color="white"
+                >
                   Book your rooms now.
                 </Title>
               </Grid.Col>
@@ -839,16 +1020,30 @@ export default function Home() {
                 />
               </Grid.Col>
               <Grid.Col span={12} sm={6} md={5}>
-                <Text style={{ width: "90%" }} mb={20} size="sm" color={"white"}>
-                  <strong>Fairmount Vagamon Resort</strong>, offers a perfect blend of all modern luxuries and a
-                  comfortable companionship of nature. we have provided premium resort experience and a comfortable
-                  companionship of nature.{" "}
+                <Text
+                  style={{ width: "90%" }}
+                  mb={20}
+                  size="sm"
+                  color={"white"}
+                >
+                  <strong>Fairmount Vagamon Resort</strong>, offers a perfect
+                  blend of all modern luxuries and a comfortable companionship
+                  of nature. we have provided premium resort experience and a
+                  comfortable companionship of nature.{" "}
                 </Text>
-                <Text style={{ width: "90%" }} mb={20} size="sm" color={"white"}>
-                  People say it can run at the same speed as lightning striking, Its icy body is so cold, it will not
-                  melt even
+                <Text
+                  style={{ width: "90%" }}
+                  mb={20}
+                  size="sm"
+                  color={"white"}
+                >
+                  People say it can run at the same speed as lightning striking,
+                  Its icy body is so cold, it will not melt even
                 </Text>
-                <Box display={"flex"} style={{ flexDirection: desk ? "row" : "column" }}>
+                <Box
+                  display={"flex"}
+                  style={{ flexDirection: desk ? "row" : "column" }}
+                >
                   <Button
                     rightIcon={<IconArrowRight strokeWidth={1} />}
                     mr={desk ? 15 : 0}
@@ -885,10 +1080,16 @@ export default function Home() {
                     justifyItems: "center",
                   }}
                 >
-                  <Box className={classes.arrows} onClick={() => scrollTestimonial("previous")}>
+                  <Box
+                    className={classes.arrows}
+                    onClick={() => scrollTestimonial("previous")}
+                  >
                     <BsArrowLeft />
                   </Box>
-                  <Box className={classes.arrows} onClick={() => scrollTestimonial("next")}>
+                  <Box
+                    className={classes.arrows}
+                    onClick={() => scrollTestimonial("next")}
+                  >
                     <BsArrowRight />
                   </Box>
                 </SimpleGrid>
@@ -906,49 +1107,51 @@ export default function Home() {
               getEmblaApi={setEmbla}
               inViewThreshold={1}
             >
-              {testimonials.map((testimonial: TestimonialProps, index: number) => (
-                <Carousel.Slide
-                  key={testimonial.id}
-                  className={`${classes.testimonialSlide} ${
-                    testimonialSlideActive == index && "active-carousel-class"
-                  }`}
-                >
-                  <Box>
-                    <Box
-                      style={{
-                        border: "1px solid #00000030",
-                        boxShadow: "0px 20px 30px 10px #00000010",
-                        borderRadius: 13,
-                      }}
-                      py={10}
-                      px={30}
-                      m={20}
-                    >
-                      <Blockquote cite={testimonial.name}>
-                        <Spoiler
-                          maxHeight={110}
-                          showLabel={
-                            <>
-                              <Text size="xs" color="grey">
-                                Show more
-                              </Text>
-                            </>
-                          }
-                          hideLabel={
-                            <>
-                              <Text size="xs" color="grey">
-                                Hide
-                              </Text>
-                            </>
-                          }
-                        >
-                          {testimonial.content}
-                        </Spoiler>
-                      </Blockquote>
+              {testimonials.map(
+                (testimonial: TestimonialProps, index: number) => (
+                  <Carousel.Slide
+                    key={testimonial.id}
+                    className={`${classes.testimonialSlide} ${
+                      testimonialSlideActive == index && "active-carousel-class"
+                    }`}
+                  >
+                    <Box>
+                      <Box
+                        style={{
+                          border: "1px solid #00000030",
+                          boxShadow: "0px 20px 30px 10px #00000010",
+                          borderRadius: 13,
+                        }}
+                        py={10}
+                        px={30}
+                        m={20}
+                      >
+                        <Blockquote cite={testimonial.name}>
+                          <Spoiler
+                            maxHeight={110}
+                            showLabel={
+                              <>
+                                <Text size="xs" color="grey">
+                                  Show more
+                                </Text>
+                              </>
+                            }
+                            hideLabel={
+                              <>
+                                <Text size="xs" color="grey">
+                                  Hide
+                                </Text>
+                              </>
+                            }
+                          >
+                            {testimonial.content}
+                          </Spoiler>
+                        </Blockquote>
+                      </Box>
                     </Box>
-                  </Box>
-                </Carousel.Slide>
-              ))}
+                  </Carousel.Slide>
+                )
+              )}
             </Carousel>
           )}
         </Container>
