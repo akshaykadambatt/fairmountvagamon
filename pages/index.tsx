@@ -788,16 +788,16 @@ export default function Home() {
                 <Title mb={30} mt={10} weight={100} order={2} size={50}>
                   Experience Vagamon like never before
                 </Title>
-                <Text style={{ width: "100%" }} mb={20} size="sm">
-                "Amidst rolling hills that shine, <br />
-                A realm of splendor doth entwine. <br />
-                Where serenity aglow and gardens bloom, <br />
-                And nature's magic lights the room. <br />
-                <br />
-                In Vagamon, so fair and delight, <br />
-                With charming views that gleam so bright. <br />
-                Take a stroll and bask in its allure, <br />
-                And savor its magnificent, irresistible lure."{" "}
+                <Text style={{ width: "90%" }} mb={20} size="sm">
+                  "Amidst rolling hills that shine, <br />
+                  A realm of splendor doth entwine. <br />
+                  Where serenity aglow and gardens bloom, <br />
+                  And nature's magic lights the room. <br />
+                  <br />
+                  In Vagamon, so fair and delight, <br />
+                  With charming views that gleam so bright. <br />
+                  Take a stroll and bask in its allure, <br />
+                  And savor its magnificent, irresistible lure."{" "}
                 </Text>
                 <Box
                   display={"flex"}
