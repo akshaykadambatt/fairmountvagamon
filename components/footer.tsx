@@ -175,16 +175,16 @@ export default function FooterLinks({ data }: FooterLinksProps) {
         </Text>
 
         <Group spacing={0} className={classes.social} position="right" noWrap>
-          <ActionIcon size="lg" component={Link} href="">
+          <ActionIcon size="lg" component={Link} href="#">
             <IconBrandWhatsapp size={18} stroke={1.5} />
           </ActionIcon>
-          <ActionIcon size="lg" component={Link} href="">
+          <ActionIcon size="lg" component={Link} href="#">
             <IconBrandInstagram size={18} stroke={1.5} />
           </ActionIcon>
-          <ActionIcon size="lg" component={Link} href="">
+          <ActionIcon size="lg" component={Link} href="#">
             <IconBrandFacebook size={18} stroke={1.5} />
           </ActionIcon>
-          <ActionIcon size="lg" component={Link} href="">
+          <ActionIcon size="lg" component={Link} href="#">
             <IconBrandYoutube size={18} stroke={1.5} />
           </ActionIcon>
         </Group>
