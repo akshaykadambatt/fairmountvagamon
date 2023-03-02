@@ -1,0 +1,128 @@
+@import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css");
+
+/* WhatsApp Button */
+.btn-whatsapp-pulse {
+  background: #25d366;
+  color: white;
+  position: fixed;
+  bottom: 200px;
+  right: 20px;
+  font-size: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 0;
+  height: 0;
+  padding: 35px;
+  text-decoration: none;
+  border-radius: 50%;
+  animation-name: pulse;
+  animation-duration: 1.5s;
+  animation-timing-function: ease-out;
+  animation-iteration-count: infinite;
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.5);
+  }
+  80% {
+    box-shadow: 0 0 0 14px rgba(37, 211, 102, 0);
+  }
+}
+
+.btn-whatsapp-pulse-border {
+  bottom: 150px;
+  right: 20px;
+  animation-play-state: paused;
+}
+
+.btn-whatsapp-pulse-border::before {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  padding: 25px;
+  border: 5px solid #25d366;
+  opacity: 0.75;
+  animation-name: pulse-border;
+  animation-duration: 1.5s;
+  animation-timing-function: ease-out;
+  animation-iteration-count: infinite;
+}
+
+@keyframes pulse-border {
+  0% {
+    padding: 25px;
+    opacity: 0.75;
+  }
+  75% {
+    padding: 50px;
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+/* WhatsApp Button */
+
+/* Share Widget */
+.sticky_share_btn {
+  position: fixed;
+  left: 30px;
+  bottom: 30px;
+  color: #fff;
+  mix-blend-mode: difference;
+}
+.share-toggle,
+.fixed_share ul.listing > li {
+  font-size: 20px;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border: 2px solid;
+  border-radius: 50%;
+  transition: all 0.5s ease-in-out;
+}
+ul.listing {
+  list-style: none;
+  display: none;
+}
+.fixed_share ul.listing > li {
+  margin-bottom: 10px;
+}
+.fixed_share ul.listing > li > a {
+  display: block;
+  width: 100%;
+  height: auto;
+  text-align: center;
+}
+.share-toggle:hover,
+.fixed_share ul.listing > li:hover {
+  transform: scale(1.1) rotate(360deg);
+}
+
+.fixed_share .facebook,
+.fixed_share .facebook > a {
+  color: #4267b2;
+}
+.fixed_share .twitter,
+.fixed_share .twitter > a {
+  color: #00acee;
+}
+.fixed_share .pinterest,
+.fixed_share .pinterest > a {
+  color: #e60023;
+}
+.fixed_share .linkedin,
+.fixed_share .linkedin > a {
+  color: #0e76a8;
+}
+.fixed_share .whatsapp,
+.fixed_share .whatsapp > a {
+  color: #25d366;
+}
+
+/* Share Widget */
