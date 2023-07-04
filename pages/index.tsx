@@ -211,19 +211,19 @@ export default function Home() {
 
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>
-          Welcome to Fairmount Resorts Vagamon, Kerala - Discover the Idyllic
-          Beauty of Vagamon at Fairmount
+          Welcome to JMount Resorts Vagamon, Kerala - Discover the Idyllic
+          Beauty of Vagamon at JMount
         </title>
         <meta
           name="description"
-          content="Indulge in the stunning beauty of Vagamon at Fairmount Resorts. Our resort offers comfortable accommodations, a range of dining options, and a range of activities and amenities to ensure that our guests have a comfortable and enjoyable stay.
-            Address: Fairmount Vagamon
+          content="Indulge in the stunning beauty of Vagamon at JMount Resorts. Our resort offers comfortable accommodations, a range of dining options, and a range of activities and amenities to ensure that our guests have a comfortable and enjoyable stay.
+            Address: JMount Vagamon
                      Kannamkulam, Vagamon
                      Kerala - 685503
             Contact: +91 88488 86990"
         />
 
-        <link rel="canonical" href="https://fairmountvagamon.com/" />
+        <link rel="canonical" href="https://jmountvagamon.in/" />
         <link rel="icon" type="image/png" href="/favicon.ico" />
         <link
           rel="apple-touch-icon"
@@ -260,49 +260,49 @@ export default function Home() {
 
         <meta
           name="keywords"
-          content="resort, Vagamon, Kerala, hill resort, accommodations, tree house, restaurant, room service, spa, outdoor pool, trekking, paragliding, rock climbing, resort at vagamon, fairmount vagamon, fairmount vagamon resorts, resort offers, experience resort, most popular resort, resort experience, resort nature, Vagamon resorts, Kerala hill resorts ,Western Ghats resorts ,Tea plantation resorts ,Nature resorts ,Adventure resorts ,Luxury resorts ,Relaxation resorts ,Spa resorts ,Romantic getaways ,Family vacations ,Hill station vacations ,Hill station getaways ,Western Ghats tourism ,Kerala tourism ,Tea plantation tours ,Nature tours ,Adventure tours ,Luxury travel ,Relaxation vacations ,Spa vacations ,Romantic holidays ,Family holidays ,Honeymoon destinations"
+          content="jmount, jmount vagamon, JM Vagamon, resort, Vagamon, Kerala, hill resort, accommodations, tree house, restaurant, room service, spa, outdoor pool, trekking, paragliding, rock climbing, resort at vagamon, jmount vagamon, jmount vagamon resorts, resort offers, experience resort, most popular resort, resort experience, resort nature, Vagamon resorts, Kerala hill resorts ,Western Ghats resorts ,Tea plantation resorts ,Nature resorts ,Adventure resorts ,Luxury resorts ,Relaxation resorts ,Spa resorts ,Romantic getaways ,Family vacations ,Hill station vacations ,Hill station getaways ,Western Ghats tourism ,Kerala tourism ,Tea plantation tours ,Nature tours ,Adventure tours ,Luxury travel ,Relaxation vacations ,Spa vacations ,Romantic holidays ,Family holidays ,Honeymoon destinations"
         />
 
         {/*<!-- Open Graph / Facebook -->*/}
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://fairmountvagamon.com/" />
+        <meta property="og:url" content="https://jmountvagamon.in/" />
         <meta
           property="og:title"
-          content="Welcome to Fairmount Resorts Vagamon, Kerala - Discover the Idyllic Beauty of Vagamon at Fairmount"
+          content="Welcome to JMount Resorts Vagamon, Kerala - Discover the Idyllic Beauty of Vagamon at JMount"
         />
         <meta
           property="og:description"
-          content="Indulge in the stunning beauty of Vagamon at Fairmount Resorts. Our resort offers comfortable accommodations, a range of dining options, and a range of activities and amenities to ensure that our guests have a comfortable and enjoyable stay. 
-        Address: Fairmount Vagamon Kannamkulam, Vagamon Kerala - 685503 
+          content="Indulge in the stunning beauty of Vagamon at JMount Resorts. Our resort offers comfortable accommodations, a range of dining options, and a range of activities and amenities to ensure that our guests have a comfortable and enjoyable stay. 
+        Address: JMount Vagamon Kannamkulam, Vagamon Kerala - 685503 
         Contact: +91 88488 86990"
         />
         <meta
           property="og:image"
-          content="https://fairmountvagamon.com/og-image.jpg"
+          content="https://jmountvagamon.in/og-image.jpg"
         />
 
         {/*<!-- Twitter -->*/}
         <meta property="twitter:card" content="summary_large_image" />
-        <meta property="twitter:url" content="https://fairmountvagamon.com/" />
+        <meta property="twitter:url" content="https://jmountvagamon.in/" />
         <meta
           property="twitter:title"
-          content="Welcome to Fairmount Resorts Vagamon, Kerala - Discover the Idyllic Beauty of Vagamon at Fairmount"
+          content="Welcome to JMount Resorts Vagamon, Kerala - Discover the Idyllic Beauty of Vagamon at JMount"
         />
         <meta
           property="twitter:description"
-          content="Indulge in the stunning beauty of Vagamon at Fairmount Resorts. Our resort offers comfortable accommodations, a range of dining options, and a range of activities and amenities to ensure that our guests have a comfortable and enjoyable stay. 
-        Address: Fairmount Vagamon Kannamkulam, Vagamon Kerala - 685503 
+          content="Indulge in the stunning beauty of Vagamon at JMount Resorts. Our resort offers comfortable accommodations, a range of dining options, and a range of activities and amenities to ensure that our guests have a comfortable and enjoyable stay. 
+        Address: JMount Vagamon Kannamkulam, Vagamon Kerala - 685503 
         Contact: +91 88488 86990"
         />
         <meta
           property="twitter:image"
-          content="https://fairmountvagamon.com/og-image.jpg"
+          content="https://jmountvagamon.in/og-image.jpg"
         />
 
-        <meta name="author" content="Fairmount Vagamon" />
+        <meta name="author" content="JMount Vagamon" />
         <link
           rel="preload"
-          href="https://fairmountvagamon.com/fonts/MrDafoe-Regular.woff2"
+          href="https://jmountvagamon.in/fonts/MrDafoe-Regular.woff2"
           as="font"
           type="font/woff2"
         />
@@ -364,7 +364,7 @@ export default function Home() {
                           fontSize: "clamp(4rem, -1.5rem + 18vw, 6rem)",
                         }}
                       >
-                        Fairmount
+                        JMount
                       </Title>
 
                       <Text weight={100} px={6} mb={10} color="#fff">
@@ -372,7 +372,7 @@ export default function Home() {
                       </Text>
                       <Text weight={100} px={6} mb={10} color="#fff" size={13}>
                         Enclosed between rolling hills and lush tea gardens,
-                        Fairmount Vagamon Resorts is an offbeat property
+                        JMount Vagamon Resorts is an offbeat property
                         offering comfortable accommodations and beautiful
                         landmarks to visit nearby. The rooms offer scenic views
                         of hills. It has a shared dining area and living area to
@@ -424,14 +424,14 @@ export default function Home() {
                           fontSize: "clamp(4rem, -1.5rem + 18vw, 6rem)",
                         }}
                       >
-                        Fairmount
+                        JMount
                       </Title>
 
                       <Text weight={100} px={6} mb={10} color="#fff">
                         RESORTS, VAGAMON
                       </Text>
                       <Text weight={100} px={6} mb={10} color="#fff" size={13}>
-                        Escape to the stunning beauty of Vagamon at Fairmount
+                        Escape to the stunning beauty of Vagamon at JMount
                         Residency. Relax and rejuvenate in the beautiful
                         surroundings of Vagamon. The region is home to vast
                         green meadows, misty hills, and dense pine forests,
@@ -485,7 +485,7 @@ export default function Home() {
                           fontSize: "clamp(4rem, -1.5rem + 18vw, 6rem)",
                         }}
                       >
-                        Fairmount
+                        JMount
                       </Title>
 
                       <Text weight={100} px={6} mb={10} color="#fff">
@@ -578,7 +578,7 @@ export default function Home() {
                 fontSize: "clamp(4rem, -1.5rem + 18vw, 8rem)",
               }}
             >
-              Fairmount
+              JMount
             </Title>
             <Text
               style={{
@@ -601,7 +601,7 @@ export default function Home() {
                 duration={500}
               >
                 <Title weight={100} order={2}>
-                  Fairmount Resort Vagamon
+                  JMount Resort Vagamon
                 </Title>
               </Reveal>
             </Grid.Col>
@@ -614,7 +614,7 @@ export default function Home() {
                 duration={500}
               >
                 <Text size={13}>
-                  Welcome to <strong>Fairmount</strong>, a premier hill resort
+                  Welcome to <strong>JMount</strong>, a premier hill resort
                   located in the stunning region of Vagamon, Kerala. Nestled in
                   the Western Ghats mountain range, our resort offers a perfect
                   blend of all modern luxurious amenities, delicious dining and
@@ -711,7 +711,7 @@ export default function Home() {
                   recharge.{" "}
                 </Text>
                 <Text style={{ width: "90%" }} mb={20} size="sm">
-                  We look forward to welcoming you to <strong>Fairmount</strong>
+                  We look forward to welcoming you to <strong>JMount</strong>
                   and helping you create unforgettable memories.
                 </Text>
                 <Box
@@ -970,15 +970,15 @@ export default function Home() {
           <Container size={"lg"}>
             <Text style={{ letterSpacing: 5 }}>EXPERIENCE</Text>
             <Title weight={100} order={2} mb={50} mt={10} size={50}>
-              Vagamon at Fairmount
+              Vagamon at JMount
             </Title>
             <Cardslider />
           </Container>
         </Container>
         <FeaturesGrid
-          title={"The Fairmount Experience"}
+          title={"The JMount Experience"}
           description={
-            "Located amidst sprawling tea gardens, the resort offers a serene and peaceful experiance enveloped in the natural beauty of Vagamon, with lush green meadows and a beautiful green forest outside, leaving them free to relax and soak in the beauty of the whole valley, ensures perfect place to rejuvenate and reconnect with nature, the Fairmount Vagamon offers a one-of-a-kind experience."
+            "Located amidst sprawling tea gardens, the resort offers a serene and peaceful experiance enveloped in the natural beauty of Vagamon, with lush green meadows and a beautiful green forest outside, leaving them free to relax and soak in the beauty of the whole valley, ensures perfect place to rejuvenate and reconnect with nature, the JMount Vagamon offers a one-of-a-kind experience."
           }
         />
         <Container
@@ -1026,7 +1026,7 @@ export default function Home() {
                   size="sm"
                   color={"white"}
                 >
-                  <strong>Fairmount Vagamon Resort</strong>, offers a perfect
+                  <strong>JMount Vagamon Resort</strong>, offers a perfect
                   blend of all modern luxuries and a comfortable companionship
                   of nature. we have provided premium resort experience and a
                   comfortable companionship of nature.{" "}
