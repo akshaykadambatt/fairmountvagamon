@@ -28,8 +28,8 @@ export default function Rooms() {
       <Head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Fairmount Resorts - Experience the Best of Vagamon in Our Exquisite Rooms</title>
-        <meta name="description" content="Taste the true essence of Vagamon at Fairmount Resorts. Our exquisite rooms offer the perfect blend of modern amenities and traditional charm, making it the ideal base for exploring the natural beauty and cultural treasures of Vagamon. Book your stay now to savor the best of Vagamon." />
+        <title>JMount Resorts - Experience the Best of Vagamon in Our Exquisite Rooms</title>
+        <meta name="description" content="Taste the true essence of Vagamon at JMount Resorts. Our exquisite rooms offer the perfect blend of modern amenities and traditional charm, making it the ideal base for exploring the natural beauty and cultural treasures of Vagamon. Book your stay now to savor the best of Vagamon." />
         <link rel="icon" type="image/png" href="/favicon.ico" />
         <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
@@ -37,21 +37,21 @@ export default function Rooms() {
         <link rel="manifest" href="/site.webmanifest" />
         <meta name="msapplication-TileColor" content="#FFFFFF" />
         <meta name="theme-color" content="#FFFFFF" />
-        <meta name="keywords" content="resort, Vagamon, Kerala, hill resort, accommodations, tree house, restaurant, room service, spa, outdoor pool, trekking, paragliding, rock climbing, resort at vagamon, fairmount vagamon, fairmount vagamon resorts, resort offers, experience resort, most popular resort, resort experience, resort nature, Vagamon resorts, Kerala hill resorts ,Western Ghats resorts ,Tea plantation resorts ,Nature resorts ,Adventure resorts ,Luxury resorts ,Relaxation resorts ,Spa resorts ,Romantic getaways ,Family vacations ,Hill station vacations ,Hill station getaways ,Western Ghats tourism ,Kerala tourism ,Tea plantation tours ,Nature tours ,Adventure tours ,Luxury travel ,Relaxation vacations ,Spa vacations ,Romantic holidays ,Family holidays ,Honeymoon destinations" />
+        <meta name="keywords" content="resort, Vagamon, Kerala, hill resort, accommodations, tree house, restaurant, room service, spa, outdoor pool, trekking, paragliding, rock climbing, resort at vagamon, jmount vagamon, jmount vagamon resorts, resort offers, experience resort, most popular resort, resort experience, resort nature, Vagamon resorts, Kerala hill resorts ,Western Ghats resorts ,Tea plantation resorts ,Nature resorts ,Adventure resorts ,Luxury resorts ,Relaxation resorts ,Spa resorts ,Romantic getaways ,Family vacations ,Hill station vacations ,Hill station getaways ,Western Ghats tourism ,Kerala tourism ,Tea plantation tours ,Nature tours ,Adventure tours ,Luxury travel ,Relaxation vacations ,Spa vacations ,Romantic holidays ,Family holidays ,Honeymoon destinations" />
         
         {/*<!-- Open Graph / Facebook -->*/}
         <meta property="og:type" content="website" />
-        <meta property="og:title" content="Fairmount Resorts - Experience the Best of Vagamon in Our Exquisite Rooms" />
-        <meta property="og:description" content="Taste the true essence of Vagamon at Fairmount Resorts. Our exquisite rooms offer the perfect blend of modern amenities and traditional charm, making it the ideal base for exploring the natural beauty and cultural treasures of Vagamon. Book your stay now to savor the best of Vagamon." />
-        <meta property="og:image" content="https://fairmountvagamon.com/og-image.jpg" />
+        <meta property="og:title" content="JMount Resorts - Experience the Best of Vagamon in Our Exquisite Rooms" />
+        <meta property="og:description" content="Taste the true essence of Vagamon at JMount Resorts. Our exquisite rooms offer the perfect blend of modern amenities and traditional charm, making it the ideal base for exploring the natural beauty and cultural treasures of Vagamon. Book your stay now to savor the best of Vagamon." />
+        <meta property="og:image" content="https://jmountvagamon.in/og-image.jpg" />
 
         {/*<!-- Twitter -->*/}
         <meta property="twitter:card" content="summary_large_image" />
-        <meta property="twitter:title" content="Fairmount Resorts - Experience the Best of Vagamon in Our Exquisite Rooms" />
-        <meta property="twitter:description" content="Taste the true essence of Vagamon at Fairmount Resorts. Our exquisite rooms offer the perfect blend of modern amenities and traditional charm, making it the ideal base for exploring the natural beauty and cultural treasures of Vagamon. Book your stay now to savor the best of Vagamon." />
-        <meta property="twitter:image" content="https://fairmountvagamon.com/og-image.jpg" />
+        <meta property="twitter:title" content="JMount Resorts - Experience the Best of Vagamon in Our Exquisite Rooms" />
+        <meta property="twitter:description" content="Taste the true essence of Vagamon at JMount Resorts. Our exquisite rooms offer the perfect blend of modern amenities and traditional charm, making it the ideal base for exploring the natural beauty and cultural treasures of Vagamon. Book your stay now to savor the best of Vagamon." />
+        <meta property="twitter:image" content="https://jmountvagamon.in/og-image.jpg" />
 
-        <meta name="author" content="Fairmount Vagamon" />
+        <meta name="author" content="JMount Vagamon" />
       </Head>
       <main>
         <Container my={20} py={40} size="lg">

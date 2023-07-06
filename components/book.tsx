@@ -217,7 +217,7 @@ export function BookSecondStep() {
       <Grid.Col span={12} sm={7}>
         <Text size={"md"}>Addons</Text>
         <Text size={"xs"} color="dimmed">
-          Select from the following addons to make your experience at Fairmount better
+          Select from the following addons to make your experience at JMount better
         </Text>
         <BookingAddonsSelector selectedAddons={selectedAddonsState} addonChangeHandler={setSelectedAddonsState} />
         <Text size={"xs"} color="dimmed">
@@ -332,7 +332,7 @@ export function BookSuccess() {
         <BookingCard success={true} />
         <Text mb={15}>
           We have recieved your reservation request and we will process the order as soon as possible. Expect a call
-          from Fairmount within 3-5 business days. For any enquiries contact us on the website / phone / WhatsApp lines.
+          from JMount within 3-5 business days. For any enquiries contact us on the website / phone / WhatsApp lines.
           We are ready to help.{" "}
           <Link href="/contact" style={{ textDecoration: "underline" }}>
             Contact Us

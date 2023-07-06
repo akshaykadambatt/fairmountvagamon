@@ -91,7 +91,7 @@ interface ContactIconsListProps {
 }
 
 const MOCKDATA = [
-  { title: 'Email', description: 'hello@fairmount.com', icon: IconAt },
+  { title: 'Email', description: 'hello@jmount.com', icon: IconAt },
   { title: 'Phone', description: '+49 (800) 335 35 35', icon: IconPhone },
   { title: 'Address', description: '844 Morris Park avenue', icon: IconMapPin },
   { title: 'Working hours', description: '8 a.m. – 11 p.m.', icon: IconSun },

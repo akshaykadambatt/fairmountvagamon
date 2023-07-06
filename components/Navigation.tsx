@@ -130,8 +130,8 @@ const Navigation: React.FC<Props> = ({ children }) => {
       <Head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Fairmount Restorts: Admin</title>
-        <meta name="description" content="Fairmount Restorts Website" />
+        <title>JMount Restorts: Admin</title>
+        <meta name="description" content="JMount Restorts Website" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
@@ -142,7 +142,7 @@ const Navigation: React.FC<Props> = ({ children }) => {
               <Group position="apart">
               <Text
             >
-              Fairmount Vagam..
+              JMount Vagam..
             </Text>
                 <Code sx={{ fontWeight: 700 }}>v1.0</Code>
               </Group>

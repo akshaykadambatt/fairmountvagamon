@@ -40,7 +40,7 @@ export default function Contact() {
     try {
       auth.signInWithPopup(provider).then((result) => {
         if (
-          result.user?.email != "fairmountvagamonresort@gmail.com" &&
+          result.user?.email != "jmountvagamonresort@gmail.com" &&
           result.user?.email != "akshayakn6@gmail.com"
         ) {
           auth.signOut();
@@ -63,8 +63,8 @@ export default function Contact() {
       <Head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Admin Panel | Fairmount Resorts Vagamon - fairmountvagamon.com</title>
-        <meta name="description" content="Fairmount Resorts Vagamon - Website Admin Panel - fairmountvagamon.com " />
+        <title>Admin Panel | JMount Resorts Vagamon - jmountvagamon.in</title>
+        <meta name="description" content="JMount Resorts Vagamon - Website Admin Panel - jmountvagamon.in " />
         <link rel="icon" type="image/png" href="/favicon.ico" />
       </Head>
       <main>

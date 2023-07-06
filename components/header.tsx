@@ -196,9 +196,9 @@ export default function HeaderComponent() {
         <meta name="theme-color" content="#FFFFFF" />
         <meta
           name="keywords"
-          content="resort, Vagamon, Kerala, hill resort, accommodations, tree house, restaurant, room service, spa, outdoor pool, trekking, paragliding, rock climbing, resort at vagamon, fairmount vagamon, fairmount vagamon resorts, resort offers, experience resort, most popular resort, resort experience, resort nature, Vagamon resorts, Kerala hill resorts ,Western Ghats resorts ,Tea plantation resorts ,Nature resorts ,Adventure resorts ,Luxury resorts ,Relaxation resorts ,Spa resorts ,Romantic getaways ,Family vacations ,Hill station vacations ,Hill station getaways ,Western Ghats tourism ,Kerala tourism ,Tea plantation tours ,Nature tours ,Adventure tours ,Luxury travel ,Relaxation vacations ,Spa vacations ,Romantic holidays ,Family holidays ,Honeymoon destinations"
+          content="resort, Vagamon, Kerala, hill resort, accommodations, tree house, restaurant, room service, spa, outdoor pool, trekking, paragliding, rock climbing, resort at vagamon, jmount vagamon, jmount vagamon resorts, resort offers, experience resort, most popular resort, resort experience, resort nature, Vagamon resorts, Kerala hill resorts ,Western Ghats resorts ,Tea plantation resorts ,Nature resorts ,Adventure resorts ,Luxury resorts ,Relaxation resorts ,Spa resorts ,Romantic getaways ,Family vacations ,Hill station vacations ,Hill station getaways ,Western Ghats tourism ,Kerala tourism ,Tea plantation tours ,Nature tours ,Adventure tours ,Luxury travel ,Relaxation vacations ,Spa vacations ,Romantic holidays ,Family holidays ,Honeymoon destinations"
         />
-        <meta name="author" content="Fairmount Vagamon" />
+        <meta name="author" content="JMount Vagamon" />
       </Head>
               {/* Global Site Tag (gtag.js) - Google Analytics */}
               <Script id="gtag"
@@ -253,7 +253,7 @@ export default function HeaderComponent() {
       >
         {/* <MantineLogo size={28} /> */}
         <Link href="/" className={` ${classes.logo}`}>
-          <Image src={navlogo} alt="Fairmount Logo" height={40} />
+          <Image src={navlogo} alt="JMount Logo" height={40} />
         </Link>
         <Group spacing={5} className={classes.links}>
           {items}

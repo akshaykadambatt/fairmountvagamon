@@ -13,8 +13,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
     Phone: ${datas.phone}\r\n 
     Message: ${datas.message}`;
     const data = {
-      to: "admin@fairmountvagamon.com",
-      from: "system@fairmountvagamon.com",
+      to: "admin@jmountvagamon.in",
+      from: "system@jmountvagamon.in",
       subject: `${datas.name} sent you a message from Contact Form`,
       html: msg.replace(/\r\n/g, "<br>"),
     };

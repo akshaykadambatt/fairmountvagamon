@@ -50,11 +50,11 @@ export default function Gallery() {
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>
-          Fairmount Gallery - A Picture is worth a Thousand Words, See the Beauty of Vagamon through our Gallery
+          JMount Gallery - A Picture is worth a Thousand Words, See the Beauty of Vagamon through our Gallery
         </title>
         <meta
           name="description"
-          content="Explore the idyllic views of Vagamon at Fairmount Resorts. Our photo gallery captures the natural beauty of the region, from lush hills to tranquil lakes. Book your stay now and experience the enchanting beauty of Vagamon for yourself."
+          content="Explore the idyllic views of Vagamon at JMount Resorts. Our photo gallery captures the natural beauty of the region, from lush hills to tranquil lakes. Book your stay now and experience the enchanting beauty of Vagamon for yourself."
         />
         <link rel="icon" type="image/png" href="/favicon.ico" />
         <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
@@ -65,22 +65,22 @@ export default function Gallery() {
         <meta name="theme-color" content="#FFFFFF" />
         <meta
           name="keywords"
-          content="resort, Vagamon, Kerala, hill resort, accommodations, tree house, restaurant, room service, spa, outdoor pool, trekking, paragliding, rock climbing, resort at vagamon, fairmount vagamon, fairmount vagamon resorts, resort offers, experience resort, most popular resort, resort experience, resort nature, Vagamon resorts, Kerala hill resorts ,Western Ghats resorts ,Tea plantation resorts ,Nature resorts ,Adventure resorts ,Luxury resorts ,Relaxation resorts ,Spa resorts ,Romantic getaways ,Family vacations ,Hill station vacations ,Hill station getaways ,Western Ghats tourism ,Kerala tourism ,Tea plantation tours ,Nature tours ,Adventure tours ,Luxury travel ,Relaxation vacations ,Spa vacations ,Romantic holidays ,Family holidays ,Honeymoon destinations"
+          content="resort, Vagamon, Kerala, hill resort, accommodations, tree house, restaurant, room service, spa, outdoor pool, trekking, paragliding, rock climbing, resort at vagamon, jmount vagamon, jmount vagamon resorts, resort offers, experience resort, most popular resort, resort experience, resort nature, Vagamon resorts, Kerala hill resorts ,Western Ghats resorts ,Tea plantation resorts ,Nature resorts ,Adventure resorts ,Luxury resorts ,Relaxation resorts ,Spa resorts ,Romantic getaways ,Family vacations ,Hill station vacations ,Hill station getaways ,Western Ghats tourism ,Kerala tourism ,Tea plantation tours ,Nature tours ,Adventure tours ,Luxury travel ,Relaxation vacations ,Spa vacations ,Romantic holidays ,Family holidays ,Honeymoon destinations"
         />
         
         {/*<!-- Open Graph / Facebook -->*/}
         <meta property="og:type" content="website" />
-        <meta property="og:title" content="Fairmount Gallery - A Picture is worth a Thousand Words, See the Beauty of Vagamon through our Gallery" />
-        <meta property="og:description" content="Explore the idyllic views of Vagamon at Fairmount Resorts. Our photo gallery captures the natural beauty of the region, from lush hills to tranquil lakes. Book your stay now and experience the enchanting beauty of Vagamon for yourself." />
-        <meta property="og:image" content="https://fairmountvagamon.com/og-image.jpg" />
+        <meta property="og:title" content="JMount Gallery - A Picture is worth a Thousand Words, See the Beauty of Vagamon through our Gallery" />
+        <meta property="og:description" content="Explore the idyllic views of Vagamon at JMount Resorts. Our photo gallery captures the natural beauty of the region, from lush hills to tranquil lakes. Book your stay now and experience the enchanting beauty of Vagamon for yourself." />
+        <meta property="og:image" content="https://jmountvagamon.in/og-image.jpg" />
 
         {/*<!-- Twitter -->*/}
         <meta property="twitter:card" content="summary_large_image" />
-        <meta property="twitter:title" content="Fairmount Gallery - A Picture is worth a Thousand Words, See the Beauty of Vagamon through our Gallery" />
-        <meta property="twitter:description" content="Explore the idyllic views of Vagamon at Fairmount Resorts. Our photo gallery captures the natural beauty of the region, from lush hills to tranquil lakes. Book your stay now and experience the enchanting beauty of Vagamon for yourself." />
-        <meta property="twitter:image" content="https://fairmountvagamon.com/og-image.jpg" />
+        <meta property="twitter:title" content="JMount Gallery - A Picture is worth a Thousand Words, See the Beauty of Vagamon through our Gallery" />
+        <meta property="twitter:description" content="Explore the idyllic views of Vagamon at JMount Resorts. Our photo gallery captures the natural beauty of the region, from lush hills to tranquil lakes. Book your stay now and experience the enchanting beauty of Vagamon for yourself." />
+        <meta property="twitter:image" content="https://jmountvagamon.in/og-image.jpg" />
 
-        <meta name="author" content="Fairmount Vagamon" />
+        <meta name="author" content="JMount Vagamon" />
       </Head>
       <Container my={30}>
         <Title order={2} weight={100}>

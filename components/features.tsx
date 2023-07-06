@@ -22,37 +22,37 @@ export const MOCKDATA = [
     icon: IconGauge,
     title: "Free amenities",
     description:
-      "Unwind and enjoy complimentary WiFi, parking, room service, a library, and more at Fairmount for a relaxing and comfortable stay.",
+      "Unwind and enjoy complimentary WiFi, parking, room service, a library, and more at JMount for a relaxing and comfortable stay.",
   },
   {
     icon: IconUser,
     title: "Privacy focused",
     description:
-      "Experience ultimate privacy with our secluded cottages, private balconies, and serene surroundings at Fairmount.",
+      "Experience ultimate privacy with our secluded cottages, private balconies, and serene surroundings at JMount.",
   },
   {
     icon: IconCookie,
     title: "Right in nature",
     description:
-      "Indulge in the tranquility of nature right at your doorstep with Fairmount's secluded location amidst lush greenery and picturesque views.",
+      "Indulge in the tranquility of nature right at your doorstep with JMount's secluded location amidst lush greenery and picturesque views.",
   },
   {
     icon: IconLock,
     title: "Secure by default",
     description:
-      "Embrace the serenity of nature at Fairmount, where security is seamlessly integrated for a carefree, idyllic stay.",
+      "Embrace the serenity of nature at JMount, where security is seamlessly integrated for a carefree, idyllic stay.",
   },
   {
     icon: IconMessage2,
     title: "24/7 Security and Support",
     description:
-      "Relax and unwind with the peace of mind that comes with round-the-clock security and support at Fairmount.",
+      "Relax and unwind with the peace of mind that comes with round-the-clock security and support at JMount.",
   },
   {
     icon: IconLock,
     title: "Pool and other facilities",
     description:
-      "Where crystal waters gleam, and verdant landscapes beam, Fairmount's pool and facilities allow one to dream.",
+      "Where crystal waters gleam, and verdant landscapes beam, JMount's pool and facilities allow one to dream.",
   },
 ];
 

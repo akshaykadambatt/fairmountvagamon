@@ -151,10 +151,10 @@ export default function FooterLinks({ data }: FooterLinksProps) {
     <footer className={classes.footer}>
       <Container className={classes.inner}>
         <div className={classes.logo}>
-          Fairmount Resorts
+          JMount Resorts
           <Box className={classes.description}>
             <Text size="xs" color="dimmed">
-              Fairmount Vagamon
+              JMount Vagamon
             </Text>
             <Text size="xs" color="dimmed">
               Kannamkulam, Vagamon
@@ -171,7 +171,7 @@ export default function FooterLinks({ data }: FooterLinksProps) {
       </Container>
       <Container className={classes.afterFooter}>
         <Text color="dimmed" size="sm">
-          © 2023 fairmountvagamon.com | All rights reserved.
+          © 2023 jmountvagamon.in | All rights reserved.
         </Text>
 
         <Group spacing={0} className={classes.social} position="right" noWrap>
